@@ -1,0 +1,42 @@
+{
+  "name": "landing",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "video": "remotion studio src/remotion/Root.tsx",
+    "render": "remotion render src/remotion/Root.tsx ProductDemo out/demo.mp4",
+    "test:api": "tsx scripts/test-api.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
+    "@remotion/player": "^4.0.536",
+    "@vercel/functions": "^3.10.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.59.0",
+    "motion": "^14.3.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.536",
+    "tailwind-merge": "^3.7.0"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.536",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.13.3",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  }
+}
