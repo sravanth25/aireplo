@@ -1,11 +1,10 @@
 import { brand } from '@/brand'
-import { AireploIcon, AireploWordmark } from '@/components/AireploIcon'
+import logo from '@/assets/aireplo-logo.png'
 
 export function Logo() {
   return (
-    <a href="#top" className="flex items-center gap-2" aria-label={`${brand.name} home`}>
-      <AireploIcon className="h-9 w-auto" />
-      <AireploWordmark className="font-display text-[1.55rem] leading-none font-extrabold text-white" />
+    <a href="#top" className="flex items-center" aria-label={`${brand.name} home`}>
+      <img src={logo} alt={brand.name} className="h-8 w-auto sm:h-9" />
     </a>
   )
 }
