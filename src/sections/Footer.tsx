@@ -7,7 +7,8 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div>
           <Logo />
-          <p className="mt-3 max-w-xs text-sm text-white/45">{brand.tagline}.</p>
+          <p className="mt-3 text-xs font-semibold tracking-[0.18em] text-white/70 uppercase">{brand.slogan}</p>
+          <p className="mt-2 max-w-xs text-sm text-white/45">{brand.tagline}.</p>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/55">
           <a href="#features" className="hover:text-white">Features</a>

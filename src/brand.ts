@@ -5,6 +5,7 @@ export const brand = {
   // WhatsApp number (country code, digits only) that receives requirement forms
   whatsapp: '919999999999',
   email: 'hello@aireplo.com',
+  slogan: 'Sell. Support. Reply on WhatsApp.',
   // How the number is shown on the site
   whatsappDisplay: '+91 99999 99999',
   currency: '₹',

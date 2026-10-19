@@ -7,6 +7,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion'
+import { AireploIcon } from '../components/AireploIcon'
 
 export type DemoProps = {
   brandName: string
@@ -34,9 +35,13 @@ function Sidebar({ brandName, color, active }: DemoProps & { active: number }) {
   return (
     <div style={{ width: 250, background: '#0b0f14', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '28px 18px', display: 'flex', flexDirection: 'column', gap: 6 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 30, paddingLeft: 6 }}>
-        <div style={{ width: 42, height: 42, borderRadius: 12, background: color, display: 'grid', placeItems: 'center', fontWeight: 800, fontSize: 22, color: '#05070a' }}>
-          {(brandName.trim()[0] || 'B').toUpperCase()}
-        </div>
+        {brandName.trim().toLowerCase() === 'aireplo' ? (
+          <AireploIcon spark={false} style={{ width: 44, height: 42, flexShrink: 0 }} />
+        ) : (
+          <div style={{ width: 42, height: 42, borderRadius: 12, background: color, display: 'grid', placeItems: 'center', fontWeight: 800, fontSize: 22, color: '#05070a' }}>
+            {(brandName.trim()[0] || 'B').toUpperCase()}
+          </div>
+        )}
         <div style={{ fontWeight: 700, fontSize: 22, color: 'white', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 160 }}>
           {brandName || 'Your Brand'}
         </div>
