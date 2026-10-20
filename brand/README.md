@@ -7,7 +7,10 @@ Logo: concept 04, "Spark-dot ai". A green app tile with a lowercase "ai" where t
 | `icon.svg` | Master icon (vector). Use anywhere, any size |
 | `icon-mono-black.svg` / `icon-mono-white.svg` | One-color icon (letters cut out) for print, stamps, single-color use |
 | `icon-512.png`, `icon-1024.png` | App icon PNGs (rounded tile, transparent corners) |
-| `profile-photo-512.png` | WhatsApp Business, Instagram, LinkedIn profile photo (full-bleed, circle-crop safe) |
+| `profile-photo-512.png` | Small profile photo (full-bleed, circle-crop safe) |
+| `profile/profile-green-*.png` | **Main profile photo** for WhatsApp Business, Instagram, Facebook, LinkedIn, X (1080 and 640 px) |
+| `profile/profile-dark-*.png` | Alternative: app tile on dark with a soft glow |
+| `profile/profile-light-*.png` | Alternative: green "ai" on white, for light pages and print |
 | `logo-dark.png` / `logo-light.png` | Full logo on dark / white |
 | `logo-transparent-white-text.png` / `logo-transparent-dark-text.png` | Full logo, transparent background |
 | `og-image.png` | Link preview when the site is shared (1200×630) |
