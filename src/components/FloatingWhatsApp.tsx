@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { MessageCircle, X } from 'lucide-react'
 import { brand } from '@/brand'
 import { waLink } from '@/lib/whatsapp'
-import icon from '@/assets/aireplo-icon.png'
+import { AireploMark } from '@/components/AireploMark'
 
 const quick = [
   'Hi! I want a free demo of Aireplo',
@@ -30,7 +30,7 @@ export function FloatingWhatsApp() {
             aria-label={`Chat with ${brand.name} on WhatsApp`}
           >
             <div className="flex items-center gap-3 bg-[#075e54] px-4 py-3">
-              <span className="grid size-10 place-items-center rounded-full bg-[#07090c]"><img src={icon} alt="" className="h-6 w-auto" /></span>
+              <AireploMark className="size-10" />
               <div>
                 <p className="text-sm font-semibold text-white">{brand.name} team</p>
                 <p className="text-xs text-white/70">Typically replies in a few minutes</p>

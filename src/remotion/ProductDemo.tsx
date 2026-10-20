@@ -1,14 +1,13 @@
 import {
   AbsoluteFill,
   Easing,
-  Img,
   Sequence,
   interpolate,
   spring,
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion'
-import aireploIcon from '../assets/aireplo-icon.png'
+import { AireploMark } from '../components/AireploMark'
 
 export type DemoProps = {
   brandName: string
@@ -37,7 +36,7 @@ function Sidebar({ brandName, color, active }: DemoProps & { active: number }) {
     <div style={{ width: 250, background: '#0b0f14', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '28px 18px', display: 'flex', flexDirection: 'column', gap: 6 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 30, paddingLeft: 6 }}>
         {brandName.trim().toLowerCase() === 'aireplo' ? (
-          <Img src={aireploIcon} style={{ height: 44, width: 'auto', flexShrink: 0 }} />
+          <AireploMark style={{ width: 42, height: 42, flexShrink: 0 }} />
         ) : (
           <div style={{ width: 42, height: 42, borderRadius: 12, background: color, display: 'grid', placeItems: 'center', fontWeight: 800, fontSize: 22, color: '#05070a' }}>
             {(brandName.trim()[0] || 'B').toUpperCase()}

@@ -1,31 +1,31 @@
 # Aireplo brand files
 
-All files come from the original logo artwork (`logo-original.png`, `brand-sheet-original.png`). The artwork itself is unchanged; only backgrounds were removed or files resized.
+Logo: concept 04, "Spark-dot ai". A green app tile with a lowercase "ai" where the dot on the i is an AI spark; the wordmark "aireplo" repeats the spark as its i-dot.
 
 | File | Use |
 |---|---|
-| `logo-original.png` | Your original logo image |
-| `brand-sheet-original.png` | Your original brand sheet (concepts, versions, colors) |
-| `logo-transparent.png` | Full logo, transparent background, for dark backgrounds |
-| `icon-transparent.png` | Icon only, transparent background, for dark backgrounds |
-| `logo-dark.png` | Full logo on the dark brand background |
-| `logo-light.png` | Light version from the brand sheet, for white backgrounds |
-| `app-icon.png` | App icon from the brand sheet. Source for all favicons in `public/` |
-| `icon-512.png` | WhatsApp Business / social profile photo: icon on black, circle-crop safe |
-| `og-image.png` | Link preview when the website is shared (1200×630) |
+| `icon.svg` | Master icon (vector). Use anywhere, any size |
+| `icon-mono-black.svg` / `icon-mono-white.svg` | One-color icon (letters cut out) for print, stamps, single-color use |
+| `icon-512.png`, `icon-1024.png` | App icon PNGs (rounded tile, transparent corners) |
+| `profile-photo-512.png` | WhatsApp Business, Instagram, LinkedIn profile photo (full-bleed, circle-crop safe) |
+| `logo-dark.png` / `logo-light.png` | Full logo on dark / white |
+| `logo-transparent-white-text.png` / `logo-transparent-dark-text.png` | Full logo, transparent background |
+| `og-image.png` | Link preview when the site is shared (1200×630) |
+| `previous-logo/` | The earlier logo and brand sheet, kept for reference |
 
-Colors (from the brand sheet): primary green `#22C55E`, lime `#A3E635`, background `#07090C`, light background `#F8FAFC`.
+In code: `src/components/AireploMark.tsx` (`AireploMark`, `AireploWordmark`).
+
+Colors: tile gradient `#4ADE80` → `#16A34A` → `#0F766E`; spark `#D9F99D` on the tile, `#A3E635` on dark, `#16A34A` on light; background `#07090C`, light `#F8FAFC`.
+Wordmark: Bricolage Grotesque ExtraBold, lowercase, letter-spacing -0.035em, spark replaces the i-dot.
 Slogan: "Sell. Support. Reply on WhatsApp."
-
-Note: the transparent logos are cut out of a dark background, so use them on dark backgrounds only. On white, use `logo-light.png`.
 
 ## Favicon set (in `public/`)
 
 | File | Used by |
 |---|---|
+| `favicon.svg` | Modern browsers (sharp at any size) |
 | `favicon.ico` (16, 32, 48) | Older browsers, Windows |
 | `favicon-16x16.png`, `favicon-32x32.png`, `favicon-48x48.png` | Browser tabs and bookmarks |
-| `apple-touch-icon.png` (180) | iPhone/iPad "Add to Home Screen" |
-| `android-chrome-192x192.png` | Android home screen |
-| `android-chrome-512x512.png` | Android install/splash. Icon on black, because the app icon in the brand sheet is too small to enlarge sharply |
-| `site.webmanifest` | Tells Android/Chrome which icons and colors to use |
+| `apple-touch-icon.png` (180) | iPhone/iPad home screen |
+| `android-chrome-192x192.png`, `android-chrome-512x512.png` | Android home screen and install |
+| `site.webmanifest` | Icons and colors for Android/Chrome |
