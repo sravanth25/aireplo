@@ -31,6 +31,8 @@
   }
 }
 
+/* nothing may make the page scroll sideways (e.g. the pulsing chat button) */
+html, body { overflow-x: clip; }
 html { scroll-behavior: smooth; }
 :root { color-scheme: dark; }
 body {

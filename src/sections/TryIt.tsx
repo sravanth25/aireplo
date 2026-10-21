@@ -6,44 +6,41 @@ import { waLink } from '@/lib/whatsapp'
 import { QrCode } from '@/components/QrCode'
 import { waToHtml } from '@/lib/waFormat'
 import { SectionHeading } from '@/components/ui/section'
+import { AireploMark } from '@/components/AireploMark'
 
-type Msg = { from: 'bot' | 'me'; text: string; products?: boolean }
+type Msg = { from: 'bot' | 'me'; text: string }
 
+// Suggested questions. With the live AI these are sent as normal messages;
+// the scripted replies are only used when the AI is not connected (demo mode).
 const OPTIONS: { label: string; me: string; bot: Msg[] }[] = [
   {
-    label: '🛍️ Show products',
-    me: 'Show me your bestsellers',
-    bot: [{ from: 'bot', text: 'Here are today’s bestsellers 👇 Tap any product to order right here in chat.', products: true }],
+    label: '💰 Pricing',
+    me: `How much does ${brand.name} cost?`,
+    bot: [{ from: 'bot', text: `Plans start at *${brand.currency}799/month* with unlimited team members, no setup fee and 0% markup on Meta charges. Want a custom quote?` }],
   },
   {
-    label: '📦 Track my order',
-    me: 'Where is my order #4821?',
-    bot: [{ from: 'bot', text: 'Order #4821 is out for delivery 🚚 It will reach you today by 6 PM. Live tracking: shop.link/4821' }],
+    label: '🤖 What can it do?',
+    me: `What can ${brand.name} do for my business?`,
+    bot: [{ from: 'bot', text: 'Send broadcasts to thousands, reply to every chat from one shared inbox, build no-code chatbots, and let an AI agent answer customers 24/7 in their language.' }],
+  },
+  {
+    label: '🏷️ White-label',
+    me: `Can I sell ${brand.name} under my own brand?`,
+    bot: [{ from: 'bot', text: 'Yes! With the White-label Partner plan you get your own logo, colors and domain, and you set your own prices for clients.' }],
   },
   {
     label: '🗣️ Ask in Hindi',
-    me: 'Kya COD available hai?',
-    bot: [{ from: 'bot', text: '✨ Haan ji! Cash on Delivery available hai ₹2,000 tak ke orders par. Order karne ke liye "Menu" likhiye.' }],
-  },
-  {
-    label: `💰 ${brand.name} pricing`,
-    me: `How much does ${brand.name} cost?`,
-    bot: [{ from: 'bot', text: `Plans start at ${brand.currency}799/month with unlimited team members, no setup fee and 0% markup on Meta charges. Want a custom quote?` }],
+    me: 'Setup mein kitna time lagta hai?',
+    bot: [{ from: 'bot', text: '✨ Bas 48 ghante! Hum Meta verification, number setup aur templates sab mein help karte hain.' }],
   },
   {
     label: '🙋 Talk to a human',
     me: 'I want to talk to a person',
-    bot: [{ from: 'bot', text: 'Connecting you to our team 🙌 The chat moves to a human agent’s inbox, with the full conversation history.' }],
+    bot: [{ from: 'bot', text: 'Sure 🙌 A team member will reply here shortly. Meanwhile, tell me your name and business so they can help faster.' }],
   },
 ]
 
-const PRODUCTS = [
-  { name: 'Cotton Kurta', price: '₹899', hue: 150 },
-  { name: 'Linen Shirt', price: '₹1,199', hue: 30 },
-  { name: 'Silk Saree', price: '₹2,499', hue: 330 },
-]
-
-const START: Msg[] = [{ from: 'bot', text: `Hi 👋 I’m the AI assistant for Vastra Store, built on ${brand.name}. What would you like to do?` }]
+const START: Msg[] = [{ from: 'bot', text: `Hi 👋 I’m ${brand.name}’s AI assistant. Ask me anything about WhatsApp marketing, pricing or white-label plans.` }]
 
 const OFFLINE_REPLY = `This preview isn’t connected to the live AI yet, so I can only answer the suggested questions. Once ${brand.name} is live, I’ll answer anything you type here.`
 
@@ -127,15 +124,15 @@ export function TryIt() {
   return (
     <section id="try" className="scroll-mt-20 py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading eyebrow="Try it yourself" title="Chat with an AI agent built on Aireplo" sub="Type any question, or tap a suggestion, to see how your customers would experience it." />
-        <div className="mt-12 grid items-center gap-8 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-14">
+        <SectionHeading eyebrow="Try it yourself" title="Chat with Aireplo’s AI agent" sub="Type any question, or tap a suggestion. Your customers get the same instant replies on WhatsApp." />
+        <div className="mt-12 grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-14">
           {/* phone */}
           <div className="mx-auto w-full max-w-[400px] rounded-[2.2rem] border border-white/10 bg-[#0b141a] p-2.5 shadow-2xl shadow-black/60">
             <div className="flex items-center justify-between rounded-t-[1.8rem] bg-[#1f2c34] px-4 py-3">
               <div className="flex items-center gap-3">
-                <span className="grid size-9 place-items-center rounded-full bg-brand font-bold text-ink">V</span>
+                <AireploMark className="size-9" />
                 <div>
-                  <p className="text-sm font-semibold text-white">Vastra Store</p>
+                  <p className="text-sm font-semibold text-white">{brand.name}</p>
                   <p className="text-[11px] text-white/55">{typing ? 'typing…' : live === false ? 'demo mode' : 'online'}</p>
                 </div>
               </div>
@@ -149,17 +146,6 @@ export function TryIt() {
                   <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={m.from === 'me' ? 'flex justify-end' : 'flex'}>
                     <div className={`max-w-[85%] rounded-xl px-3 py-2 text-sm leading-relaxed text-white ${m.from === 'me' ? 'rounded-tr-sm bg-[#005c4b]' : 'rounded-tl-sm bg-[#1f2c34]'}`}>
                       <span className="whitespace-pre-wrap break-words" dangerouslySetInnerHTML={{ __html: waToHtml(m.text) }} />
-                      {m.products && (
-                        <div className="mt-2 grid grid-cols-3 gap-1.5">
-                          {PRODUCTS.map((p) => (
-                            <div key={p.name} className="overflow-hidden rounded-lg bg-black/25">
-                              <div className="h-12" style={{ background: `linear-gradient(135deg, hsl(${p.hue} 60% 45%), hsl(${p.hue + 30} 60% 30%))` }} />
-                              <p className="truncate px-1.5 pt-1 text-[11px]">{p.name}</p>
-                              <p className="px-1.5 pb-1.5 text-[11px] font-semibold text-brand">{p.price}</p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   </motion.div>
                 ))}
@@ -173,13 +159,13 @@ export function TryIt() {
               )}
             </div>
             <div className="rounded-b-[1.8rem] border-t border-white/5 bg-[#111b21] p-3">
-              <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-2.5">
+              <div className="flex flex-wrap gap-1.5 pb-2.5">
                 {OPTIONS.map((o) => (
                   <button
                     key={o.label}
                     onClick={() => send(o.me)}
                     disabled={typing}
-                    className="shrink-0 rounded-full border border-[#53bdeb]/30 px-3 py-1.5 text-xs font-medium text-[#53bdeb] transition-colors hover:bg-[#53bdeb]/10 disabled:opacity-40"
+                    className="rounded-full border border-[#53bdeb]/30 px-3 py-1.5 text-xs font-medium text-[#53bdeb] transition-colors hover:bg-[#53bdeb]/10 disabled:opacity-40"
                   >
                     {o.label}
                   </button>

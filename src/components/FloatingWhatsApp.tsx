@@ -60,7 +60,7 @@ export function FloatingWhatsApp() {
         aria-label={open ? 'Close chat' : 'Chat with us on WhatsApp'}
         className="relative grid size-14 place-items-center rounded-full bg-brand text-ink shadow-lg shadow-brand/40 transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
       >
-        {!open && <span className="absolute inset-0 animate-ping rounded-full bg-brand/40 [animation-duration:2.5s]" />}
+        {!open && <span className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-brand/40 [animation-duration:2.5s]" />}
         {open ? <X className="size-6" /> : <MessageCircle className="size-6" />}
       </button>
     </div>
