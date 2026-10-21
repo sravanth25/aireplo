@@ -3,11 +3,11 @@ export const brand = {
   name: 'Aireplo',
   tagline: 'AI-powered WhatsApp Business platform, under your brand',
   // WhatsApp number (country code, digits only) that receives requirement forms
-  whatsapp: '919999999999',
+  whatsapp: '17112330377',
   email: 'hello@aireplo.com',
   slogan: 'Sell. Support. Reply on WhatsApp.',
   // How the number is shown on the site
-  whatsappDisplay: '+91 99999 99999',
+  whatsappDisplay: '+1 711-233-0377',
   currency: '₹',
 }
 
