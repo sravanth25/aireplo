@@ -10,10 +10,13 @@
     "preview": "vite preview",
     "video": "remotion studio src/remotion/Root.tsx",
     "render": "remotion render src/remotion/Root.tsx ProductDemo out/demo.mp4",
-    "test:api": "tsx scripts/test-api.ts"
+    "test:api": "tsx scripts/test-api.ts",
+    "test:inbox": "tsx scripts/test-inbox.ts",
+    "dev:inbox": "tsx scripts/dev-inbox.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.135.0",
+    "@neondatabase/serverless": "^1.2.0",
     "@remotion/player": "^4.0.536",
     "@vercel/functions": "^3.10.1",
     "clsx": "^2.1.1",

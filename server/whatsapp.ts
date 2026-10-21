@@ -11,8 +11,15 @@ async function graph(path: string, payload: unknown) {
     headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   })
-  if (!res.ok) console.error('WhatsApp API error', res.status, await res.text())
-  return res.ok
+  const text = await res.text()
+  if (!res.ok) console.error('WhatsApp API error', res.status, text)
+  let id: string | undefined
+  try {
+    id = JSON.parse(text)?.messages?.[0]?.id
+  } catch {
+    id = undefined
+  }
+  return { ok: res.ok, id, error: res.ok ? undefined : text }
 }
 
 const phoneId = () => process.env.WHATSAPP_PHONE_NUMBER_ID

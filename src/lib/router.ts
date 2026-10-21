@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 // Tiny hash router: #partners and #tools are pages, any other hash is a section on the home page.
-export const PAGES = ['partners', 'tools'] as const
+export const PAGES = ['partners', 'tools', 'inbox'] as const
 export type Page = (typeof PAGES)[number] | 'home'
 
 function current(): Page {

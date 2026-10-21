@@ -15,6 +15,7 @@ import { Contact } from '@/sections/Contact'
 import { Footer } from '@/sections/Footer'
 import { Partners } from '@/pages/Partners'
 import { Tools } from '@/pages/Tools'
+import { Inbox } from '@/pages/Inbox'
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp'
 import { usePage } from '@/lib/router'
 
@@ -40,6 +41,8 @@ function Home() {
 
 export default function App() {
   const page = usePage()
+  // the team inbox is a private full-screen app, without the website around it
+  if (page === 'inbox') return <Inbox />
   return (
     <>
       <Navbar page={page} />

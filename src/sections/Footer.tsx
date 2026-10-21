@@ -17,6 +17,7 @@ export function Footer() {
           <a href="#partners" className="hover:text-white">Partner program</a>
           <a href="#tools" className="hover:text-white">Free WhatsApp tools</a>
           <a href="#contact" className="hover:text-white">Contact</a>
+          <a href="#inbox" className="hover:text-white">Team inbox</a>
         </div>
       </div>
       <p className="mx-auto mt-8 max-w-6xl px-4 text-xs text-white/30 sm:px-6">© {new Date().getFullYear()} {brand.name}. WhatsApp is a trademark of Meta Platforms, Inc.</p>
