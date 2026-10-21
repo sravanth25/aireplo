@@ -78,6 +78,8 @@ export function Enterprise() {
               <button type="submit" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand py-3 text-sm font-semibold text-ink transition hover:brightness-110">
                 <Send className="size-4" /> Request a call on WhatsApp
               </button>
+              <p className="mt-3 text-center text-xs text-white/40">By sending, you agree to our <a href="/privacy" className="underline underline-offset-2 hover:text-white">Privacy Policy</a> and <a href="/terms" className="underline underline-offset-2 hover:text-white">Terms</a>.</p>
+
               {fallback && (
                 <a href={fallback} target="_blank" rel="noreferrer" className="mt-3 block text-center text-sm text-brand underline underline-offset-4">
                   WhatsApp didn’t open? Tap here to send

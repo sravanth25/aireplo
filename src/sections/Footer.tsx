@@ -20,7 +20,12 @@ export function Footer() {
           <a href="#inbox" className="hover:text-white">Team inbox</a>
         </div>
       </div>
-      <p className="mx-auto mt-8 max-w-6xl px-4 text-xs text-white/30 sm:px-6">© {new Date().getFullYear()} {brand.name}. WhatsApp is a trademark of Meta Platforms, Inc.</p>
+      <nav aria-label="Legal" className="mx-auto mt-8 flex max-w-6xl flex-wrap gap-x-5 gap-y-2 px-4 text-xs text-white/45 sm:px-6">
+        <a href="/privacy" className="hover:text-white">Privacy Policy</a>
+        <a href="/terms" className="hover:text-white">Terms of Service</a>
+        <a href="/refund-policy" className="hover:text-white">Refund Policy</a>
+      </nav>
+      <p className="mx-auto mt-4 max-w-6xl px-4 text-xs text-white/30 sm:px-6">© {new Date().getFullYear()} {brand.name}. WhatsApp is a trademark of Meta Platforms, Inc.</p>
     </footer>
   )
 }
