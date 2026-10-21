@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Send } from 'lucide-react'
-import { brand, modules } from '@/brand'
+import { brand, needs } from '@/brand'
 import { Spotlight } from '@/components/ui/spotlight'
 import { cn } from '@/lib/utils'
 import { waLink } from '@/lib/whatsapp'
@@ -45,11 +45,11 @@ export function Contact() {
           </div>
           <p className="mt-5 text-sm text-white/70">What do you need?</p>
           <div className="mt-2 flex flex-wrap gap-2">
-            {modules.map((m) => {
-              const on = picked.includes(m.name)
+            {needs.map((m) => {
+              const on = picked.includes(m)
               return (
-                <button type="button" key={m.id} aria-pressed={on} onClick={() => setPicked((p) => (on ? p.filter((x) => x !== m.name) : [...p, m.name]))} className={cn('rounded-full border px-3 py-1.5 text-xs transition-colors', on ? 'border-brand bg-brand/15 text-white' : 'border-line text-white/60 hover:text-white')}>
-                  {m.name}
+                <button type="button" key={m} aria-pressed={on} onClick={() => setPicked((p) => (on ? p.filter((x) => x !== m) : [...p, m]))} className={cn('rounded-full border px-3 py-1.5 text-xs transition-colors', on ? 'border-brand bg-brand/15 text-white' : 'border-line text-white/60 hover:text-white')}>
+                  {m}
                 </button>
               )
             })}

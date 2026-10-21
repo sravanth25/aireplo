@@ -1,7 +1,7 @@
 import { Player } from '@remotion/player'
 import { motion } from 'motion/react'
 import { ArrowRight, BadgeCheck, Play } from 'lucide-react'
-import { brand } from '@/brand'
+import { brand, inr, packages } from '@/brand'
 import { ProductDemo, DEMO } from '@/remotion/ProductDemo'
 import { Spotlight } from '@/components/ui/spotlight'
 import { BorderBeam } from '@/components/ui/border-beam'
@@ -22,13 +22,13 @@ export function Hero() {
             <span className="bg-gradient-to-r from-brand via-emerald-300 to-brand-2 bg-clip-text text-transparent">under your brand.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base text-white/65 sm:text-lg">
-            Broadcasts, shared inbox, no-code chatbots and an AI agent — delivered as a dashboard with <b className="text-white">your logo, your colors, your domain</b>. Pay only for the modules you need, with <b className="text-white">0% markup</b> on Meta charges.
+            Broadcasts, shared inbox, no-code chatbots and an AI agent — delivered as a dashboard with <b className="text-white">your logo, your colors, your domain</b>. We set up everything, from Facebook to your own Meta app, and you <b className="text-white">pay once</b>.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <ShimmerButton href="#contact">Get your branded dashboard <ArrowRight className="size-4" /></ShimmerButton>
-            <GhostButton href="#pricing">See pricing — from {brand.currency}799/mo</GhostButton>
+            <GhostButton href="#pricing">See packages — one-time from {inr(packages[0].price)}</GhostButton>
           </div>
-          <p className="mt-4 text-xs text-white/40">14-day free trial · No setup fee · Unlimited team members</p>
+          <p className="mt-4 text-xs text-white/40">One-time payment · No monthly subscription · You own your Meta app & data</p>
         </motion.div>
 
         <motion.div

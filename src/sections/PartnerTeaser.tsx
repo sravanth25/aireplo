@@ -12,7 +12,7 @@ export function PartnerTeaser() {
             <div className="flex-1">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">For agencies & resellers</p>
               <h2 className="font-display mt-2 text-2xl font-bold text-white sm:text-3xl">Sell {brand.name} as your own product</h2>
-              <p className="mt-2 text-white/60">Your brand, your prices, your clients. See how much you could earn every month.</p>
+              <p className="mt-2 text-white/60">Your brand, your prices, your clients. See how much you earn on every client you sign.</p>
             </div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink">
               Partner program <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />

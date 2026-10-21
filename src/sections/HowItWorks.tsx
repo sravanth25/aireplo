@@ -2,16 +2,16 @@ import { ClipboardList, Palette, Rocket } from 'lucide-react'
 import { Reveal, SectionHeading } from '@/components/ui/section'
 
 const steps = [
-  { icon: ClipboardList, title: 'Tell us what you need', body: 'Pick modules — inbox, broadcasts, chatbots, AI agent, catalog, CRM. Skip what you don’t use, and don’t pay for it.' },
-  { icon: Palette, title: 'We brand it for you', body: 'Your logo, colors, login page and domain. Your customers and team only ever see your name.' },
-  { icon: Rocket, title: 'Go live in 48 hours', body: 'We handle Meta verification, number setup and templates, then train your team on a call.' },
+  { icon: ClipboardList, title: 'Tell us what you need', body: 'Pick a package and add what you need: inbox, broadcasts, AI agent, chatbots, integrations. We quote a fixed one-time price.' },
+  { icon: Palette, title: 'We build it for you', body: 'We set up your Facebook Business, build your own Meta app, connect your WhatsApp number and brand your dashboard.' },
+  { icon: Rocket, title: 'Go live and own it', body: 'Most brands are live within 5 working days. We train your team and hand over full ownership.' },
 ]
 
 export function HowItWorks() {
   return (
     <section className="py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading eyebrow="How it works" title="Built around your requirements" sub="Other platforms sell one fixed product. We assemble the dashboard you asked for." />
+        <SectionHeading eyebrow="How it works" title="Built around your requirements" sub="Other platforms rent you a fixed product. We build yours and hand you the keys." />
         <div className="relative mt-14 grid gap-5 md:grid-cols-3">
           <div className="absolute top-9 right-[16%] left-[16%] hidden h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent md:block" />
           {steps.map((s, i) => (

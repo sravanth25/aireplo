@@ -5,7 +5,8 @@ import { HowItWorks } from '@/sections/HowItWorks'
 import { Features } from '@/sections/Features'
 import { TryIt } from '@/sections/TryIt'
 import { WhiteLabel } from '@/sections/WhiteLabel'
-import { PlanBuilder } from '@/sections/PlanBuilder'
+import { Estimator } from '@/sections/Estimator'
+import { Enterprise } from '@/sections/Enterprise'
 import { Pricing } from '@/sections/Pricing'
 import { Compare } from '@/sections/Compare'
 import { PartnerTeaser } from '@/sections/PartnerTeaser'
@@ -26,8 +27,9 @@ function Home() {
       <Features />
       <TryIt />
       <WhiteLabel />
-      <PlanBuilder />
       <Pricing />
+      <Estimator />
+      <Enterprise />
       <Compare />
       <PartnerTeaser />
       <Faq />

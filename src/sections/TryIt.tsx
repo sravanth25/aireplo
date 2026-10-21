@@ -16,7 +16,7 @@ const OPTIONS: { label: string; me: string; bot: Msg[] }[] = [
   {
     label: '💰 Pricing',
     me: `How much does ${brand.name} cost?`,
-    bot: [{ from: 'bot', text: `Plans start at *${brand.currency}799/month* with unlimited team members, no setup fee and 0% markup on Meta charges. Want a custom quote?` }],
+    bot: [{ from: 'bot', text: `Packages start at *${brand.currency}14,999 one-time*. No monthly subscription: we set up everything and you own your Meta app. Want a quote?` }],
   },
   {
     label: '🤖 What can it do?',

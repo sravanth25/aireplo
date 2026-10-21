@@ -9,6 +9,7 @@ const links = [
   ['Features', '#features'],
   ['White-label', '#white-label'],
   ['Pricing', '#pricing'],
+  ['Enterprise', '#enterprise'],
   ['Partners', '#partners'],
   ['Free tools', '#tools'],
 ]

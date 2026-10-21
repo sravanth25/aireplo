@@ -7,10 +7,11 @@ import { cn } from '@/lib/utils'
 const faqs: [string, string][] = [
   ['Is this the official WhatsApp Business API?', 'Yes. Your number is connected through Meta’s official Cloud API, so you get the green-tick eligibility, high sending limits and no risk of bans from unofficial tools.'],
   ['What does “white-label” mean here?', `Your dashboard shows your logo, colors and domain. Your clients never see the ${brand.name} name. Agencies can resell it at their own price.`],
-  ['How do Meta message charges work?', 'Meta charges per message by category (marketing, utility, authentication). We pass these through at exactly Meta’s rate — no markup. You only add our flat platform fee.'],
+  ['How do Meta message charges work?', 'Meta bills you directly on your own WhatsApp Business account, at Meta’s own rates. We never add a markup, because the account is yours.'],
   ['Can I ask for a feature that isn’t listed?', 'Yes. Share your requirements and we’ll quote custom modules, integrations or flows built specifically for your business.'],
-  ['How long does setup take?', 'Most accounts are live within 48 hours, including Meta verification, number connection and your first message templates.'],
-  ['Can I cancel any time?', 'Yes. Monthly plans can be cancelled any time. Your contacts and chat history can be exported.'],
+  ['How long does setup take?', 'Most brands are live within 5 working days. Meta’s business verification can sometimes take longer; we handle the follow-up with Meta for you.'],
+  ['Is there a monthly fee?', 'No subscription. You pay a one-time project fee. Maintenance after handover (hosting, updates and support) is not included and is billed separately if you want us to look after it.'],
+  ['Who owns the Meta app and the data?', 'You do. Your Meta app, WhatsApp number, contacts and chats are registered to your business. If you ever stop working with us, you keep all of it.'],
 ]
 
 export function Faq({ items = faqs, title = 'Questions, answered' }: { items?: [string, string][]; title?: string }) {

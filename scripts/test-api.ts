@@ -58,7 +58,7 @@ check('chat streams reply', chatRes.status === 200 && chatText === 'Plans start 
 const sent = captured.anthropic[0]
 check('chat drops leading assistant turn', sent?.body.messages.length === 1 && sent.body.messages[0].role === 'user', sent?.body.messages)
 check('uses claude-opus-5-5 with fallbacks', sent?.body.model === 'claude-opus-5-5' && sent.body.fallbacks === 'default' && String(sent.headers['anthropic-beta']).includes('server-side-fallback-2026-07-01'), { model: sent?.body.model, beta: sent?.headers['anthropic-beta'] })
-check('system prompt has live prices', String(sent?.body.system).includes('₹799/month') && String(sent?.body.system).includes('₹5,999/month'))
+check('system prompt has one-time prices', String(sent?.body.system).includes('₹14,999 one-time') && String(sent?.body.system).includes('₹24,999 one-time') && !String(sent?.body.system).includes('/month'))
 
 // 2. Bad chat input
 const bad = await chat.POST(new Request('http://x/api/chat', { method: 'POST', body: 'nope' }))
