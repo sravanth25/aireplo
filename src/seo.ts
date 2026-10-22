@@ -7,6 +7,7 @@ import { partnerFaqs } from './pages/Partners'
 import { compareRows } from './sections/Compare'
 import { steps } from './sections/HowItWorks'
 import { templates } from './lib/templates'
+import { contentPages, hubOfKind, hubs, pagesOfKind, plain, type Block, type ContentPage, type Hub } from './content'
 
 const site = brand.siteUrl.replace(/\/$/, '')
 const abs = (path: string) => site + path
@@ -226,6 +227,88 @@ export const routes: Route[] = [
   },
 ]
 
+// ---------- comparisons, industries and guides ----------
+const faqSchema = (path: string, list?: [string, string][]): Json[] =>
+  list && list.length ? [faqPage(abs(path) + '#faq', list.map(([q, a]) => [plain(q), plain(a)] as [string, string]))] : []
+
+function contentSchema(p: ContentPage): Json[] {
+  if (p.kind === 'industry') {
+    return [
+      {
+        '@type': 'Service',
+        '@id': abs(p.path) + '#service',
+        name: plain(p.h1),
+        description: plain(p.description),
+        serviceType: 'WhatsApp Business API setup',
+        provider: { '@id': ORG_ID },
+        areaServed: { '@type': 'Country', name: 'India' },
+        audience: { '@type': 'BusinessAudience', audienceType: p.name },
+        offers: packages.map((pk) => offer(`${pk.name} package`, pk.price, pk.for)),
+      },
+      ...faqSchema(p.path, p.faqs),
+    ]
+  }
+  return [
+    {
+      '@type': p.kind === 'guide' ? 'Article' : 'WebPage',
+      ...(p.kind === 'guide' ? { '@id': abs(p.path) + '#article', mainEntityOfPage: { '@id': abs(p.path) + '#webpage' } } : { '@id': abs(p.path) + '#comparison' }),
+      headline: plain(p.h1),
+      name: plain(p.h1),
+      description: plain(p.description),
+      datePublished: p.published,
+      dateModified: p.updated,
+      author: { '@id': ORG_ID },
+      publisher: { '@id': ORG_ID },
+      image: abs('/og-image.png'),
+      inLanguage: 'en-IN',
+      ...(p.sources ? { citation: p.sources.map((s) => s.url) } : {}),
+    },
+    ...faqSchema(p.path, p.faqs),
+  ]
+}
+
+const hubSchema = (h: Hub): Json[] => [
+  {
+    '@type': 'CollectionPage',
+    '@id': abs(h.path) + '#collection',
+    name: h.h1,
+    url: abs(h.path),
+    description: h.description,
+    isPartOf: { '@id': WEBSITE_ID },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: pagesOfKind(h.kind).map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(p.path), name: plain(p.h1) })),
+    },
+  },
+]
+
+routes.push(
+  ...hubs.map(
+    (h): Route => ({
+      path: h.path,
+      file: `${h.path.slice(1)}.html`,
+      title: h.title,
+      description: h.description,
+      md: `${h.path}.md`,
+      priority: 0.6,
+      breadcrumb: [['Home', '/'], [h.name, h.path]],
+      schema: () => hubSchema(h),
+    }),
+  ),
+  ...contentPages.map(
+    (p): Route => ({
+      path: p.path,
+      file: `${p.path.slice(1)}.html`,
+      title: p.title,
+      description: p.description,
+      md: `${p.path}.md`,
+      priority: p.kind === 'guide' ? 0.7 : 0.6,
+      breadcrumb: [['Home', '/'], [hubOfKind(p.kind).name, hubOfKind(p.kind).path], [p.name, p.path]],
+      schema: () => contentSchema(p),
+    }),
+  ),
+)
+
 // legal pages are plain HTML files in public/; they only need sitemap entries
 const legalPages = ['/privacy', '/terms', '/refund-policy']
 
@@ -409,6 +492,70 @@ ${templates.map((t) => `- **${t.name}** (${t.category}, ${t.industry}): ${t.body
 `
 }
 
+const absLinks = (md: string) => md.replace(/\]\(\//g, `](${site}/`)
+
+const blockMd = (b: Block): string => {
+  switch (b.type) {
+    case 'h2':
+      return `## ${b.text}`
+    case 'h3':
+      return `### ${b.text}`
+    case 'p':
+      return b.text
+    case 'ul':
+      return b.items.map((i) => `- ${i}`).join('\n')
+    case 'ol':
+      return b.items.map((i, n) => `${n + 1}. ${i}`).join('\n')
+    case 'table':
+      return [`| ${b.head.join(' | ')} |`, `|${b.head.map(() => '---').join('|')}|`, ...b.rows.map((r) => `| ${r.join(' | ')} |`), b.caption ? `\n_${b.caption}_` : ''].filter(Boolean).join('\n')
+    case 'callout':
+      return `> ${b.title ? `**${b.title}:** ` : ''}${b.text}`
+  }
+}
+
+export function contentMd(p: ContentPage): string {
+  return absLinks(
+    [
+      `# ${p.h1}`,
+      `> ${p.intro}`,
+      `Updated: ${p.updated} · Source: ${abs(p.path)}`,
+      ...p.blocks.map(blockMd),
+      p.faqs?.length ? `## Frequently asked questions\n\n${p.faqs.map(([q, a]) => `### ${q}\n${a}`).join('\n\n')}` : '',
+      p.sources?.length ? `## Sources\n${p.sources.map((s) => `- [${s.label}](${s.url})`).join('\n')}` : '',
+    ]
+      .filter(Boolean)
+      .join('\n\n') + '\n',
+  )
+}
+
+export function hubMd(h: Hub): string {
+  return absLinks(`# ${h.h1}\n\n> ${h.intro}\n\n${pagesOfKind(h.kind).map((p) => `- [${p.h1}](${abs(p.path)}): ${p.description}`).join('\n')}\n`)
+}
+
+/** Every generated text file, keyed by its path inside dist/. */
+export function extraFiles(date = new Date()): Record<string, string> {
+  return {
+    'robots.txt': robotsTxt(),
+    'sitemap.xml': sitemapXml(date),
+    'llms.txt': llmsTxt(),
+    'llms-full.txt': llmsFullTxt(),
+    'index.md': homeMd(),
+    'partners.md': partnersMd(),
+    'tools.md': toolsMd(),
+    ...Object.fromEntries(hubs.map((h) => [`${h.path.slice(1)}.md`, hubMd(h)])),
+    ...Object.fromEntries(contentPages.map((p) => [`${p.path.slice(1)}.md`, contentMd(p)])),
+  }
+}
+
+const contentSectionsMd = () =>
+  hubs
+    .map((h) => {
+      const heading = h.kind === 'guide' ? 'Guides' : h.kind === 'compare' ? 'Comparisons' : 'Industries'
+      const lines = pagesOfKind(h.kind).map((p) => `- [${plain(p.h1)}](${abs(`${p.path}.md`)}): ${p.description}`)
+      return `## ${heading}\n${lines.join('\n')}`
+    })
+    .join('\n\n')
+
 export function llmsTxt(): string {
   return `# ${brand.name}
 
@@ -428,6 +575,8 @@ Key facts:
 - [Free WhatsApp tools](${abs('/tools.md')}): link and QR generator, message templates, text formatter
 - [Everything in one file](${abs('/llms-full.txt')}): all of the above combined
 
+${contentSectionsMd()}
+
 ## Policies
 - [Privacy Policy](${abs('/privacy')}): data handled, AI processing, India DPDP Act rights
 - [Terms of Service](${abs('/terms')}): one-time fees, Meta approvals, ownership, acceptable use
@@ -440,5 +589,5 @@ Key facts:
 }
 
 export function llmsFullTxt(): string {
-  return [homeMd(), partnersMd(), toolsMd(), `# Policies\n- Privacy Policy: ${abs('/privacy')}\n- Terms of Service: ${abs('/terms')}\n- Refund Policy: ${abs('/refund-policy')}\n`].join('\n---\n\n')
+  return [homeMd(), partnersMd(), toolsMd(), ...contentPages.map(contentMd), `# Policies\n- Privacy Policy: ${abs('/privacy')}\n- Terms of Service: ${abs('/terms')}\n- Refund Policy: ${abs('/refund-policy')}\n`].join('\n---\n\n')
 }

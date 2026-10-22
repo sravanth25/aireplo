@@ -19,17 +19,10 @@ for (const route of server.routes) {
   console.log(`  ${route.path.padEnd(38)} → ${route.file} (${Math.round(page.length / 1024)} kB)`)
 }
 
-const files = {
-  'robots.txt': server.robotsTxt(),
-  'sitemap.xml': server.sitemapXml(),
-  'llms.txt': server.llmsTxt(),
-  'llms-full.txt': server.llmsFullTxt(),
-  'index.md': server.homeMd(),
-  'partners.md': server.partnersMd(),
-  'tools.md': server.toolsMd(),
+for (const [name, body] of Object.entries(server.extraFiles())) {
+  const out = join(dist, name)
+  await mkdir(dirname(out), { recursive: true })
+  await writeFile(out, body)
 }
-for (const [name, body] of Object.entries(files)) {
-  await writeFile(join(dist, name), body)
-  console.log(`  ${name}`)
-}
+console.log(`  + ${Object.keys(server.extraFiles()).length} text files (robots.txt, sitemap.xml, llms.txt, markdown copies)`)
 await rm('dist-ssr', { recursive: true, force: true })

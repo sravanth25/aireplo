@@ -12,6 +12,7 @@ const links = [
   ['Enterprise', '/#enterprise'],
   ['Partners', '/partners'],
   ['Free tools', '/tools'],
+  ['Guides', '/blog'],
 ]
 
 export function Navbar({ page }: { page: Page }) {
@@ -29,7 +30,7 @@ export function Navbar({ page }: { page: Page }) {
         <Logo />
         <div className="hidden items-center gap-7 md:flex">
           {links.map(([l, h]) => (
-            <a key={h} href={h} aria-current={h === '/' + page ? 'page' : undefined} className={cn('text-sm transition-colors hover:text-white', h === '/' + page ? 'text-white' : 'text-white/65')}>{l}</a>
+            <a key={h} href={h} aria-current={h === '/' + page || (page === 'content' && h === '/blog') ? 'page' : undefined} className={cn('text-sm transition-colors hover:text-white', h === '/' + page ? 'text-white' : 'text-white/65')}>{l}</a>
           ))}
         </div>
         <div className="hidden md:block">

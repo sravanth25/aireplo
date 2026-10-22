@@ -16,8 +16,9 @@ import { Footer } from '@/sections/Footer'
 import { Partners } from '@/pages/Partners'
 import { Tools } from '@/pages/Tools'
 import { Inbox } from '@/pages/Inbox'
+import { Content } from '@/pages/Content'
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp'
-import { usePage } from '@/lib/router'
+import { currentPath, usePage } from '@/lib/router'
 
 function Home() {
   return (
@@ -46,7 +47,7 @@ export default function App() {
   return (
     <>
       <Navbar page={page} />
-      <main key={page}>{page === 'partners' ? <Partners /> : page === 'tools' ? <Tools /> : <Home />}</main>
+      <main key={page}>{page === 'partners' ? <Partners /> : page === 'tools' ? <Tools /> : page === 'content' ? <Content path={currentPath()} /> : <Home />}</main>
       <Footer />
       <FloatingWhatsApp />
     </>

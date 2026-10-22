@@ -38,6 +38,9 @@ export function Compare() {
             </tbody>
           </table>
         </div>
+        <p className="mt-5 text-center text-sm text-white/55">
+          Detailed comparisons: <a href="/compare/wati-alternative" className="text-brand underline underline-offset-4">vs Wati</a> · <a href="/compare/aisensy-alternative" className="text-brand underline underline-offset-4">vs AiSensy</a> · <a href="/compare/interakt-alternative" className="text-brand underline underline-offset-4">vs Interakt</a>
+        </p>
       </div>
     </section>
   )

@@ -13,4 +13,4 @@ export function render(path: string) {
   )
 }
 
-export { routes, headFor, robotsTxt, sitemapXml, llmsTxt, llmsFullTxt, homeMd, partnersMd, toolsMd } from './seo'
+export { routes, headFor, extraFiles } from './seo'

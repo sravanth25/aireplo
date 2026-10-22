@@ -1,26 +1,53 @@
 import { brand } from '@/brand'
 import { Logo } from '@/components/Logo'
+import { hubOfKind, pagesOfKind, type ContentKind } from '@/content'
+
+const product: [string, string][] = [
+  ['Features', '/#features'],
+  ['Pricing', '/#pricing'],
+  ['White-label', '/#white-label'],
+  ['Enterprise', '/#enterprise'],
+  ['Partner program', '/partners'],
+  ['Free WhatsApp tools', '/tools'],
+  ['Contact', '/#contact'],
+  ['Team inbox', '/inbox'],
+]
+
+const columns: { title: string; kind?: ContentKind; links: [string, string][] }[] = [
+  { title: 'Product', links: product },
+  ...(['compare', 'industry', 'guide'] as ContentKind[]).map((kind) => {
+    const hub = hubOfKind(kind)
+    return {
+      title: kind === 'compare' ? 'Compare' : kind === 'industry' ? 'Industries' : 'Guides',
+      kind,
+      links: [...pagesOfKind(kind).map((p): [string, string] => [p.name, p.path]), [kind === 'compare' ? 'All comparisons' : kind === 'industry' ? 'All industries' : 'All guides', hub.path] as [string, string]],
+    }
+  }),
+]
 
 export function Footer() {
   return (
-    <footer className="border-t border-line py-12">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <footer className="border-t border-line py-14">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1.2fr)_repeat(4,minmax(0,1fr))]">
         <div>
           <Logo />
           <p className="mt-3 text-xs font-semibold tracking-[0.18em] text-white/70 uppercase">{brand.slogan}</p>
           <p className="mt-2 max-w-xs text-sm text-white/45">{brand.tagline}.</p>
         </div>
-        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/55">
-          <a href="/#features" className="hover:text-white">Features</a>
-          <a href="/#pricing" className="hover:text-white">Pricing</a>
-          <a href="/#white-label" className="hover:text-white">White-label</a>
-          <a href="/partners" className="hover:text-white">Partner program</a>
-          <a href="/tools" className="hover:text-white">Free WhatsApp tools</a>
-          <a href="/#contact" className="hover:text-white">Contact</a>
-          <a href="/inbox" className="hover:text-white">Team inbox</a>
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:contents">
+          {columns.map((c) => (
+            <nav key={c.title} aria-label={c.title}>
+              <p className="text-xs font-semibold tracking-[0.14em] text-white/80 uppercase">{c.title}</p>
+              <ul className="mt-3 space-y-2 text-sm text-white/50">
+                {c.links.map(([label, href]) => (
+                  <li key={href}><a href={href} className="hover:text-white">{label}</a></li>
+                ))}
+              </ul>
+            </nav>
+          ))}
         </div>
       </div>
-      <nav aria-label="Legal" className="mx-auto mt-8 flex max-w-6xl flex-wrap gap-x-5 gap-y-2 px-4 text-xs text-white/45 sm:px-6">
+      <nav aria-label="Legal" className="mx-auto mt-10 flex max-w-6xl flex-wrap gap-x-5 gap-y-2 px-4 text-xs text-white/45 sm:px-6">
         <a href="/privacy" className="hover:text-white">Privacy Policy</a>
         <a href="/terms" className="hover:text-white">Terms of Service</a>
         <a href="/refund-policy" className="hover:text-white">Refund Policy</a>
