@@ -5,7 +5,7 @@ export const brand = {
   tagline: 'AI-powered WhatsApp Business platform, under your brand',
   // WhatsApp number (country code, digits only) that receives requirement forms
   whatsapp: '17112330377',
-  email: 'hello@aireplo.com',
+  email: 'sanasravanth25@gmail.com',
   slogan: 'Sell. Support. Reply on WhatsApp.',
   // How the number is shown on the site
   whatsappDisplay: '+1 711-233-0377',

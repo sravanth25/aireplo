@@ -14,7 +14,7 @@ Prices match `src/brand.ts`. If you change prices there, update this file too.
 | Tagline (≤ 60 chars) | WhatsApp Business API setup, one-time fee, your brand |
 | Slogan | Sell. Support. Reply on WhatsApp. |
 | Company HQ | India (add city once registered) |
-| Support email | hello@aireplo.com |
+| Support email | sanasravanth25@gmail.com (switch to hello@aireplo.com when the domain is live) |
 | Languages | English, Hindi (AI agent replies in both) |
 | Deployment | Cloud (web app), optional customer's own cloud (Enterprise) |
 | Logo | `brand/icon-1024.png` (square), `brand/logo-light.png` / `brand/logo-dark.png` |
