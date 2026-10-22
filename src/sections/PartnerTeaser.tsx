@@ -7,7 +7,7 @@ export function PartnerTeaser() {
     <section className="py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
-          <a href="#partners" className="group flex flex-col items-start gap-6 rounded-3xl border border-brand/30 bg-gradient-to-r from-brand/[0.14] via-panel to-panel p-8 transition-colors hover:border-brand/60 sm:flex-row sm:items-center sm:p-10">
+          <a href="/partners" className="group flex flex-col items-start gap-6 rounded-3xl border border-brand/30 bg-gradient-to-r from-brand/[0.14] via-panel to-panel p-8 transition-colors hover:border-brand/60 sm:flex-row sm:items-center sm:p-10">
             <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-brand text-ink"><IndianRupee className="size-6" /></span>
             <div className="flex-1">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">For agencies & resellers</p>

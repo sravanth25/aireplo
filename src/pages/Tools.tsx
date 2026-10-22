@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState, type MouseEvent } from 'react'
 import { motion } from 'motion/react'
 import { Bold, Code, Download, ExternalLink, Italic, Link2, MessageSquareText, Strikethrough, Type, Wrench } from 'lucide-react'
 import { brand } from '@/brand'
@@ -10,6 +10,8 @@ import { CopyButton } from '@/components/CopyButton'
 import { Spotlight } from '@/components/ui/spotlight'
 import { ShimmerButton } from '@/components/ui/shimmer-button'
 import { cn } from '@/lib/utils'
+import { currentPath } from '@/lib/router'
+import { routeFor } from '@/seo'
 
 const field = 'w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-brand/60'
 
@@ -175,16 +177,73 @@ function Formatter() {
   )
 }
 
-const TABS = [
-  { id: 'link', label: 'Link & QR generator', icon: Link2, title: 'WhatsApp link & QR code generator', sub: 'Create a click-to-chat link and QR code for your number in seconds.', el: LinkGenerator },
-  { id: 'templates', label: 'Template library', icon: MessageSquareText, title: 'WhatsApp message templates', sub: 'Ready-to-use templates for sales, orders, reminders and OTPs. Copy and adapt.', el: TemplateLibrary },
-  { id: 'format', label: 'Text formatter', icon: Type, title: 'WhatsApp text formatter', sub: 'Make words bold, italic or crossed out, and preview before you send.', el: Formatter },
+export const TOOL_PAGES = [
+  {
+    id: 'link',
+    slug: 'whatsapp-link-generator',
+    label: 'Link & QR generator',
+    icon: Link2,
+    title: 'WhatsApp link & QR code generator',
+    sub: 'Create a click-to-chat link and QR code for your number in seconds.',
+    el: LinkGenerator,
+    howTo: [
+      'Pick your country code and type your WhatsApp number without the leading 0.',
+      'Add a pre-filled message (optional), for example “Hi! I saw your Instagram post”.',
+      'Copy the wa.me link for your Instagram bio, website button, Google Business profile or ads.',
+      'Download the QR code and print it on bills, packaging, menus and shop counters.',
+    ],
+  },
+  {
+    id: 'templates',
+    slug: 'whatsapp-message-templates',
+    label: 'Template library',
+    icon: MessageSquareText,
+    title: 'WhatsApp message templates',
+    sub: 'Ready-to-use templates for sales, orders, reminders and OTPs. Copy and adapt.',
+    el: TemplateLibrary,
+    howTo: [
+      'Choose a category: Marketing, Utility or Authentication (Meta’s three template types).',
+      'Copy a template and replace the {{1}}, {{2}} placeholders with your own variables.',
+      'Submit it for approval in WhatsApp Manager, or let Aireplo submit it for you.',
+      'Once Meta approves it, send it to customers who opted in, even outside the 24-hour window.',
+    ],
+  },
+  {
+    id: 'format',
+    slug: 'whatsapp-text-formatter',
+    label: 'Text formatter',
+    icon: Type,
+    title: 'WhatsApp text formatter',
+    sub: 'Make words bold, italic or crossed out, and preview before you send.',
+    el: Formatter,
+    howTo: [
+      'Type or paste your message.',
+      'Select words and tap Bold (*text*), Italic (_text_), Strikethrough (~text~) or Monospace (```text```).',
+      'Check the live WhatsApp preview on the right.',
+      'Copy the formatted text and paste it into WhatsApp, a broadcast or a template.',
+    ],
+  },
 ] as const
 
+type ToolId = (typeof TOOL_PAGES)[number]['id']
+
 export function Tools() {
-  const [tab, setTab] = useState<(typeof TABS)[number]['id']>('link')
-  const active = TABS.find((t) => t.id === tab)!
+  // /tools shows the first tool; /tools/<slug> opens that tool directly
+  const slug = currentPath().split('/')[2] ?? ''
+  const isHub = !TOOL_PAGES.some((t) => t.slug === slug)
+  const [tab, setTab] = useState<ToolId>(() => TOOL_PAGES.find((t) => t.slug === slug)?.id ?? 'link')
+  const active = TOOL_PAGES.find((t) => t.id === tab)!
   const El = active.el
+
+  const open = (t: (typeof TOOL_PAGES)[number]) => (e: MouseEvent<HTMLAnchorElement>) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+    e.preventDefault()
+    setTab(t.id)
+    window.history.pushState(null, '', `/tools/${t.slug}`)
+    const meta = routeFor(`/tools/${t.slug}`)
+    if (meta) document.title = meta.title
+  }
+
   return (
     <>
       <section className="relative overflow-hidden pt-32 pb-10 sm:pt-40">
@@ -194,30 +253,41 @@ export function Tools() {
           <p className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-3.5 py-1.5 text-xs font-medium text-brand">
             <Wrench className="size-3.5" /> 100% free · No sign-up
           </p>
-          <h1 className="font-display mt-6 text-[2.4rem] leading-[1.05] font-extrabold text-white sm:text-6xl">Free WhatsApp tools for business</h1>
-          <p className="mx-auto mt-5 max-w-xl text-white/60">Generate chat links and QR codes, grab proven message templates, and format your texts.</p>
+          <h1 className="font-display mt-6 text-[2.4rem] leading-[1.05] font-extrabold text-white sm:text-6xl">{isHub ? 'Free WhatsApp tools for business' : `Free ${active.title}`}</h1>
+          <p className="mx-auto mt-5 max-w-xl text-white/60">{isHub ? 'Generate chat links and QR codes, grab proven message templates, and format your texts.' : active.sub}</p>
         </motion.div>
       </section>
 
-      <section className="pb-24">
+      <section className="pb-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex gap-2 overflow-x-auto pb-1 sm:justify-center" role="tablist" aria-label="Free tools">
-            {TABS.map((t) => (
-              <button
+          <nav className="flex gap-2 overflow-x-auto pb-1 sm:justify-center" aria-label="Free tools">
+            {TOOL_PAGES.map((t) => (
+              <a
                 key={t.id}
-                role="tab"
-                aria-selected={tab === t.id}
-                onClick={() => setTab(t.id)}
+                href={`/tools/${t.slug}`}
+                onClick={open(t)}
+                aria-current={tab === t.id ? 'page' : undefined}
                 className={cn('inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-colors', tab === t.id ? 'border-brand bg-brand text-ink' : 'border-line text-white/70 hover:text-white')}
               >
                 <t.icon className="size-4" /> {t.label}
-              </button>
+              </a>
             ))}
-          </div>
+          </nav>
           <div className="mt-10">
             <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">{active.title}</h2>
             <p className="mt-2 text-white/55">{active.sub}</p>
-            <div className="mt-6" role="tabpanel"><El /></div>
+            <div className="mt-6"><El /></div>
+          </div>
+          <div className="mt-12 max-w-3xl">
+            <h2 className="font-display text-xl font-bold text-white sm:text-2xl">How to use the {active.title}</h2>
+            <ol className="mt-4 space-y-2.5 text-white/70">
+              {active.howTo.map((step, i) => (
+                <li key={step} className="flex gap-3">
+                  <span className="grid size-6 shrink-0 place-items-center rounded-full bg-brand/15 text-xs font-bold text-brand">{i + 1}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
@@ -227,7 +297,7 @@ export function Tools() {
           <div className="flex flex-col items-center gap-5 rounded-3xl border border-brand/30 bg-gradient-to-b from-brand/[0.12] to-panel p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">Send these to thousands, automatically</h2>
             <p className="max-w-xl text-white/60">{brand.name} sends templates as broadcasts, replies with an AI agent and tracks every sale. One-time setup, no monthly subscription.</p>
-            <ShimmerButton href="#pricing">See packages</ShimmerButton>
+            <ShimmerButton href="/#pricing">See packages</ShimmerButton>
           </div>
         </div>
       </section>

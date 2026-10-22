@@ -94,7 +94,7 @@ function Login({ onLogin, error }: { onLogin: (pw: string) => void; error: strin
         <button type="submit" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand py-3 text-sm font-semibold text-ink hover:brightness-110">
           <Lock className="size-4" /> Open inbox
         </button>
-        <a href="#top" className="mt-4 block text-center text-xs text-white/40 hover:text-white/70">Back to website</a>
+        <a href="/" className="mt-4 block text-center text-xs text-white/40 hover:text-white/70">Back to website</a>
       </form>
     </div>
   )

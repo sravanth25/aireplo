@@ -6,12 +6,12 @@ import { cn } from '@/lib/utils'
 import type { Page } from '@/lib/router'
 
 const links = [
-  ['Features', '#features'],
-  ['White-label', '#white-label'],
-  ['Pricing', '#pricing'],
-  ['Enterprise', '#enterprise'],
-  ['Partners', '#partners'],
-  ['Free tools', '#tools'],
+  ['Features', '/#features'],
+  ['White-label', '/#white-label'],
+  ['Pricing', '/#pricing'],
+  ['Enterprise', '/#enterprise'],
+  ['Partners', '/partners'],
+  ['Free tools', '/tools'],
 ]
 
 export function Navbar({ page }: { page: Page }) {
@@ -29,11 +29,11 @@ export function Navbar({ page }: { page: Page }) {
         <Logo />
         <div className="hidden items-center gap-7 md:flex">
           {links.map(([l, h]) => (
-            <a key={h} href={h} aria-current={h === '#' + page ? 'page' : undefined} className={cn('text-sm transition-colors hover:text-white', h === '#' + page ? 'text-white' : 'text-white/65')}>{l}</a>
+            <a key={h} href={h} aria-current={h === '/' + page ? 'page' : undefined} className={cn('text-sm transition-colors hover:text-white', h === '/' + page ? 'text-white' : 'text-white/65')}>{l}</a>
           ))}
         </div>
         <div className="hidden md:block">
-          <ShimmerButton href="#contact" className="px-5 py-2.5">Share requirements</ShimmerButton>
+          <ShimmerButton href="/#contact" className="px-5 py-2.5">Share requirements</ShimmerButton>
         </div>
         <button className="rounded-lg p-2 text-white md:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -44,7 +44,7 @@ export function Navbar({ page }: { page: Page }) {
           {links.map(([l, h]) => (
             <a key={h} href={h} onClick={() => setOpen(false)} className="block py-3 text-white/80">{l}</a>
           ))}
-          <ShimmerButton href="#contact" onClick={() => setOpen(false)} className="mt-3 w-full">Share requirements</ShimmerButton>
+          <ShimmerButton href="/#contact" onClick={() => setOpen(false)} className="mt-3 w-full">Share requirements</ShimmerButton>
         </div>
       )}
     </header>

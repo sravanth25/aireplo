@@ -10,6 +10,8 @@ export const brand = {
   // How the number is shown on the site
   whatsappDisplay: '+1 711-233-0377',
   currency: '₹',
+  // Public address of the website (change to https://aireplo.com once the domain is connected)
+  siteUrl: 'https://aireplo.vercel.app',
 }
 
 export const inr = (n: number) => brand.currency + n.toLocaleString('en-IN')

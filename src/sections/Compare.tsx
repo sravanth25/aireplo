@@ -2,7 +2,7 @@ import { Check, Minus } from 'lucide-react'
 import { brand } from '@/brand'
 import { SectionHeading } from '@/components/ui/section'
 
-const rows: [string, string, string][] = [
+export const compareRows: [string, string, string][] = [
   ['How you pay', 'One-time project fee', 'Monthly subscription, forever'],
   ['Who owns the Meta app & WhatsApp account', 'You do', 'The platform'],
   ['WhatsApp message charges', 'Billed by Meta to you, at Meta’s rates', 'Often marked up'],
@@ -28,7 +28,7 @@ export function Compare() {
               </tr>
             </thead>
             <tbody>
-              {rows.map(([f, us, them]) => (
+              {compareRows.map(([f, us, them]) => (
                 <tr key={f} className="border-t border-line">
                   <th scope="row" className="p-4 font-medium text-white/85">{f}</th>
                   <td className="p-4 text-white"><span className="inline-flex items-start gap-2"><Check className="mt-0.5 size-4 shrink-0 text-brand" />{us}</span></td>

@@ -89,12 +89,12 @@ const who = [
 
 const steps = [
   ['Apply & get approved', 'Share your agency details. We reply within 24 hours.'],
-  ['We set up your platform', 'Your domain, logo and colors, live in 48 hours.'],
+  ['We set up your platform', 'Your domain, logo and colors, ready within a few working days.'],
   ['Onboard your first client', 'We join your first client call and handle Meta setup with you.'],
   ['Earn on every client', 'You pay a fixed setup fee per client and keep the rest.'],
 ]
 
-const partnerFaqs: [string, string][] = [
+export const partnerFaqs: [string, string][] = [
   [`Will my clients ever see the ${brand.name} name?`, 'No. The dashboard, login page, emails, invoices and domain all show your brand. We never contact your clients directly.'],
   ['Who handles Meta verification for my clients?', 'We do it together. Our team handles the technical setup and helps your client through Meta business verification.'],
   ['How do I bill my clients?', 'You bill them directly, at any price you like. You pay us only the one-time setup fee per client.'],
@@ -113,7 +113,7 @@ export function Partners() {
             <Rocket className="size-3.5" /> White-label partner program
           </p>
           <h1 className="font-display mt-6 text-[2.5rem] leading-[1.03] font-extrabold text-white sm:text-7xl">
-            Launch your own <span className="bg-gradient-to-r from-brand via-emerald-300 to-brand-2 bg-clip-text text-transparent">WhatsApp SaaS</span> in 48 hours.
+            Sell <span className="bg-gradient-to-r from-brand via-emerald-300 to-brand-2 bg-clip-text text-transparent">white-label WhatsApp</span> under your own brand.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base text-white/65 sm:text-lg">
             Sell complete WhatsApp setups under your agency’s name. We build each client’s Meta app and branded dashboard; you set the price and keep the profit.

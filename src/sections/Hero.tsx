@@ -1,4 +1,5 @@
 import { Player } from '@remotion/player'
+import { ClientOnly } from '@/components/ClientOnly'
 import { motion } from 'motion/react'
 import { ArrowRight, BadgeCheck, Play } from 'lucide-react'
 import { brand, inr, packages } from '@/brand'
@@ -18,7 +19,7 @@ export function Hero() {
             <BadgeCheck className="size-3.5" /> Official WhatsApp Business API · White-label ready
           </a>
           <h1 className="font-display mt-6 text-[2.6rem] leading-[1.02] font-extrabold text-white sm:text-7xl">
-            WhatsApp marketing,{' '}
+            WhatsApp Business API,{' '}
             <span className="bg-gradient-to-r from-brand via-emerald-300 to-brand-2 bg-clip-text text-transparent">under your brand.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base text-white/65 sm:text-lg">
@@ -46,18 +47,20 @@ export function Hero() {
               <span className="ml-3 hidden items-center gap-1.5 text-[11px] text-white/35 sm:flex"><Play className="size-3" /> Live product demo — rendered with Remotion</span>
             </div>
             <div className="overflow-hidden rounded-xl sm:rounded-2xl">
-              <Player
-                component={ProductDemo}
-                inputProps={{ brandName: brand.name, color: '#22c55e' }}
-                durationInFrames={DEMO.durationInFrames}
-                compositionWidth={DEMO.width}
-                compositionHeight={DEMO.height}
-                fps={DEMO.fps}
-                autoPlay
-                loop
-                acknowledgeRemotionLicense
-                style={{ width: '100%', aspectRatio: `${DEMO.width} / ${DEMO.height}` }}
-              />
+              <ClientOnly fallback={<div className="w-full bg-[#070a0e]" style={{ aspectRatio: `${DEMO.width} / ${DEMO.height}` }} />}>
+                <Player
+                  component={ProductDemo}
+                  inputProps={{ brandName: brand.name, color: '#22c55e' }}
+                  durationInFrames={DEMO.durationInFrames}
+                  compositionWidth={DEMO.width}
+                  compositionHeight={DEMO.height}
+                  fps={DEMO.fps}
+                  autoPlay
+                  loop
+                  acknowledgeRemotionLicense
+                  style={{ width: '100%', aspectRatio: `${DEMO.width} / ${DEMO.height}` }}
+                />
+              </ClientOnly>
             </div>
             <BorderBeam />
           </div>

@@ -11,13 +11,13 @@ export function Footer() {
           <p className="mt-2 max-w-xs text-sm text-white/45">{brand.tagline}.</p>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/55">
-          <a href="#features" className="hover:text-white">Features</a>
-          <a href="#pricing" className="hover:text-white">Pricing</a>
-          <a href="#white-label" className="hover:text-white">White-label</a>
-          <a href="#partners" className="hover:text-white">Partner program</a>
-          <a href="#tools" className="hover:text-white">Free WhatsApp tools</a>
-          <a href="#contact" className="hover:text-white">Contact</a>
-          <a href="#inbox" className="hover:text-white">Team inbox</a>
+          <a href="/#features" className="hover:text-white">Features</a>
+          <a href="/#pricing" className="hover:text-white">Pricing</a>
+          <a href="/#white-label" className="hover:text-white">White-label</a>
+          <a href="/partners" className="hover:text-white">Partner program</a>
+          <a href="/tools" className="hover:text-white">Free WhatsApp tools</a>
+          <a href="/#contact" className="hover:text-white">Contact</a>
+          <a href="/inbox" className="hover:text-white">Team inbox</a>
         </div>
       </div>
       <nav aria-label="Legal" className="mx-auto mt-8 flex max-w-6xl flex-wrap gap-x-5 gap-y-2 px-4 text-xs text-white/45 sm:px-6">

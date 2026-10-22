@@ -4,7 +4,7 @@ import { brand } from '@/brand'
 import { SectionHeading } from '@/components/ui/section'
 import { cn } from '@/lib/utils'
 
-const faqs: [string, string][] = [
+export const faqs: [string, string][] = [
   ['Is this the official WhatsApp Business API?', 'Yes. Your number is connected through Meta’s official Cloud API, so you get the green-tick eligibility, high sending limits and no risk of bans from unofficial tools.'],
   ['What does “white-label” mean here?', `Your dashboard shows your logo, colors and domain. Your clients never see the ${brand.name} name. Agencies can resell it at their own price.`],
   ['How do Meta message charges work?', 'Meta bills you directly on your own WhatsApp Business account, at Meta’s own rates. We never add a markup, because the account is yours.'],

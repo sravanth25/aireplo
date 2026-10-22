@@ -1,30 +1,39 @@
 import { useEffect, useState } from 'react'
 
-// Tiny hash router: #partners and #tools are pages, any other hash is a section on the home page.
-export const PAGES = ['partners', 'tools', 'inbox'] as const
-export type Page = (typeof PAGES)[number] | 'home'
+// Pages live at real URLs (/partners, /tools/…, /inbox) so search engines and AI crawlers can index them.
+// Sections of the home page are anchors (/#pricing).
+export type Page = 'home' | 'partners' | 'tools' | 'inbox'
 
-function current(): Page {
-  const h = window.location.hash.slice(1)
-  return (PAGES as readonly string[]).includes(h) ? (h as Page) : 'home'
+// During build-time pre-rendering there is no window; the prerender script sets the path.
+let serverPath = '/'
+export function setServerPath(path: string) {
+  serverPath = path
+}
+export const currentPath = () => (typeof window === 'undefined' ? serverPath : window.location.pathname)
+
+export function pageFor(path: string): Page {
+  const first = path.replace(/\/+$/, '').split('/')[1] ?? ''
+  return first === 'partners' || first === 'tools' || first === 'inbox' ? first : 'home'
 }
 
-export function usePage() {
-  const [page, setPage] = useState<Page>(current)
+export function usePage(): Page {
+  const [page] = useState<Page>(() => pageFor(currentPath()))
   useEffect(() => {
-    const onChange = () => {
-      const next = current()
-      setPage(next)
-      if (next !== 'home') {
-        window.scrollTo(0, 0)
-        return
-      }
+    // old links like /#partners → /partners (on load and when only the # part changes)
+    const legacy = () => {
       const id = window.location.hash.slice(1)
-      // wait for the home page to render, then jump to the section
-      setTimeout(() => (id ? document.getElementById(id)?.scrollIntoView() : window.scrollTo(0, 0)), 30)
+      if (pageFor(window.location.pathname) === 'home' && (id === 'partners' || id === 'tools' || id === 'inbox')) {
+        window.location.replace('/' + id)
+        return true
+      }
+      return false
     }
-    window.addEventListener('hashchange', onChange)
-    return () => window.removeEventListener('hashchange', onChange)
+    if (legacy()) return
+    // jump to a section once the page has rendered
+    const id = window.location.hash.slice(1)
+    if (id) setTimeout(() => document.getElementById(id)?.scrollIntoView(), 60)
+    window.addEventListener('hashchange', legacy)
+    return () => window.removeEventListener('hashchange', legacy)
   }, [])
   return page
 }
