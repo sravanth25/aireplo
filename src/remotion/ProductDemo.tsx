@@ -14,7 +14,7 @@ export type DemoProps = {
   color: string
 }
 
-export const DEMO = { width: 1280, height: 800, fps: 30, durationInFrames: 390 }
+export { DEMO } from './demoSize'
 const SCENE = 130
 
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const

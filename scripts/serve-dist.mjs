@@ -12,5 +12,6 @@ createServer(async (req, res) => {
       return res.end(await readFile(c))
     }
   }
-  res.writeHead(404, { 'content-type': 'text/plain' }).end('Not found')
+  // like Vercel: unknown paths get dist/404.html with a 404 status
+  res.writeHead(404, { 'content-type': types['.html'] }).end(await readFile(join('dist', '404.html')).catch(() => 'Not found'))
 }).listen(Number(process.argv[2] ?? 4400), () => console.log('serving dist with clean URLs'))

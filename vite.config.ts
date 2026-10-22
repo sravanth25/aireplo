@@ -6,5 +6,7 @@ import path from 'node:path'
 export default defineConfig({
   base: '/',
   plugins: [react(), tailwindcss()],
+  // manifest: lets the pre-render script add preload links for each page's code
+  build: { manifest: true },
   resolve: { alias: { '@': path.resolve(import.meta.dirname, 'src') } },
 })

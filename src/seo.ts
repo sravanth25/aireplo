@@ -7,6 +7,8 @@ import { partnerFaqs } from './pages/Partners'
 import { compareRows } from './sections/Compare'
 import { steps } from './sections/HowItWorks'
 import { templates } from './lib/templates'
+import { TOOL_META } from './lib/toolMeta'
+import { contentLinks } from './content/links'
 import { contentPages, hubOfKind, hubs, pagesOfKind, plain, type Block, type ContentPage, type Hub } from './content'
 
 const site = brand.siteUrl.replace(/\/$/, '')
@@ -25,30 +27,16 @@ export type Route = {
   md?: string
   priority?: number
   noindex?: boolean
+  /** false = don't pre-render the page body (pages that only work in the browser) */
+  prerender?: boolean
+  /** the 404 page: no canonical URL */
+  notFound?: boolean
+  /** text for this page's own share image (made by scripts/og-images.mjs into public/og/) */
+  card?: { eyebrow: string; heading: string }
   breadcrumb?: [string, string][]
   schema?: () => Json[]
 }
 
-const TOOL_META = [
-  {
-    slug: 'whatsapp-link-generator',
-    name: 'WhatsApp Link & QR Code Generator',
-    title: 'Free WhatsApp Link Generator & QR Code | Aireplo',
-    description: 'Create a wa.me click-to-chat link and QR code for any WhatsApp number in seconds. Free, no sign-up. Add a pre-filled message for Instagram and ads.',
-  },
-  {
-    slug: 'whatsapp-message-templates',
-    name: 'WhatsApp Message Templates',
-    title: 'Free WhatsApp Message Templates for Business | Aireplo',
-    description: 'Copy-ready WhatsApp Business API templates for sales, abandoned carts, order updates, COD confirmation, reminders and OTPs, in Meta’s {{1}} format.',
-  },
-  {
-    slug: 'whatsapp-text-formatter',
-    name: 'WhatsApp Text Formatter',
-    title: 'WhatsApp Text Formatter: Bold, Italic & More | Aireplo',
-    description: 'Format WhatsApp messages with bold, italic, strikethrough and monospace, and preview them before you send. Free online tool, no sign-up.',
-  },
-] as const
 
 // ---------- structured data building blocks ----------
 const ORG_ID = abs('/#organization')
@@ -129,7 +117,7 @@ const webPage = (r: Route): Json => ({
   isPartOf: { '@id': WEBSITE_ID },
   about: { '@id': ORG_ID },
   inLanguage: 'en-IN',
-  primaryImageOfPage: { '@type': 'ImageObject', url: abs('/og-image.png') },
+  primaryImageOfPage: { '@type': 'ImageObject', url: imageFor(r.path) },
   ...(r.breadcrumb ? { breadcrumb: { '@id': abs(r.path) + '#breadcrumb' } } : {}),
 })
 
@@ -174,6 +162,7 @@ export const routes: Route[] = [
     title: 'White-Label WhatsApp API for Agencies | Aireplo Partners',
     description: `Resell WhatsApp Business API setups under your agency’s brand. ${inr(partner.perClientSetup)} one-time per client, no monthly partner fee. You set the price and keep the profit.`,
     md: '/partners.md',
+    card: { eyebrow: 'Partner program', heading: 'Sell white-label WhatsApp under your own brand' },
     priority: 0.8,
     breadcrumb: [['Home', '/'], ['Partner program', '/partners']],
     schema: () => [
@@ -196,6 +185,7 @@ export const routes: Route[] = [
     description: 'Free WhatsApp tools: click-to-chat link and QR code generator, ready-made WhatsApp Business message templates and a text formatter. No sign-up.',
     md: '/tools.md',
     priority: 0.7,
+    card: { eyebrow: 'Free tools', heading: 'Free WhatsApp tools for business' },
     breadcrumb: [['Home', '/'], ['Free WhatsApp tools', '/tools']],
     schema: () => [
       {
@@ -216,6 +206,7 @@ export const routes: Route[] = [
       priority: 0.7,
       breadcrumb: [['Home', '/'], ['Free WhatsApp tools', '/tools'], [t.name, `/tools/${t.slug}`]],
       schema: () => [tool(t)],
+      card: { eyebrow: 'Free tool', heading: t.name },
     }),
   ),
   {
@@ -224,6 +215,15 @@ export const routes: Route[] = [
     title: `Team inbox | ${brand.name}`,
     description: 'Private team inbox.',
     noindex: true,
+    prerender: false,
+  },
+  {
+    path: '/404',
+    file: '404.html',
+    title: `Page not found | ${brand.name}`,
+    description: 'This page does not exist. See Aireplo’s WhatsApp Business API packages, comparisons, guides and free tools.',
+    noindex: true,
+    notFound: true,
   },
 ]
 
@@ -259,7 +259,7 @@ function contentSchema(p: ContentPage): Json[] {
       dateModified: p.updated,
       author: { '@id': ORG_ID },
       publisher: { '@id': ORG_ID },
-      image: abs('/og-image.png'),
+      image: imageFor(p.path),
       inLanguage: 'en-IN',
       ...(p.sources ? { citation: p.sources.map((s) => s.url) } : {}),
     },
@@ -293,6 +293,7 @@ routes.push(
       priority: 0.6,
       breadcrumb: [['Home', '/'], [h.name, h.path]],
       schema: () => hubSchema(h),
+      card: { eyebrow: h.eyebrow, heading: plain(h.h1) },
     }),
   ),
   ...contentPages.map(
@@ -305,6 +306,7 @@ routes.push(
       priority: p.kind === 'guide' ? 0.7 : 0.6,
       breadcrumb: [['Home', '/'], [hubOfKind(p.kind).name, hubOfKind(p.kind).path], [p.name, p.path]],
       schema: () => contentSchema(p),
+      card: { eyebrow: p.eyebrow, heading: plain(p.h1) },
     }),
   ),
 )
@@ -316,6 +318,13 @@ export const routeFor = (path: string) => routes.find((r) => r.path === path.rep
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
+/** Share image for a page: its own card if it has one, else the site-wide image */
+export const ogImagePath = (r: Pick<Route, 'path' | 'card'>) => (r.card ? `/og/${r.path.slice(1).replace(/\//g, '-')}.png` : '/og-image.png')
+const imageFor = (path: string) => {
+  const r = routes.find((x) => x.path === path)
+  return abs(r ? ogImagePath(r) : '/og-image.png')
+}
+
 /** <head> tags for one page */
 export function headFor(r: Route): string {
   const url = abs(r.path === '/' ? '/' : r.path)
@@ -324,9 +333,9 @@ export function headFor(r: Route): string {
     `<title>${esc(r.title)}</title>`,
     `<meta name="description" content="${esc(r.description)}" />`,
     r.noindex ? `<meta name="robots" content="noindex, nofollow" />` : `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />`,
-    `<link rel="canonical" href="${url}" />`,
-    `<link rel="alternate" hreflang="en-IN" href="${url}" />`,
-    `<link rel="alternate" hreflang="x-default" href="${url}" />`,
+    ...(r.notFound
+      ? []
+      : [`<link rel="canonical" href="${url}" />`, `<link rel="alternate" hreflang="en-IN" href="${url}" />`, `<link rel="alternate" hreflang="x-default" href="${url}" />`]),
     r.md ? `<link rel="alternate" type="text/markdown" href="${abs(r.md)}" title="${esc(r.title)} (markdown)" />` : '',
     `<link rel="describedby" type="text/markdown" href="${abs('/llms.txt')}" />`,
     `<meta property="og:type" content="website" />`,
@@ -335,14 +344,14 @@ export function headFor(r: Route): string {
     `<meta property="og:url" content="${url}" />`,
     `<meta property="og:title" content="${esc(r.title)}" />`,
     `<meta property="og:description" content="${esc(r.description)}" />`,
-    `<meta property="og:image" content="${abs('/og-image.png')}" />`,
+    `<meta property="og:image" content="${abs(ogImagePath(r))}" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
-    `<meta property="og:image:alt" content="${brand.name}: WhatsApp marketing, under your brand. One-time from ${inr(packages[0].price)}." />`,
+    `<meta property="og:image:alt" content="${esc(r.card ? `${r.card.heading} | ${brand.name}` : `${brand.name}: WhatsApp marketing, under your brand. One-time from ${inr(packages[0].price)}.`)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${esc(r.title)}" />`,
     `<meta name="twitter:description" content="${esc(r.description)}" />`,
-    `<meta name="twitter:image" content="${abs('/og-image.png')}" />`,
+    `<meta name="twitter:image" content="${abs(ogImagePath(r))}" />`,
     graph.length ? `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')}</script>` : '',
   ]
   return tags.filter(Boolean).join('\n    ')
@@ -590,4 +599,11 @@ ${contentSectionsMd()}
 
 export function llmsFullTxt(): string {
   return [homeMd(), partnersMd(), toolsMd(), ...contentPages.map(contentMd), `# Policies\n- Privacy Policy: ${abs('/privacy')}\n- Terms of Service: ${abs('/terms')}\n- Refund Policy: ${abs('/refund-policy')}\n`].join('\n---\n\n')
+}
+
+// The footer keeps its own short list of content links; stop the build if it no longer matches the pages.
+for (const c of contentLinks) {
+  const want = JSON.stringify([...pagesOfKind(c.kind).map((p) => [p.name, p.path]), [c.all[0], hubOfKind(c.kind).path]])
+  const have = JSON.stringify([...c.pages, c.all])
+  if (want !== have) throw new Error(`src/content/links.ts is out of date for "${c.kind}".\nExpected: ${want}`)
 }

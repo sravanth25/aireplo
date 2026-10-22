@@ -1,9 +1,7 @@
-import { Player } from '@remotion/player'
-import { ClientOnly } from '@/components/ClientOnly'
+import { DemoPlayer } from '@/components/DemoPlayer'
 import { motion } from 'motion/react'
 import { ArrowRight, BadgeCheck, Play } from 'lucide-react'
 import { brand, inr, packages } from '@/brand'
-import { ProductDemo, DEMO } from '@/remotion/ProductDemo'
 import { Spotlight } from '@/components/ui/spotlight'
 import { BorderBeam } from '@/components/ui/border-beam'
 import { GhostButton, ShimmerButton } from '@/components/ui/shimmer-button'
@@ -47,20 +45,7 @@ export function Hero() {
               <span className="ml-3 hidden items-center gap-1.5 text-[11px] text-white/35 sm:flex"><Play className="size-3" /> Live product demo — rendered with Remotion</span>
             </div>
             <div className="overflow-hidden rounded-xl sm:rounded-2xl">
-              <ClientOnly fallback={<div className="w-full bg-[#070a0e]" style={{ aspectRatio: `${DEMO.width} / ${DEMO.height}` }} />}>
-                <Player
-                  component={ProductDemo}
-                  inputProps={{ brandName: brand.name, color: '#22c55e' }}
-                  durationInFrames={DEMO.durationInFrames}
-                  compositionWidth={DEMO.width}
-                  compositionHeight={DEMO.height}
-                  fps={DEMO.fps}
-                  autoPlay
-                  loop
-                  acknowledgeRemotionLicense
-                  style={{ width: '100%', aspectRatio: `${DEMO.width} / ${DEMO.height}` }}
-                />
-              </ClientOnly>
+              <DemoPlayer inputProps={{ brandName: brand.name, color: '#22c55e' }} />
             </div>
             <BorderBeam />
           </div>

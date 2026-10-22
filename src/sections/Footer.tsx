@@ -1,6 +1,6 @@
 import { brand } from '@/brand'
 import { Logo } from '@/components/Logo'
-import { hubOfKind, pagesOfKind, type ContentKind } from '@/content'
+import { contentLinks } from '@/content/links'
 
 const product: [string, string][] = [
   ['Features', '/#features'],
@@ -13,16 +13,9 @@ const product: [string, string][] = [
   ['Team inbox', '/inbox'],
 ]
 
-const columns: { title: string; kind?: ContentKind; links: [string, string][] }[] = [
+const columns: { title: string; links: [string, string][] }[] = [
   { title: 'Product', links: product },
-  ...(['compare', 'industry', 'guide'] as ContentKind[]).map((kind) => {
-    const hub = hubOfKind(kind)
-    return {
-      title: kind === 'compare' ? 'Compare' : kind === 'industry' ? 'Industries' : 'Guides',
-      kind,
-      links: [...pagesOfKind(kind).map((p): [string, string] => [p.name, p.path]), [kind === 'compare' ? 'All comparisons' : kind === 'industry' ? 'All industries' : 'All guides', hub.path] as [string, string]],
-    }
-  }),
+  ...contentLinks.map((c) => ({ title: c.title, links: [...c.pages, c.all] })),
 ]
 
 export function Footer() {

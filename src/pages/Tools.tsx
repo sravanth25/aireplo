@@ -11,7 +11,7 @@ import { Spotlight } from '@/components/ui/spotlight'
 import { ShimmerButton } from '@/components/ui/shimmer-button'
 import { cn } from '@/lib/utils'
 import { currentPath } from '@/lib/router'
-import { routeFor } from '@/seo'
+import { TOOL_META } from '@/lib/toolMeta'
 
 const field = 'w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-brand/60'
 
@@ -240,7 +240,7 @@ export function Tools() {
     e.preventDefault()
     setTab(t.id)
     window.history.pushState(null, '', `/tools/${t.slug}`)
-    const meta = routeFor(`/tools/${t.slug}`)
+    const meta = TOOL_META.find((m) => m.slug === t.slug)
     if (meta) document.title = meta.title
   }
 

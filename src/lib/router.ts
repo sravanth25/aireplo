@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 // Pages live at real URLs (/partners, /tools/…, /inbox) so search engines and AI crawlers can index them.
 // Sections of the home page are anchors (/#pricing).
-export type Page = 'home' | 'partners' | 'tools' | 'inbox' | 'content'
+export type Page = 'home' | 'partners' | 'tools' | 'inbox' | 'content' | 'notfound'
 
 // During build-time pre-rendering there is no window; the prerender script sets the path.
 let serverPath = '/'
@@ -16,7 +16,7 @@ export function pageFor(path: string): Page {
   if (first === 'partners' || first === 'tools' || first === 'inbox') return first
   // comparisons, industries and guides
   if (first === 'compare' || first === 'industries' || first === 'blog') return 'content'
-  return 'home'
+  return first === '' ? 'home' : 'notfound'
 }
 
 export function usePage(): Page {

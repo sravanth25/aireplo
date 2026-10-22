@@ -1,8 +1,6 @@
-import { Player } from '@remotion/player'
-import { ClientOnly } from '@/components/ClientOnly'
+import { DemoPlayer } from '@/components/DemoPlayer'
 import { useDeferredValue, useState } from 'react'
 import { Check, Globe, Mail, LogIn, Users } from 'lucide-react'
-import { ProductDemo, DEMO } from '@/remotion/ProductDemo'
 import { SectionHeading } from '@/components/ui/section'
 import { cn } from '@/lib/utils'
 
@@ -58,20 +56,7 @@ export function WhiteLabel() {
           </div>
           <div className="relative overflow-hidden rounded-2xl border border-line bg-panel p-1.5">
             <div className="overflow-hidden rounded-xl">
-              <ClientOnly fallback={<div className="w-full bg-[#070a0e]" style={{ aspectRatio: `${DEMO.width} / ${DEMO.height}` }} />}>
-                <Player
-                  component={ProductDemo}
-                  inputProps={props}
-                  durationInFrames={DEMO.durationInFrames}
-                  compositionWidth={DEMO.width}
-                  compositionHeight={DEMO.height}
-                  fps={DEMO.fps}
-                  autoPlay
-                  loop
-                  acknowledgeRemotionLicense
-                  style={{ width: '100%', aspectRatio: `${DEMO.width} / ${DEMO.height}` }}
-                />
-              </ClientOnly>
+              <DemoPlayer inputProps={props} />
             </div>
           </div>
         </div>

@@ -32,3 +32,9 @@ Slogan: "Sell. Support. Reply on WhatsApp."
 | `apple-touch-icon.png` (180) | iPhone/iPad home screen |
 | `android-chrome-192x192.png`, `android-chrome-512x512.png` | Android home screen and install |
 | `site.webmanifest` | Icons and colors for Android/Chrome |
+
+## Share images for each page
+
+Every page except the home page has its own share image in `public/og/` (title on a branded card).
+After changing a page heading, or adding a page, run `node scripts/og-images.mjs` and commit the new images.
+It needs Playwright with Chromium (`npm i -D --no-save playwright`).
