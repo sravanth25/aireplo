@@ -575,7 +575,7 @@ const contentSectionsMd = () =>
 export function llmsTxt(): string {
   return `# ${brand.name}
 
-> ${brand.name} sets up the official WhatsApp Business API for Indian businesses with a one-time fee instead of a monthly subscription. We build the brand’s own Meta app, connect its WhatsApp number, and deliver a branded dashboard with a team inbox, broadcasts, chatbots and a Hindi/English AI agent. The brand owns its Meta app, number and data. Packages start at ${inr(packages[0].price)} one-time (+ GST); maintenance is billed separately; Meta bills WhatsApp messages directly with no markup.
+> ${brand.name} sets up the official WhatsApp Business API for Indian businesses with a one-time fee instead of a monthly subscription. We build the brand’s own Meta app, connect its WhatsApp number, and deliver a branded dashboard with a team inbox, broadcasts, chatbots and a Hindi/English AI agent. The brand owns its Meta app, number and data. Packages start at ${inr(packages[0].price)} one-time; maintenance is billed separately; Meta bills WhatsApp messages directly with no markup.
 
 Key facts:
 - Business model: one-time project fee, no monthly subscription (unlike subscription platforms such as Wati, AiSensy and Interakt).
