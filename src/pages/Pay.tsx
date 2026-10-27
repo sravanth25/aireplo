@@ -177,7 +177,7 @@ export function Pay() {
             )}
             <p className="mt-5 flex items-start gap-2 text-left text-xs text-white/40">
               <ShieldCheck className="mt-0.5 size-3.5 shrink-0" />
-              <span>Check that the name in your UPI app shows <b className="font-semibold text-white/60">{upi.payeeName}</b> before you pay. We never ask for your UPI PIN.</span>
+              <span>Before you pay, check that the UPI ID in your app is <b className="font-semibold break-all text-white/60">{upi.id}</b>. We never ask for your UPI PIN.</span>
             </p>
           </div>
         </div>

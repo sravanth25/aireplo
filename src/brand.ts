@@ -19,7 +19,7 @@ export const inr = (n: number) => brand.currency + n.toLocaleString('en-IN')
 // Online payments on /pay: a UPI QR code for the exact amount, paid straight into this UPI ID.
 export const upi = {
   // your UPI ID, e.g. yourname@okhdfcbank (leave empty to hide the QR and ask clients to message you)
-  id: '',
+  id: 'sanasravanth25-1@okhdfcbank',
   // name shown in the customer's UPI app
   payeeName: 'Aireplo',
   // add GST on top of package prices (only if you are GST-registered)
