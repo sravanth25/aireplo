@@ -75,8 +75,8 @@ const offer = (name: string, price: number, description: string): Json => ({
   description,
   price,
   priceCurrency: 'INR',
-  // no billing period = one-time charge; GST is added on top
-  priceSpecification: { '@type': 'PriceSpecification', price, priceCurrency: 'INR', valueAddedTaxIncluded: false },
+  // no billing period = one-time charge
+  priceSpecification: { '@type': 'PriceSpecification', price, priceCurrency: 'INR' },
   availability: 'https://schema.org/InStock',
   url: abs('/#pricing'),
   seller: { '@id': ORG_ID },
@@ -173,7 +173,7 @@ export const routes: Route[] = [
         serviceType: 'White-label WhatsApp reseller program',
         provider: { '@id': ORG_ID },
         areaServed: { '@type': 'Country', name: 'India' },
-        offers: offer('Per-client setup for partners', partner.perClientSetup, 'One-time per client, plus GST. No monthly partner fee. Maintenance billed separately.'),
+        offers: offer('Per-client setup for partners', partner.perClientSetup, 'One-time per client. No monthly partner fee. Maintenance billed separately.'),
       },
       faqPage(abs('/partners#faq'), partnerFaqs),
     ],
@@ -414,7 +414,7 @@ ${entries.map(([p, pr]) => `  <url><loc>${abs(p)}</loc><lastmod>${day}</lastmod>
 // ---------- markdown for AI agents ----------
 const pkgLines = () =>
   packages
-    .map((p) => `### ${p.name}: ${inr(p.price)} one-time (+ GST)\nFor ${p.for.toLowerCase()}.\n${p.features.map((f) => `- ${f}`).join('\n')}`)
+    .map((p) => `### ${p.name}: ${inr(p.price)} one-time\nFor ${p.for.toLowerCase()}.\n${p.features.map((f) => `- ${f}`).join('\n')}`)
     .join('\n\n')
 
 export function homeMd(): string {
@@ -444,18 +444,18 @@ ${steps.map((s, i) => `${i + 1}. **${s.title}.** ${s.body}`).join('\n')}
 - Click-to-WhatsApp ads tracking, analytics, open API and webhooks.
 - Integrations: Shopify, WooCommerce, Razorpay, Google Sheets, Zoho CRM, HubSpot, Zapier and more.
 
-## Pricing (one-time, plus GST)
+## Pricing (one-time)
 ${pkgLines()}
 
 ### ${enterprise.name}: custom pricing (one-time)
 For ${enterprise.for.toLowerCase()}.
 ${enterprise.features.map((f) => `- ${f}`).join('\n')}
 
-### ${setupOnly.name}: ${inr(setupOnly.price)} one-time (+ GST)
+### ${setupOnly.name}: ${inr(setupOnly.price)} one-time
 ${setupOnly.features.map((f) => `- ${f}`).join('\n')}
 - No dashboard; upgrade to a package any time.
 
-### Add-ons (one-time, plus GST)
+### Add-ons (one-time)
 ${addOns.map((a) => `- ${a.name}: ${inr(a.price)}${a.unit ? ` per ${a.unit}` : ''}`).join('\n')}
 - Anything custom: quoted after a call.
 
@@ -482,7 +482,7 @@ export function partnersMd(): string {
 
 > Agencies, resellers and freelancers can sell complete WhatsApp Business API setups under their own brand. ${brand.name} builds each client’s Meta app and branded dashboard; the partner sets the price, bills the client directly and keeps the margin.
 
-- Partner cost: ${inr(partner.perClientSetup)} one-time per client setup, plus GST. No monthly partner fee.
+- Partner cost: ${inr(partner.perClientSetup)} one-time per client setup. No monthly partner fee.
 - Maintenance for each client is not included and is billed separately.
 - Clients never see the ${brand.name} name: their logo, colors, domain, login page, emails and invoices.
 - Meta bills WhatsApp messages directly to each client’s own account.
@@ -579,7 +579,7 @@ export function llmsTxt(): string {
 
 Key facts:
 - Business model: one-time project fee, no monthly subscription (unlike subscription platforms such as Wati, AiSensy and Interakt).
-- Packages (one-time, + GST): ${packages.map((p) => `${p.name} ${inr(p.price)}`).join(', ')}; ${enterprise.name}: custom pricing; ${setupOnly.name} only: ${inr(setupOnly.price)}.
+- Packages (one-time): ${packages.map((p) => `${p.name} ${inr(p.price)}`).join(', ')}; ${enterprise.name}: custom pricing; ${setupOnly.name} only: ${inr(setupOnly.price)}.
 - Maintenance after handover (hosting, updates, support) is not included and is billed separately.
 - White-label partner program for agencies: ${inr(partner.perClientSetup)} one-time per client, no monthly partner fee.
 - Serves India; replies in English, Hindi, Hinglish and other Indian languages.

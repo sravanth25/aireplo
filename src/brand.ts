@@ -22,14 +22,14 @@ export const upi = {
   id: 'sanasravanth25-1@okhdfcbank',
   // name shown in the customer's UPI app
   payeeName: 'Aireplo',
-  // add GST on top of package prices (only if you are GST-registered)
-  gstRate: 0.18,
+  // GST added on top of package prices: 0 while not GST-registered (set to 0.18 once registered)
+  gstRate: 0,
 }
 
 // Shown next to every price
 export const pricingNote = {
-  short: 'One-time · + GST',
-  full: 'All prices are one-time charges, plus GST. Maintenance after handover (hosting, updates and support) is not included and is billed separately.',
+  short: 'One-time payment',
+  full: 'All prices are one-time charges. Maintenance after handover (hosting, updates and support) is not included and is billed separately.',
   meta: 'WhatsApp message charges are billed by Meta directly to your own account, at Meta’s rates.',
 }
 

@@ -43,7 +43,7 @@ Prices match `src/brand.ts`. If you change prices there, update this file too.
 >
 > **AI that replies on WhatsApp.** An AI agent answers customers in Hindi and English, any time of day, and hands over to a person when needed.
 >
-> **One-time pricing.** Packages start at ₹14,999 one-time (plus GST). There are no per-seat fees, and Meta bills message charges to you directly at its published rates. Maintenance after handover (hosting, updates, support) is billed separately.
+> **One-time pricing.** Packages start at ₹14,999 one-time. There are no per-seat fees, and Meta bills message charges to you directly at its published rates. Maintenance after handover (hosting, updates, support) is billed separately.
 >
 > **Built for agencies too.** Agencies can resell Aireplo under their own brand through our partner program.
 >
@@ -77,7 +77,7 @@ Prices match `src/brand.ts`. If you change prices there, update this file too.
 | Enterprise | Custom | Multi-brand, own cloud, SSO, SLA |
 
 - **Pricing model:** one-time (flat fee). Is there a free trial? No, but there is a live AI demo on the website.
-- **Common note:** all prices are one-time charges, plus GST. Maintenance after handover is not included. Meta's WhatsApp message charges are billed by Meta directly.
+- **Common note:** all prices are one-time charges (no GST while unregistered). Maintenance after handover is not included. Meta's WhatsApp message charges are billed by Meta directly.
 
 ## Target users
 

@@ -73,7 +73,7 @@ export const comparePages: ContentPage[] = [
       { type: 'h2', text: 'Aireplo pricing' },
       {
         type: 'table',
-        caption: 'One-time project fees, plus GST. Maintenance after handover is billed separately.',
+        caption: 'One-time project fees. Maintenance after handover is billed separately.',
         head: ['Aireplo package', 'One-time price', 'Highlights'],
         rows: packages.map((p) => [p.name, inr(p.price), p.features.slice(1, 4).join('; ')]),
       },
@@ -111,7 +111,7 @@ export const comparePages: ContentPage[] = [
       },
     ],
     faqs: [
-      ['Is Aireplo cheaper than Wati?', `Aireplo charges once (${inr(launch.price)}–${inr(pro.price)} plus GST) instead of every month, so over a few years it usually costs less than a subscription. Maintenance after launch is billed separately, so compare your full quote.`],
+      ['Is Aireplo cheaper than Wati?', `Aireplo charges once (${inr(launch.price)}–${inr(pro.price)}) instead of every month, so over a few years it usually costs less than a subscription. Maintenance after launch is billed separately, so compare your full quote.`],
       ['Can I move my WhatsApp number from Wati to Aireplo?', 'Yes. A WhatsApp Business API number can be moved to your own Meta app. We plan the migration with you, including templates and contacts.'],
       ['Does Aireplo add a markup on WhatsApp messages?', `No. Meta bills message charges directly to your own WhatsApp Business account at Meta’s rates (for India from 1 October 2026: ${META_RATES.marketing} per marketing message and ${META_RATES.utility} per utility message, plus GST).`],
       ['Does Aireplo have an AI agent like Wati’s?', `Yes. Growth and Pro include an AI agent that replies in Hindi and English. On Launch it is a ${inr(ai.price)} one-time add-on.`],
@@ -259,7 +259,7 @@ export const comparePages: ContentPage[] = [
       {
         type: 'ul',
         items: [
-          `**One-time pricing:** ${inr(launch.price)}–${inr(pro.price)} plus GST, no subscription.`,
+          `**One-time pricing:** ${inr(launch.price)}–${inr(pro.price)}, no subscription.`,
           '**AI agent included** in Growth and Pro, without a per-message AI fee on top.',
           '**Your own Meta app** and account, so you are never locked in.',
           '**Meta’s rates for every plan**, billed by Meta to you.',

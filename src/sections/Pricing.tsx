@@ -78,7 +78,7 @@ export function Pricing() {
         <div className="mt-6 flex gap-3 rounded-2xl border border-amber-300/25 bg-amber-300/[0.06] p-4 text-sm text-white/75">
           <Info className="mt-0.5 size-4 shrink-0 text-amber-300" aria-hidden="true" />
           <p>
-            <b className="text-white">One-time charges, maintenance not included.</b> {pricingNote.full.replace('All prices are one-time charges, plus GST. ', 'All prices are plus GST. ')} {pricingNote.meta}
+            <b className="text-white">One-time charges, maintenance not included.</b> {pricingNote.full.replace('All prices are one-time charges. ', '')} {pricingNote.meta}
           </p>
         </div>
 

@@ -50,7 +50,7 @@ function Calculator() {
           <div className="flex justify-between gap-2 sm:block"><p className="text-white/50">You keep per client</p><p className="font-semibold text-brand tabular-nums">{inr(margin)}</p></div>
         </div>
         <p className="text-xs text-white/40">
-          {brand.name} charges partners {inr(partner.perClientSetup)} one-time per client setup, plus GST. Maintenance for each client is not included and is billed separately. Meta bills WhatsApp messages directly to your client.
+          {brand.name} charges partners {inr(partner.perClientSetup)} one-time per client setup. Maintenance for each client is not included and is billed separately. Meta bills WhatsApp messages directly to your client.
         </p>
       </div>
       <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-brand/40 bg-gradient-to-b from-brand/[0.14] to-panel p-6 sm:p-8">

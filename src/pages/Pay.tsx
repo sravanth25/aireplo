@@ -107,7 +107,7 @@ export function Pay() {
                   <span className="text-xs font-medium text-white/60">For</span>
                   <input className={cn(field, 'mt-1.5')} placeholder="e.g. Extra integration" maxLength={40} value={what} onChange={(e) => setWhat(e.target.value)} />
                 </label>
-                <p className="text-xs text-white/40 sm:col-span-2">Enter the full amount from your quote, including GST if it applies.</p>
+                <p className="text-xs text-white/40 sm:col-span-2">Enter the amount from your quote.</p>
               </div>
             )}
 

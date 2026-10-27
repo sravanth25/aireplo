@@ -27,7 +27,7 @@ export function Estimator() {
   }, [pkg, on, qty])
   const total = lines.reduce((s, l) => s + l.price, 0)
 
-  const message = `Hi! I'd like a quote for:\n${lines.map((l) => `• ${l.name}: ${inr(l.price)}`).join('\n')}\nEstimated total: ${inr(total)} one-time + GST`
+  const message = `Hi! I'd like a quote for:\n${lines.map((l) => `• ${l.name}: ${inr(l.price)}`).join('\n')}\nEstimated total: ${inr(total)} one-time`
 
   return (
     <section id="estimator" className="scroll-mt-20 py-24">
