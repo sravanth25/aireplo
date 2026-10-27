@@ -10,8 +10,9 @@ import { Tools } from './pages/Tools'
 import { Inbox } from './pages/Inbox'
 import { Content } from './pages/Content'
 import { NotFound } from './pages/NotFound'
+import { Pay } from './pages/Pay'
 
-registerPages({ home: Home, partners: Partners, tools: Tools, inbox: Inbox, content: Content, notfound: NotFound })
+registerPages({ home: Home, partners: Partners, tools: Tools, inbox: Inbox, content: Content, notfound: NotFound, pay: Pay })
 
 export function render(path: string) {
   setServerPath(path)

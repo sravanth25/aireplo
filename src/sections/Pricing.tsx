@@ -43,6 +43,9 @@ export function Pricing() {
                   >
                     Get {p.name}
                   </a>
+                  <a href={`/pay?plan=${p.id}`} className="mt-2.5 block text-center text-xs text-white/45 hover:text-white">
+                    Already confirmed? <span className="underline underline-offset-2">Pay now by UPI</span>
+                  </a>
                 </div>
               </div>
             </Reveal>

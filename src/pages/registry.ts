@@ -12,6 +12,7 @@ export const pageSources: Record<Page, string> = {
   tools: 'src/pages/Tools.tsx',
   inbox: 'src/pages/Inbox.tsx',
   content: 'src/pages/Content.tsx',
+  pay: 'src/pages/Pay.tsx',
   notfound: 'src/pages/NotFound.tsx',
 }
 
@@ -21,6 +22,7 @@ const loaders: Record<Page, () => Promise<PageComponent>> = {
   tools: () => import('./Tools').then((m) => m.Tools),
   inbox: () => import('./Inbox').then((m) => m.Inbox),
   content: () => import('./Content').then((m) => m.Content),
+  pay: () => import('./Pay').then((m) => m.Pay),
   notfound: () => import('./NotFound').then((m) => m.NotFound),
 }
 

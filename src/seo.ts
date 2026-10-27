@@ -218,6 +218,13 @@ export const routes: Route[] = [
     prerender: false,
   },
   {
+    path: '/pay',
+    file: 'pay.html',
+    title: `Pay ${brand.name} by UPI`,
+    description: `Pay for your ${brand.name} package or add-ons by UPI: choose the amount and scan the QR code with Google Pay, PhonePe, Paytm or any UPI app.`,
+    noindex: true,
+  },
+  {
     path: '/404',
     file: '404.html',
     title: `Page not found | ${brand.name}`,

@@ -10,6 +10,7 @@ const product: [string, string][] = [
   ['Partner program', '/partners'],
   ['Free WhatsApp tools', '/tools'],
   ['Contact', '/#contact'],
+  ['Pay online', '/pay'],
   ['Team inbox', '/inbox'],
 ]
 
