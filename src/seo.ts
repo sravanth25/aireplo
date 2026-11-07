@@ -13,7 +13,7 @@ import { contentPages, hubOfKind, hubs, pagesOfKind, plain, type Block, type Con
 
 const site = brand.siteUrl.replace(/\/$/, '')
 const abs = (path: string) => site + path
-const phone = '+' + brand.whatsapp
+const phone = '+' + brand.phone
 
 type Json = Record<string, unknown>
 
@@ -427,7 +427,7 @@ export function homeMd(): string {
 
 > ${brand.name} sets up the official WhatsApp Business API (WhatsApp Cloud API by Meta) for Indian businesses and agencies. We build the brand’s own Meta app, connect its WhatsApp number and deliver a branded dashboard with a team inbox, broadcasts, chatbots and an AI agent. Brands pay a one-time fee of ${inr(plan.price)}, plus ${inr(featurePrice)} for each extra feature, instead of a monthly subscription, and they own their Meta app, WhatsApp account and data.
 
-Website: ${abs('/')} · WhatsApp: ${brand.whatsappDisplay} · Email: ${brand.email} · Slogan: “${brand.slogan}”
+Website: ${abs('/')} · WhatsApp: ${brand.whatsappDisplay} · Phone: ${brand.phoneDisplay} · Email: ${brand.email} · Slogan: “${brand.slogan}”
 
 ## What makes ${brand.name} different
 - **Pay once, no monthly subscription.** Competitors such as Wati, AiSensy and Interakt charge every month; ${brand.name} charges a one-time project fee.
@@ -468,6 +468,7 @@ ${faqs.map(([q, a]) => `### ${q}\n${a}`).join('\n\n')}
 
 ## Contact
 - WhatsApp: ${brand.whatsappDisplay} (wa.me/${brand.whatsapp})
+- Phone: ${brand.phoneDisplay}
 - Email: ${brand.email}
 - Requirements form and project estimator: ${abs('/#contact')}, ${abs('/#estimator')}
 - Enterprise enquiries: ${abs('/#enterprise')}

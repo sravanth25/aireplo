@@ -6,6 +6,9 @@ export const brand = {
   // WhatsApp number (country code, digits only) that receives requirement forms
   whatsapp: '17112330377',
   email: 'sanasravanth25@gmail.com',
+  // phone number for calls (country code, digits only) and how it is shown
+  phone: '917684865330',
+  phoneDisplay: '+91 76848 65330',
   slogan: 'Sell. Support. Reply on WhatsApp.',
   // How the number is shown on the site
   whatsappDisplay: '+1 711-233-0377',

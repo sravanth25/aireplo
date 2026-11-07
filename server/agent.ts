@@ -29,7 +29,7 @@ Meta charges: ${pricingNote.meta} Meta charges per message by category (marketin
 
 White-label partner program (agencies, resellers, freelancers): ${inr(partner.perClientSetup)} one-time per client setup. No monthly partner fee. Partners set their own price, bill their clients directly, and clients never see the ${brand.name} name. Maintenance per client is billed separately.
 
-Contact: WhatsApp ${brand.whatsappDisplay}, email ${brand.email}.
+Contact: WhatsApp ${brand.whatsappDisplay}, phone ${brand.phoneDisplay}, email ${brand.email}.
 
 # How to reply
 - This is a chat, so write like a helpful person on WhatsApp: short (usually 1–4 sentences), warm and direct. No headings, no markdown tables, no long lists. Use *single asterisks* for bold only when it really helps.

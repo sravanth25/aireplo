@@ -1,3 +1,4 @@
+import { Mail, Phone } from 'lucide-react'
 import { brand } from '@/brand'
 import { Logo } from '@/components/Logo'
 import { contentLinks } from '@/content/links'
@@ -27,6 +28,14 @@ export function Footer() {
           <Logo />
           <p className="mt-3 text-xs font-semibold tracking-[0.18em] text-white/70 uppercase">{brand.slogan}</p>
           <p className="mt-2 max-w-xs text-sm text-white/45">{brand.tagline}.</p>
+          <ul className="mt-5 space-y-2 text-sm text-white/60" aria-label="Contact details">
+            <li>
+              <a href={`tel:+${brand.phone}`} className="inline-flex items-center gap-2 hover:text-white"><Phone className="size-4 shrink-0 text-brand" aria-hidden="true" />{brand.phoneDisplay}</a>
+            </li>
+            <li>
+              <a href={`mailto:${brand.email}`} className="inline-flex items-center gap-2 break-all hover:text-white"><Mail className="size-4 shrink-0 text-brand" aria-hidden="true" />{brand.email}</a>
+            </li>
+          </ul>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:contents">
           {columns.map((c) => (
