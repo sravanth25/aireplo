@@ -1,7 +1,7 @@
 // Search and AI visibility for every page: titles, descriptions, structured data (JSON-LD),
 // plus the generated robots.txt, sitemap.xml, llms.txt, llms-full.txt and markdown page copies.
 // Everything reads from brand.ts, so prices and contact details stay in sync with the site.
-import { addOns, brand, enterprise, inr, packages, partner, pricingNote, setupOnly } from './brand'
+import { brand, enterprise, extras, featurePrice, inr, partner, plan, pricingNote } from './brand'
 import { faqs } from './sections/Faq'
 import { partnerFaqs } from './pages/Partners'
 import { compareRows } from './sections/Compare'
@@ -93,10 +93,10 @@ const service = (): Json => ({
   audience: { '@type': 'BusinessAudience', audienceType: 'Small and medium businesses, D2C brands, clinics, institutes, agencies' },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: `${brand.name} one-time packages`,
+    name: `${brand.name} one-time pricing`,
     itemListElement: [
-      ...packages.map((p) => offer(`${p.name} package`, p.price, `${p.for}. ${p.features.join('; ')}.`)),
-      offer(setupOnly.name, setupOnly.price, setupOnly.features.join('; ') + '. No dashboard.'),
+      offer(plan.name, plan.price, `${plan.for}. ${plan.features.join('; ')}.`),
+      offer('Extra feature', featurePrice, `Each extra feature, one-time: ${extras.map((e) => e.name + (e.unit ? ` (per ${e.unit})` : '')).join('; ')}.`),
       { '@type': 'Offer', name: `${enterprise.name} package`, description: `Custom one-time pricing. ${enterprise.features.join('; ')}.`, seller: { '@id': ORG_ID } },
     ],
   },
@@ -151,9 +151,10 @@ export const routes: Route[] = [
     path: '/',
     file: 'index.html',
     title: 'WhatsApp Business API Setup, One-Time Fee | Aireplo',
-    description: `Official WhatsApp Business API for your brand: your own Meta app, AI agent, team inbox and broadcasts, set up for you. One-time from ${inr(packages[0].price)}, no monthly fee.`,
+    description: `Official WhatsApp Business API for your brand: your own Meta app, team inbox and broadcasts, set up for you. ${inr(plan.price)} one-time, extras ${inr(featurePrice)} each.`,
     md: '/index.md',
     priority: 1,
+    card: { eyebrow: 'Official WhatsApp Business API', heading: 'WhatsApp Business API, under your brand' },
     schema: () => [service(), faqPage(abs('/#faq'), faqs)],
   },
   {
@@ -221,7 +222,7 @@ export const routes: Route[] = [
     path: '/pay',
     file: 'pay.html',
     title: `Pay ${brand.name} by UPI`,
-    description: `Pay for your ${brand.name} package or add-ons by UPI: choose the amount and scan the QR code with Google Pay, PhonePe, Paytm or any UPI app.`,
+    description: `Pay for your ${brand.name} package or extra features by UPI: choose the amount and scan the QR code with Google Pay, PhonePe, Paytm or any UPI app.`,
     noindex: true,
   },
   {
@@ -250,7 +251,7 @@ function contentSchema(p: ContentPage): Json[] {
         provider: { '@id': ORG_ID },
         areaServed: { '@type': 'Country', name: 'India' },
         audience: { '@type': 'BusinessAudience', audienceType: p.name },
-        offers: packages.map((pk) => offer(`${pk.name} package`, pk.price, pk.for)),
+        offers: [offer(plan.name, plan.price, plan.for), offer('Extra feature', featurePrice, 'Each extra feature, one-time')],
       },
       ...faqSchema(p.path, p.faqs),
     ]
@@ -326,7 +327,7 @@ export const routeFor = (path: string) => routes.find((r) => r.path === path.rep
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 /** Share image for a page: its own card if it has one, else the site-wide image */
-export const ogImagePath = (r: Pick<Route, 'path' | 'card'>) => (r.card ? `/og/${r.path.slice(1).replace(/\//g, '-')}.png` : '/og-image.png')
+export const ogImagePath = (r: Pick<Route, 'path' | 'card'>) => (r.card ? `/og/${r.path === '/' ? 'home' : r.path.slice(1).replace(/\//g, '-')}.png` : '/og-image.png')
 const imageFor = (path: string) => {
   const r = routes.find((x) => x.path === path)
   return abs(r ? ogImagePath(r) : '/og-image.png')
@@ -354,7 +355,7 @@ export function headFor(r: Route): string {
     `<meta property="og:image" content="${abs(ogImagePath(r))}" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
-    `<meta property="og:image:alt" content="${esc(r.card ? `${r.card.heading} | ${brand.name}` : `${brand.name}: WhatsApp marketing, under your brand. One-time from ${inr(packages[0].price)}.`)}" />`,
+    `<meta property="og:image:alt" content="${esc(r.card ? `${r.card.heading} | ${brand.name}` : `${brand.name}: WhatsApp marketing, under your brand. One-time ${inr(plan.price)}.`)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${esc(r.title)}" />`,
     `<meta name="twitter:description" content="${esc(r.description)}" />`,
@@ -412,15 +413,19 @@ ${entries.map(([p, pr]) => `  <url><loc>${abs(p)}</loc><lastmod>${day}</lastmod>
 }
 
 // ---------- markdown for AI agents ----------
-const pkgLines = () =>
-  packages
-    .map((p) => `### ${p.name}: ${inr(p.price)} one-time\nFor ${p.for.toLowerCase()}.\n${p.features.map((f) => `- ${f}`).join('\n')}`)
-    .join('\n\n')
+const pkgLines = () => `### ${plan.name}: ${inr(plan.price)} one-time (the only package)
+For ${plan.for.toLowerCase()}.
+${plan.features.map((f) => `- ${f}`).join('\n')}
+
+### Extra features: ${inr(featurePrice)} each (one-time)
+${extras.map((e) => `- ${e.name}${e.unit ? ` (per ${e.unit})` : ''}`).join('\n')}
+- Example: the package plus an AI agent and 2 chatbot flows = ${inr(plan.price + 3 * featurePrice)}.
+- Anything not listed: quoted by the team.`
 
 export function homeMd(): string {
   return `# ${brand.name}: WhatsApp Business API setup with a one-time fee
 
-> ${brand.name} sets up the official WhatsApp Business API (WhatsApp Cloud API by Meta) for Indian businesses and agencies. We build the brand’s own Meta app, connect its WhatsApp number and deliver a branded dashboard with a team inbox, broadcasts, chatbots and an AI agent. Brands pay a one-time project fee from ${inr(packages[0].price)} instead of a monthly subscription, and they own their Meta app, WhatsApp account and data.
+> ${brand.name} sets up the official WhatsApp Business API (WhatsApp Cloud API by Meta) for Indian businesses and agencies. We build the brand’s own Meta app, connect its WhatsApp number and deliver a branded dashboard with a team inbox, broadcasts, chatbots and an AI agent. Brands pay a one-time fee of ${inr(plan.price)}, plus ${inr(featurePrice)} for each extra feature, instead of a monthly subscription, and they own their Meta app, WhatsApp account and data.
 
 Website: ${abs('/')} · WhatsApp: ${brand.whatsappDisplay} · Email: ${brand.email} · Slogan: “${brand.slogan}”
 
@@ -451,14 +456,6 @@ ${pkgLines()}
 For ${enterprise.for.toLowerCase()}.
 ${enterprise.features.map((f) => `- ${f}`).join('\n')}
 
-### ${setupOnly.name}: ${inr(setupOnly.price)} one-time
-${setupOnly.features.map((f) => `- ${f}`).join('\n')}
-- No dashboard; upgrade to a package any time.
-
-### Add-ons (one-time)
-${addOns.map((a) => `- ${a.name}: ${inr(a.price)}${a.unit ? ` per ${a.unit}` : ''}`).join('\n')}
-- Anything custom: quoted after a call.
-
 **Important:** ${pricingNote.full} ${pricingNote.meta}
 
 ## ${brand.name} vs typical WhatsApp platforms
@@ -487,7 +484,7 @@ export function partnersMd(): string {
 - Clients never see the ${brand.name} name: their logo, colors, domain, login page, emails and invoices.
 - Meta bills WhatsApp messages directly to each client’s own account.
 - Who it’s for: digital marketing agencies, software resellers and IT firms, freelancers and consultants, franchises and business groups.
-- Example: a partner charging clients ${inr(49999)} keeps ${inr(49999 - partner.perClientSetup)} per client.
+- Example: a partner charging clients ${inr(20000)} keeps ${inr(20000 - partner.perClientSetup)} per client.
 
 ## Partner FAQ
 ${partnerFaqs.map(([q, a]) => `### ${q}\n${a}`).join('\n\n')}
@@ -575,11 +572,11 @@ const contentSectionsMd = () =>
 export function llmsTxt(): string {
   return `# ${brand.name}
 
-> ${brand.name} sets up the official WhatsApp Business API for Indian businesses with a one-time fee instead of a monthly subscription. We build the brand’s own Meta app, connect its WhatsApp number, and deliver a branded dashboard with a team inbox, broadcasts, chatbots and a Hindi/English AI agent. The brand owns its Meta app, number and data. Packages start at ${inr(packages[0].price)} one-time; maintenance is billed separately; Meta bills WhatsApp messages directly with no markup.
+> ${brand.name} sets up the official WhatsApp Business API for Indian businesses with a one-time fee instead of a monthly subscription. We build the brand’s own Meta app, connect its WhatsApp number, and deliver a branded dashboard with a team inbox, broadcasts, chatbots and a Hindi/English AI agent. The brand owns its Meta app, number and data. One package at ${inr(plan.price)} one-time, extra features ${inr(featurePrice)} each; maintenance is billed separately; Meta bills WhatsApp messages directly with no markup.
 
 Key facts:
 - Business model: one-time project fee, no monthly subscription (unlike subscription platforms such as Wati, AiSensy and Interakt).
-- Packages (one-time): ${packages.map((p) => `${p.name} ${inr(p.price)}`).join(', ')}; ${enterprise.name}: custom pricing; ${setupOnly.name} only: ${inr(setupOnly.price)}.
+- Pricing (one-time): ${plan.name} ${inr(plan.price)}; each extra feature ${inr(featurePrice)}; ${enterprise.name}: custom pricing.
 - Maintenance after handover (hosting, updates, support) is not included and is billed separately.
 - White-label partner program for agencies: ${inr(partner.perClientSetup)} one-time per client, no monthly partner fee.
 - Serves India; replies in English, Hindi, Hinglish and other Indian languages.

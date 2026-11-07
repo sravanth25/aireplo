@@ -1,11 +1,11 @@
-import { addOns, inr, packages } from '../brand'
+import { extras, featurePrice, inr, plan } from '../brand'
 import type { ContentPage, Hub } from './types'
 
 // Competitor facts were read from each company's own pricing page on 22 October 2026.
 // Re-check them before changing this file; pricing pages change often.
 const CHECKED = '2026-10-22'
-const [launch, growth, pro] = packages
-const ai = addOns.find((a) => a.id === 'ai')!
+// the package plus n extra features
+const withExtras = (n: number) => inr(plan.price + n * featurePrice)
 
 const META_RATES = { marketing: '₹0.8631', utility: '₹0.115', authentication: '₹0.115', service: '₹0.115' }
 const META_SOURCE = { label: 'Meta: WhatsApp Business Platform pricing and INR rate card (effective 1 October 2026)', url: 'https://developers.facebook.com/docs/whatsapp/pricing/' }
@@ -37,17 +37,17 @@ export const comparePages: ContentPage[] = [
     kind: 'compare',
     name: 'Wati alternative',
     title: 'Wati Alternative with One-Time Pricing (2026) | Aireplo',
-    description: `Looking for a Wati alternative in India? Compare Wati’s monthly plans with Aireplo’s one-time WhatsApp API setup from ${inr(launch.price)}, where you own your Meta app.`,
+    description: `Looking for a Wati alternative in India? Compare Wati’s monthly plans with Aireplo’s one-time WhatsApp API setup for ${inr(plan.price)}, where you own your Meta app.`,
     eyebrow: 'Aireplo vs Wati',
     h1: 'A Wati alternative you pay for once',
-    intro: `Wati is a popular WhatsApp Business API platform with monthly subscriptions in US dollars. Aireplo is different: we set up the official WhatsApp Business API for your business, build your own Meta app and branded dashboard, and charge a one-time fee from ${inr(launch.price)}. Here is how they compare.`,
+    intro: `Wati is a popular WhatsApp Business API platform with monthly subscriptions in US dollars. Aireplo is different: we set up the official WhatsApp Business API for your business, build your own Meta app and branded dashboard, and charge a one-time fee of ${inr(plan.price)}, plus ${inr(featurePrice)} for each extra feature. Here is how they compare.`,
     published: CHECKED,
     updated: CHECKED,
     blocks: [
       { type: 'h2', text: 'Quick answer' },
       {
         type: 'p',
-        text: `Choose **Wati** if you want a self-serve, ready-made platform with a large feature set and you are happy to pay every month. Choose **Aireplo** if you want the setup done for you, want to own your Meta app and WhatsApp account, and prefer a one-time project fee (${inr(launch.price)}–${inr(pro.price)}, plus GST) over a subscription.`,
+        text: `Choose **Wati** if you want a self-serve, ready-made platform with a large feature set and you are happy to pay every month. Choose **Aireplo** if you want the setup done for you, want to own your Meta app and WhatsApp account, and prefer a one-time fee (${inr(plan.price)}, extras ${inr(featurePrice)} each) over a subscription.`,
       },
       { type: 'h2', text: 'Wati pricing (as listed on wati.io)' },
       {
@@ -74,15 +74,18 @@ export const comparePages: ContentPage[] = [
       {
         type: 'table',
         caption: 'One-time project fees. Maintenance after handover is billed separately.',
-        head: ['Aireplo package', 'One-time price', 'Highlights'],
-        rows: packages.map((p) => [p.name, inr(p.price), p.features.slice(1, 4).join('; ')]),
+        head: ['What you pay for', 'One-time price', 'What it covers'],
+        rows: [
+          [plan.name, inr(plan.price), plan.features.slice(1, 5).join('; ')],
+          ['Each extra feature', inr(featurePrice), extras.slice(0, 5).map((e) => e.name).join('; ') + ' and more'],
+        ],
       },
       { type: 'h2', text: 'Renting vs owning: side by side' },
       { type: 'table', head: ['', 'Aireplo', 'Wati'], rows: ownershipRows('Wati: from $59/month billed annually') },
       { type: 'h2', text: 'What it costs over three years' },
       {
         type: 'p',
-        text: `On Wati’s Pro plan billed annually, the platform fee is **$1,428 a year, or $4,284 over three years**, before message charges, extra users or add-ons. Aireplo’s Growth package is **${inr(growth.price)} once** and includes an AI agent, three chatbot flows and one integration. Maintenance after handover is quoted separately, so ask for it with your estimate to compare the full picture.`,
+        text: `On Wati’s Pro plan billed annually, the platform fee is **$1,428 a year, or $4,284 over three years**, before message charges, extra users or add-ons. Aireplo’s package with an AI agent, three chatbot flows and one integration added is **${withExtras(5)} once** (${inr(plan.price)} + 5 extra features at ${inr(featurePrice)}). Maintenance after handover is quoted separately, so ask for it with your estimate to compare the full picture.`,
       },
       { type: 'h2', text: 'Where Wati is stronger' },
       {
@@ -111,10 +114,10 @@ export const comparePages: ContentPage[] = [
       },
     ],
     faqs: [
-      ['Is Aireplo cheaper than Wati?', `Aireplo charges once (${inr(launch.price)}–${inr(pro.price)}) instead of every month, so over a few years it usually costs less than a subscription. Maintenance after launch is billed separately, so compare your full quote.`],
+      ['Is Aireplo cheaper than Wati?', `Aireplo charges once (${inr(plan.price)}, plus ${inr(featurePrice)} per extra feature) instead of every month, so over a few years it usually costs less than a subscription. Maintenance after launch is billed separately, so compare your full quote.`],
       ['Can I move my WhatsApp number from Wati to Aireplo?', 'Yes. A WhatsApp Business API number can be moved to your own Meta app. We plan the migration with you, including templates and contacts.'],
       ['Does Aireplo add a markup on WhatsApp messages?', `No. Meta bills message charges directly to your own WhatsApp Business account at Meta’s rates (for India from 1 October 2026: ${META_RATES.marketing} per marketing message and ${META_RATES.utility} per utility message, plus GST).`],
-      ['Does Aireplo have an AI agent like Wati’s?', `Yes. Growth and Pro include an AI agent that replies in Hindi and English. On Launch it is a ${inr(ai.price)} one-time add-on.`],
+      ['Does Aireplo have an AI agent like Wati’s?', `Yes. The AI agent replies in Hindi and English and is an extra feature: ${inr(featurePrice)} one-time on top of the ${inr(plan.price)} package.`],
     ],
     sources: [
       { label: 'Wati pricing page (wati.io/pricing)', url: 'https://www.wati.io/pricing/' },
@@ -130,7 +133,7 @@ export const comparePages: ContentPage[] = [
     description: 'Compare AiSensy’s monthly plans and per-message rates with Aireplo’s one-time WhatsApp API setup, where Meta bills you directly at its own rates.',
     eyebrow: 'Aireplo vs AiSensy',
     h1: 'An AiSensy alternative with no monthly fee',
-    intro: `AiSensy is one of India’s best-known WhatsApp marketing platforms, with a free plan and monthly paid plans in rupees. Aireplo sets up the WhatsApp Business API for you, on your own Meta app, for a one-time fee from ${inr(launch.price)}. Here is a fair comparison.`,
+    intro: `AiSensy is one of India’s best-known WhatsApp marketing platforms, with a free plan and monthly paid plans in rupees. Aireplo sets up the WhatsApp Business API for you, on your own Meta app, for a one-time fee of ${inr(plan.price)}, plus ${inr(featurePrice)} per extra feature. Here is a fair comparison.`,
     published: CHECKED,
     updated: CHECKED,
     blocks: [
@@ -179,7 +182,7 @@ export const comparePages: ContentPage[] = [
       { type: 'h2', text: 'A like-for-like example' },
       {
         type: 'p',
-        text: `AiSensy Pro with the AI Chat Agent and Chatbot Flows add-ons costs **₹7,050 a month** (₹3,200 + ₹1,350 + ₹2,500), or **₹84,600 a year**, plus GST and message charges. Aireplo’s Growth package, which includes an AI agent and three chatbot flows, is **${inr(growth.price)} once**, plus GST. Maintenance after handover is quoted separately.`,
+        text: `AiSensy Pro with the AI Chat Agent and Chatbot Flows add-ons costs **₹7,050 a month** (₹3,200 + ₹1,350 + ₹2,500), or **₹84,600 a year**, plus GST and message charges. Aireplo’s package with an AI agent and three chatbot flows added is **${withExtras(4)} once** (${inr(plan.price)} + 4 extra features at ${inr(featurePrice)}). Maintenance after handover is quoted separately.`,
       },
       { type: 'h2', text: 'Renting vs owning: side by side' },
       { type: 'table', head: ['', 'Aireplo', 'AiSensy'], rows: ownershipRows('AiSensy: from ₹1,500/month') },
@@ -205,7 +208,7 @@ export const comparePages: ContentPage[] = [
     ],
     faqs: [
       ['Why are AiSensy’s message rates higher than Meta’s?', `AiSensy lists ₹1.09 per marketing message and ₹0.145 for utility, authentication and service messages in India. Meta’s own INR rates from 1 October 2026 are ${META_RATES.marketing} and ${META_RATES.utility}. With Aireplo, Meta bills you directly at its own rates.`],
-      ['Is there a free plan like AiSensy’s?', `No. Aireplo is a done-for-you setup with a one-time fee from ${inr(launch.price)}. If you only need the WhatsApp API connected, the setup-only option is ₹9,999.`],
+      ['Is there a free plan like AiSensy’s?', `No. Aireplo is a done-for-you setup with a one-time fee of ${inr(plan.price)}, which includes your own Meta app, a branded inbox and broadcasts. Extra features are ${inr(featurePrice)} each.`],
       ['Can I switch from AiSensy to Aireplo?', 'Yes. We move your WhatsApp number to your own Meta app and help you recreate templates and import contacts.'],
     ],
     sources: [
@@ -222,7 +225,7 @@ export const comparePages: ContentPage[] = [
     description: 'Compare Interakt’s monthly WhatsApp plans and AI add-ons with Aireplo’s one-time WhatsApp Business API setup, your own Meta app and a branded dashboard.',
     eyebrow: 'Aireplo vs Interakt',
     h1: 'An Interakt alternative you own',
-    intro: `Interakt offers WhatsApp and Instagram plans billed in US dollars, plus AI agents and a sales CRM as separate products. Aireplo sets up the WhatsApp Business API on your own Meta app with a branded dashboard for a one-time fee from ${inr(launch.price)}.`,
+    intro: `Interakt offers WhatsApp and Instagram plans billed in US dollars, plus AI agents and a sales CRM as separate products. Aireplo sets up the WhatsApp Business API on your own Meta app with a branded dashboard for a one-time fee of ${inr(plan.price)}.`,
     published: CHECKED,
     updated: CHECKED,
     blocks: [
@@ -259,8 +262,8 @@ export const comparePages: ContentPage[] = [
       {
         type: 'ul',
         items: [
-          `**One-time pricing:** ${inr(launch.price)}–${inr(pro.price)}, no subscription.`,
-          '**AI agent included** in Growth and Pro, without a per-message AI fee on top.',
+          `**One-time pricing:** ${inr(plan.price)}, plus ${inr(featurePrice)} per extra feature, no subscription.`,
+          `**AI agent for ${inr(featurePrice)} once**, without a monthly or per-message AI fee on top.`,
           '**Your own Meta app** and account, so you are never locked in.',
           '**Meta’s rates for every plan**, billed by Meta to you.',
         ],
@@ -268,7 +271,7 @@ export const comparePages: ContentPage[] = [
     ],
     faqs: [
       ['Does Aireplo support Instagram like Interakt?', 'Aireplo focuses on the WhatsApp Business API. If you need Instagram, tell us in your requirements and we will quote it as a custom add-on.'],
-      ['Is the AI agent extra on Aireplo?', `It is included in Growth (${inr(growth.price)}) and Pro (${inr(pro.price)}). On Launch it is a ${inr(ai.price)} one-time add-on.`],
+      ['Is the AI agent extra on Aireplo?', `It is an extra feature: ${inr(featurePrice)} one-time on top of the ${inr(plan.price)} package. There is no monthly AI fee.`],
     ],
     sources: [{ label: 'Interakt pricing page (interakt.shop/pricing)', url: 'https://www.interakt.shop/pricing/' }, META_SOURCE],
     related: ['/compare/wati-alternative', '/compare/aisensy-alternative', '/blog/whatsapp-business-app-vs-api'],

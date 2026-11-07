@@ -36,14 +36,14 @@ function Slider({ id, label, value, min, max, step, onChange, format }: { id: st
 
 function Calculator() {
   const [clients, setClients] = useState(4)
-  const [price, setPrice] = useState(49999)
+  const [price, setPrice] = useState(20000)
   const margin = price - partner.perClientSetup
   const monthly = clients * margin
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px]">
       <div className="min-w-0 space-y-8 rounded-2xl border border-line bg-panel p-6 sm:p-8">
         <Slider id="clients" label="Clients you sign each month" value={clients} min={1} max={30} step={1} onChange={setClients} format={(v) => String(v)} />
-        <Slider id="price" label="What you charge each client (one-time)" value={price} min={30000} max={150000} step={1000} onChange={setPrice} format={inr} />
+        <Slider id="price" label="What you charge each client (one-time)" value={price} min={15000} max={60000} step={500} onChange={setPrice} format={inr} />
         <div className="grid gap-3 border-t border-line pt-6 text-sm sm:grid-cols-3">
           <div className="flex justify-between gap-2 sm:block"><p className="text-white/50">You charge</p><p className="font-semibold text-white tabular-nums">{inr(price)}</p></div>
           <div className="flex justify-between gap-2 sm:block"><p className="text-white/50">You pay {brand.name}</p><p className="font-semibold text-white tabular-nums">{inr(partner.perClientSetup)}</p></div>

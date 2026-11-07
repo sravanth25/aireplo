@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Check, Minus, Plus } from 'lucide-react'
-import { addOns, inr, packages, pricingNote, type Package } from '@/brand'
+import { extras, featurePrice, inr, plan, pricingNote } from '@/brand'
 import { waLink } from '@/lib/whatsapp'
 import { SectionHeading } from '@/components/ui/section'
 import { NumberTicker } from '@/components/ui/number-ticker'
@@ -8,23 +8,21 @@ import { BorderBeam } from '@/components/ui/border-beam'
 import { cn } from '@/lib/utils'
 
 export function Estimator() {
-  const [pkgId, setPkgId] = useState<Package['id']>('growth')
   const [on, setOn] = useState<Record<string, boolean>>({})
   const [qty, setQty] = useState<Record<string, number>>({})
-  const pkg = packages.find((p) => p.id === pkgId)!
 
   const lines = useMemo(() => {
-    const out: { name: string; price: number }[] = [{ name: `${pkg.name} package`, price: pkg.price }]
-    for (const a of addOns) {
-      if (a.qty) {
-        const n = qty[a.id] ?? 0
-        if (n > 0) out.push({ name: `${a.name} × ${n}`, price: a.price * n })
-      } else if (on[a.id] && !(a.include && pkg.includes.includes(a.include))) {
-        out.push({ name: a.name, price: a.price })
+    const out: { name: string; price: number }[] = [{ name: plan.name, price: plan.price }]
+    for (const e of extras) {
+      if (e.unit) {
+        const n = qty[e.id] ?? 0
+        if (n > 0) out.push({ name: `${e.name} × ${n}`, price: featurePrice * n })
+      } else if (on[e.id]) {
+        out.push({ name: e.name, price: featurePrice })
       }
     }
     return out
-  }, [pkg, on, qty])
+  }, [on, qty])
   const total = lines.reduce((s, l) => s + l.price, 0)
 
   const message = `Hi! I'd like a quote for:\n${lines.map((l) => `• ${l.name}: ${inr(l.price)}`).join('\n')}\nEstimated total: ${inr(total)} one-time`
@@ -32,68 +30,64 @@ export function Estimator() {
   return (
     <section id="estimator" className="scroll-mt-20 py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading eyebrow="Project estimator" title="See your price before we talk" sub="Pick a package, add what you need, and send it to us on WhatsApp." />
+        <SectionHeading
+          eyebrow="Price builder"
+          title="See your price before we talk"
+          sub={`Start with the ${inr(plan.price)} package, add the features you need at ${inr(featurePrice)} each, and send it to us on WhatsApp.`}
+        />
         <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
           <div className="min-w-0 space-y-6">
-            <fieldset>
-              <legend className="mb-3 text-sm font-medium text-white/70">1. Choose a package</legend>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {packages.map((p) => (
-                  <button
-                    key={p.id}
-                    onClick={() => setPkgId(p.id)}
-                    aria-pressed={pkgId === p.id}
-                    className={cn('rounded-xl border p-4 text-left transition-colors', pkgId === p.id ? 'border-brand/60 bg-brand/[0.08]' : 'border-line bg-panel hover:border-white/20')}
-                  >
-                    <span className="block text-sm font-semibold text-white">{p.name}</span>
-                    <span className="mt-1 block text-lg font-bold text-white tabular-nums">{inr(p.price)}</span>
-                    <span className="block text-xs text-white/45">{p.for}</span>
-                  </button>
-                ))}
-              </div>
-            </fieldset>
+            <div className="flex items-center justify-between gap-4 rounded-xl border border-brand/60 bg-brand/[0.08] p-4">
+              <span className="flex min-w-0 items-center gap-3">
+                <span className="grid size-5 shrink-0 place-items-center rounded-md border border-brand bg-brand text-ink"><Check className="size-3.5" strokeWidth={3} /></span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-semibold text-white">{plan.name}</span>
+                  <span className="block text-xs text-white/50">Setup, your own Meta app, 1 number, branded inbox & broadcasts, 5 templates, 30 days support</span>
+                </span>
+              </span>
+              <span className="shrink-0 text-lg font-bold text-white tabular-nums">{inr(plan.price)}</span>
+            </div>
 
             <fieldset>
-              <legend className="mb-3 text-sm font-medium text-white/70">2. Add what you need</legend>
+              <legend className="mb-3 text-sm font-medium text-white/70">Add extra features: {inr(featurePrice)} each</legend>
               <div className="grid gap-3 sm:grid-cols-2">
-                {addOns.map((a) => {
-                  const included = !!a.include && pkg.includes.includes(a.include)
-                  if (a.qty) {
-                    const n = qty[a.id] ?? 0
+                {extras.map((e) => {
+                  if (e.unit) {
+                    const n = qty[e.id] ?? 0
                     return (
-                      <div key={a.id} className={cn('flex items-center justify-between gap-3 rounded-xl border p-4', n > 0 ? 'border-brand/50 bg-brand/[0.08]' : 'border-line bg-panel')}>
+                      <div key={e.id} className={cn('flex items-center justify-between gap-3 rounded-xl border p-4', n > 0 ? 'border-brand/50 bg-brand/[0.08]' : 'border-line bg-panel')}>
                         <span className="min-w-0">
-                          <span className="block text-sm font-medium text-white">{a.name}</span>
-                          <span className="text-xs text-white/50">+{inr(a.price)} per {a.unit}</span>
+                          <span className="block text-sm font-medium text-white">{e.name}</span>
+                          <span className="text-xs text-white/50">+{inr(featurePrice)} per {e.unit}</span>
                         </span>
                         <span className="flex shrink-0 items-center gap-2">
-                          <button onClick={() => setQty((q) => ({ ...q, [a.id]: Math.max(0, n - 1) }))} className="grid size-8 place-items-center rounded-lg border border-line text-white hover:bg-white/5 disabled:opacity-30" disabled={n === 0} aria-label={`Fewer: ${a.name}`}><Minus className="size-3.5" /></button>
+                          <button onClick={() => setQty((q) => ({ ...q, [e.id]: Math.max(0, n - 1) }))} className="grid size-8 place-items-center rounded-lg border border-line text-white hover:bg-white/5 disabled:opacity-30" disabled={n === 0} aria-label={`Fewer: ${e.name}`}><Minus className="size-3.5" /></button>
                           <span className="w-5 text-center font-semibold text-white tabular-nums">{n}</span>
-                          <button onClick={() => setQty((q) => ({ ...q, [a.id]: Math.min(20, n + 1) }))} className="grid size-8 place-items-center rounded-lg border border-line text-white hover:bg-white/5" aria-label={`More: ${a.name}`}><Plus className="size-3.5" /></button>
+                          <button onClick={() => setQty((q) => ({ ...q, [e.id]: Math.min(20, n + 1) }))} className="grid size-8 place-items-center rounded-lg border border-line text-white hover:bg-white/5" aria-label={`More: ${e.name}`}><Plus className="size-3.5" /></button>
                         </span>
                       </div>
                     )
                   }
-                  const checked = included || !!on[a.id]
+                  const checked = !!on[e.id]
                   return (
                     <button
-                      key={a.id}
-                      disabled={included}
-                      onClick={() => setOn((o) => ({ ...o, [a.id]: !o[a.id] }))}
+                      key={e.id}
+                      onClick={() => setOn((o) => ({ ...o, [e.id]: !o[e.id] }))}
                       aria-pressed={checked}
-                      className={cn('flex items-center justify-between gap-3 rounded-xl border p-4 text-left transition-colors', checked ? 'border-brand/50 bg-brand/[0.08]' : 'border-line bg-panel hover:border-white/20', included && 'cursor-default')}
+                      className={cn('flex items-center justify-between gap-3 rounded-xl border p-4 text-left transition-colors', checked ? 'border-brand/50 bg-brand/[0.08]' : 'border-line bg-panel hover:border-white/20')}
                     >
                       <span className="flex min-w-0 items-center gap-3">
                         <span className={cn('grid size-5 shrink-0 place-items-center rounded-md border', checked ? 'border-brand bg-brand text-ink' : 'border-white/25')}>
                           {checked && <Check className="size-3.5" strokeWidth={3} />}
                         </span>
-                        <span className="text-sm font-medium text-white">{a.name}</span>
+                        <span className="text-sm font-medium text-white">{e.name}</span>
                       </span>
-                      <span className="shrink-0 text-xs text-white/50">{included ? `In ${pkg.name}` : `+${inr(a.price)}`}</span>
+                      <span className="shrink-0 text-xs text-white/50">+{inr(featurePrice)}</span>
                     </button>
                   )
                 })}
               </div>
+              <p className="mt-3 text-xs text-white/40">Need something not listed? Tell us on WhatsApp and we’ll quote it.</p>
             </fieldset>
           </div>
 

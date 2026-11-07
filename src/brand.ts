@@ -33,69 +33,37 @@ export const pricingNote = {
   meta: 'WhatsApp message charges are billed by Meta directly to your own account, at Meta’s rates.',
 }
 
-// Things an add-on can be "included" in
-export type IncludeKey = 'ai' | 'domain' | 'catalog' | 'ads'
-
-export type Package = {
-  id: 'launch' | 'growth' | 'pro'
-  name: string
-  price: number
-  for: string
-  features: string[]
-  includes: IncludeKey[]
-  highlight?: boolean
+// One package for everyone, plus extra features at a flat price each.
+export const plan = {
+  id: 'package',
+  name: 'Aireplo Package',
+  price: 15000,
+  for: 'Any business: shops, D2C brands, clinics, institutes, real estate',
+  features: [
+    'Facebook Business & Meta verification help',
+    'Your own Meta app, built for you',
+    '1 WhatsApp number connected',
+    'Branded dashboard: team inbox & broadcasts',
+    '5 message templates approved',
+    'Team training call',
+    '30 days of support',
+  ],
 }
 
-export const packages: Package[] = [
-  {
-    id: 'launch',
-    name: 'Launch',
-    price: 14999,
-    for: 'Small shops and new brands',
-    includes: [],
-    features: [
-      'Facebook Business & Meta verification help',
-      'Your own Meta app, built for you',
-      '1 WhatsApp number connected',
-      'Branded dashboard: team inbox & broadcasts',
-      '5 message templates approved',
-      'Team training call',
-      '30 days of support',
-    ],
-  },
-  {
-    id: 'growth',
-    name: 'Growth',
-    price: 34999,
-    for: 'Growing D2C brands, clinics, institutes',
-    highlight: true,
-    includes: ['ai', 'domain'],
-    features: [
-      'Everything in Launch',
-      'AI agent in Hindi & English',
-      '3 chatbot flows',
-      '1 integration (Shopify, WooCommerce, Sheets or CRM)',
-      '15 message templates',
-      'Your own domain (app.yourbrand.com)',
-      '90 days of support',
-    ],
-  },
-  {
-    id: 'pro',
-    name: 'Pro',
-    price: 64999,
-    for: 'Established brands',
-    includes: ['ai', 'domain', 'catalog', 'ads'],
-    features: [
-      'Everything in Growth',
-      'WhatsApp catalog & in-chat payments',
-      'Click-to-WhatsApp ads tracking',
-      '3 integrations',
-      '10 chatbot flows',
-      '2 WhatsApp numbers',
-      '6 months of priority support',
-    ],
-  },
+// Price of each extra feature a client asks for (per unit for features with a unit)
+export const featurePrice = 499
+
+// Extra features, each ₹499 (per unit where there is one)
+export const extras: { id: string; name: string; unit?: string }[] = [
+  { id: 'ai', name: 'AI agent (Hindi & English)' },
+  { id: 'flow', name: 'Chatbot flow', unit: 'flow' },
+  { id: 'integration', name: 'Integration (Shopify, WooCommerce, Sheets or CRM)', unit: 'integration' },
+  { id: 'templates', name: '5 more message templates', unit: 'pack' },
+  { id: 'domain', name: 'Your own domain (app.yourbrand.com)' },
+  { id: 'catalog', name: 'Catalog & in-chat payments' },
+  { id: 'ads', name: 'Click-to-WhatsApp ads tracking' },
+  { id: 'number', name: 'Extra WhatsApp number', unit: 'number' },
+  { id: 'support', name: 'Extra month of support', unit: 'month' },
 ]
 
 export const enterprise = {
@@ -110,25 +78,6 @@ export const enterprise = {
     'Support SLA and security review',
   ],
 }
-
-// Entry offer: setup only, no dashboard
-export const setupOnly = {
-  name: 'WhatsApp API Setup',
-  price: 9999,
-  features: ['Facebook Business & Meta verification help', 'Your own Meta app & permanent access', 'WhatsApp number connected & display name approved'],
-}
-
-// Add-ons for the estimator. `include` = already part of some packages; `qty` = can add more than one.
-export const addOns: { id: string; name: string; price: number; include?: IncludeKey; qty?: boolean; unit?: string }[] = [
-  { id: 'ai', name: 'AI agent (Hindi & English)', price: 8000, include: 'ai' },
-  { id: 'catalog', name: 'Catalog & in-chat payments', price: 6000, include: 'catalog' },
-  { id: 'ads', name: 'Click-to-WhatsApp ads tracking', price: 4000, include: 'ads' },
-  { id: 'domain', name: 'Your own domain', price: 2000, include: 'domain' },
-  { id: 'flow', name: 'Extra chatbot flow', price: 2500, qty: true, unit: 'flow' },
-  { id: 'integration', name: 'Extra integration', price: 6000, qty: true, unit: 'integration' },
-  { id: 'number', name: 'Extra WhatsApp number', price: 3000, qty: true, unit: 'number' },
-  { id: 'templates', name: 'Template pack (10)', price: 2000, qty: true, unit: 'pack' },
-]
 
 // What visitors can tick on the requirements form
 export const needs = [
@@ -147,5 +96,5 @@ export const needs = [
 
 // White-label partner program: agencies pay per client setup, then rebrand and resell
 export const partner = {
-  perClientSetup: 24999,
+  perClientSetup: 9999,
 }

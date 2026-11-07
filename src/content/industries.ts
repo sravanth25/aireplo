@@ -1,8 +1,9 @@
-import { inr, packages } from '../brand'
+import { featurePrice, inr, plan } from '../brand'
 import type { ContentPage, Hub } from './types'
 
 const DATE = '2026-10-22'
-const [launch, growth, pro] = packages
+// the package plus n extra features
+const withExtras = (n: number) => inr(plan.price + n * featurePrice)
 
 export const industriesHub: Hub = {
   path: '/industries',
@@ -53,18 +54,19 @@ export const industryPages: ContentPage[] = [
         ],
       },
       { type: 'p', text: 'You can copy ready-made versions from our free [WhatsApp message templates](/tools/whatsapp-message-templates) library.' },
-      { type: 'h2', text: 'Which package fits' },
+      { type: 'h2', text: 'What it costs' },
       {
         type: 'ul',
         items: [
-          `**Growth (${inr(growth.price)} one-time)** for most D2C brands: AI agent, three chatbot flows and one integration such as Shopify or WooCommerce.`,
-          `**Pro (${inr(pro.price)} one-time)** if you want catalog and in-chat payments, Click-to-WhatsApp ads tracking and three integrations.`,
+          `**Start with the ${plan.name} (${inr(plan.price)} one-time):** your own Meta app, team inbox and broadcasts.`,
+          `**Most D2C brands add** an AI agent, three chatbot flows and a Shopify or WooCommerce integration: 5 extra features, **${withExtras(5)}** in total.`,
+          `**Add catalog and in-chat payments or ads tracking** for ${inr(featurePrice)} each.`,
         ],
       },
     ],
     faqs: [
-      ['Does Aireplo work with Shopify and WooCommerce?', 'Yes. One integration is included in Growth and three in Pro. Order and cart events from your store trigger WhatsApp messages automatically.'],
-      ['Can customers pay inside WhatsApp?', 'Yes, with the catalog and in-chat payments add-on (included in Pro), using Razorpay.'],
+      ['Does Aireplo work with Shopify and WooCommerce?', `Yes. Each integration is an extra feature at ${inr(featurePrice)}. Order and cart events from your store then trigger WhatsApp messages automatically.`],
+      ['Can customers pay inside WhatsApp?', `Yes, with the catalog and in-chat payments feature (${inr(featurePrice)} extra), using Razorpay.`],
       ['What does each WhatsApp message cost?', 'Meta charges per message. In India from 1 October 2026, a marketing message costs ₹0.8631 and a utility message such as an order update ₹0.115, plus GST, billed by Meta directly to you.'],
     ],
     related: ['/tools/whatsapp-message-templates', '/blog/whatsapp-business-api-pricing-india', '/compare/aisensy-alternative'],
@@ -109,12 +111,12 @@ export const industryPages: ContentPage[] = [
           ['Health camp or new service', 'Marketing', 'To patients who opted in'],
         ],
       },
-      { type: 'h2', text: 'Which package fits' },
+      { type: 'h2', text: 'What it costs' },
       {
         type: 'ul',
         items: [
-          `**Launch (${inr(launch.price)} one-time)** for a single clinic that mainly needs a shared inbox and reminders.`,
-          `**Growth (${inr(growth.price)} one-time)** to add an AI agent for after-hours questions and a booking flow.`,
+          `**The ${plan.name} (${inr(plan.price)} one-time)** for a single clinic that mainly needs a shared inbox and reminders.`,
+          `**Add an AI agent and a booking flow** for after-hours questions: 2 extra features, **${withExtras(2)}** in total.`,
           '**Enterprise** for hospital groups with several branches, numbers and systems to connect.',
         ],
       },
@@ -160,17 +162,17 @@ export const industryPages: ContentPage[] = [
           ['Login OTP for the student portal', 'Authentication', 'When a student signs in'],
         ],
       },
-      { type: 'h2', text: 'Which package fits' },
+      { type: 'h2', text: 'What it costs' },
       {
         type: 'ul',
         items: [
-          `**Growth (${inr(growth.price)} one-time)** for most institutes: AI agent for enquiries, chatbot flows and one integration such as Google Sheets or your CRM.`,
-          `**Pro (${inr(pro.price)} one-time)** if you run Click-to-WhatsApp ads for admissions and need ads tracking and more integrations.`,
+          `**Most institutes** take the ${plan.name} and add an AI agent for enquiries, two chatbot flows and a Google Sheets or CRM integration: 4 extra features, **${withExtras(4)}** in total.`,
+          `**Running Click-to-WhatsApp ads for admissions?** Add ads tracking for ${inr(featurePrice)}.`,
         ],
       },
     ],
     faqs: [
-      ['Can we track which ad brought each admission enquiry?', 'Yes. Click-to-WhatsApp ads tracking is included in Pro and available as an add-on on other packages.'],
+      ['Can we track which ad brought each admission enquiry?', `Yes. Click-to-WhatsApp ads tracking is an extra feature at ${inr(featurePrice)}.`],
       ['Can parents and students both get messages?', 'Yes, as long as each person has agreed to receive WhatsApp messages from you.'],
     ],
     related: ['/blog/whatsapp-business-app-vs-api', '/tools/whatsapp-link-generator', '/compare/interakt-alternative'],
@@ -210,17 +212,17 @@ export const industryPages: ContentPage[] = [
           ['Price or offer update', 'Marketing', 'Campaigns'],
         ],
       },
-      { type: 'h2', text: 'Which package fits' },
+      { type: 'h2', text: 'What it costs' },
       {
         type: 'ul',
         items: [
-          `**Pro (${inr(pro.price)} one-time)** for most real estate teams: Click-to-WhatsApp ads tracking, three integrations, ten chatbot flows and two numbers.`,
+          `**Most real estate teams** add Click-to-WhatsApp ads tracking, three integrations, five chatbot flows and a second number to the ${plan.name}: 10 extra features, **${withExtras(10)}** in total.`,
           '**Enterprise** for developers with several projects, sales teams and an existing CRM to connect.',
         ],
       },
     ],
     faqs: [
-      ['Can leads go straight into our CRM?', 'Yes. Pro includes three integrations, for example your CRM, Google Sheets and your website forms.'],
+      ['Can leads go straight into our CRM?', `Yes. Each integration (for example your CRM, Google Sheets or website forms) is ${inr(featurePrice)}.`],
       ['Can each sales executive have their own login?', 'Yes. Every package includes unlimited team members, and chats can be assigned to each executive.'],
     ],
     related: ['/blog/whatsapp-business-api-setup-india', '/tools/whatsapp-link-generator', '/compare/wati-alternative'],

@@ -297,7 +297,7 @@ export function Tools() {
           <div className="flex flex-col items-center gap-5 rounded-3xl border border-brand/30 bg-gradient-to-b from-brand/[0.12] to-panel p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">Send these to thousands, automatically</h2>
             <p className="max-w-xl text-white/60">{brand.name} sends templates as broadcasts, replies with an AI agent and tracks every sale. One-time setup, no monthly subscription.</p>
-            <ShimmerButton href="/#pricing">See packages</ShimmerButton>
+            <ShimmerButton href="/#pricing">See pricing</ShimmerButton>
           </div>
         </div>
       </section>

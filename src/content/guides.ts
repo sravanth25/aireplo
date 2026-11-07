@@ -1,8 +1,7 @@
-import { inr, packages, setupOnly } from '../brand'
+import { featurePrice, inr, plan } from '../brand'
 import type { ContentPage, Hub } from './types'
 
 const DATE = '2026-10-22'
-const [launch] = packages
 
 const META_PRICING = { label: 'Meta: WhatsApp Business Platform pricing and INR rate card', url: 'https://developers.facebook.com/docs/whatsapp/pricing/' }
 const META_LIMITS = { label: 'Meta: Messaging limits', url: 'https://developers.facebook.com/docs/whatsapp/messaging-limits' }
@@ -94,13 +93,13 @@ export const guidePages: ContentPage[] = [
         rows: [
           ['Do it yourself on the Cloud API', 'Teams with developers', 'Free to start; you build the inbox, automations and hosting yourself'],
           ['Subscription platform (Wati, AiSensy, Interakt…)', 'Self-serve marketers', 'Quick start, monthly fees that grow with seats and add-ons'],
-          [`Done-for-you with Aireplo`, 'Businesses that want it handled and owned', `One-time fee from ${inr(launch.price)}; your own Meta app and branded dashboard`],
+          [`Done-for-you with Aireplo`, 'Businesses that want it handled and owned', `One-time ${inr(plan.price)} (extras ${inr(featurePrice)} each); your own Meta app and branded dashboard`],
         ],
       },
       {
         type: 'callout',
         title: 'Skip the setup work',
-        text: `Aireplo does every step above for you: business portfolio, verification follow-up, your own Meta app, number connection, display name and templates. Setup only (no dashboard) is ${inr(setupOnly.price)} one-time; full packages start at ${inr(launch.price)}.`,
+        text: `Aireplo does every step above for you: business portfolio, verification follow-up, your own Meta app, number connection, display name and templates. It costs ${inr(plan.price)} one-time, including a branded inbox and broadcasts, and each extra feature such as an AI agent is ${inr(featurePrice)}.`,
       },
     ],
     faqs: [
@@ -176,7 +175,7 @@ export const guidePages: ContentPage[] = [
           ['Wati', 'From $59/month (billed annually); Pro $119/month', 'Per Wati’s rate card'],
           ['AiSensy', 'From ₹1,500/month; Pro ₹3,200/month', '₹1.09 marketing, ₹0.145 utility/authentication/service'],
           ['Interakt', 'From $55/month for WhatsApp', 'Template charges as listed on its rates page'],
-          ['Aireplo', `One-time, from ${inr(launch.price)} (maintenance billed separately)`, 'Billed by Meta directly to you, at Meta’s rates'],
+          ['Aireplo', `One-time ${inr(plan.price)}, extras ${inr(featurePrice)} each (maintenance billed separately)`, 'Billed by Meta directly to you, at Meta’s rates'],
         ],
       },
       { type: 'h2', text: 'How to keep your WhatsApp bill low' },
@@ -204,7 +203,7 @@ export const guidePages: ContentPage[] = [
       { label: 'Interakt pricing', url: 'https://www.interakt.shop/pricing/' },
     ],
     related: ['/compare/aisensy-alternative', '/blog/whatsapp-business-api-setup-india', '/industries/ecommerce'],
-    cta: { title: 'Pay Meta’s rates, not a markup', text: 'Get the WhatsApp Business API on your own account, set up for you, with one payment.', button: 'See packages', href: '/#pricing' },
+    cta: { title: 'Pay Meta’s rates, not a markup', text: 'Get the WhatsApp Business API on your own account, set up for you, with one payment.', button: 'See pricing', href: '/#pricing' },
   },
   {
     path: '/blog/whatsapp-business-app-vs-api',
@@ -255,7 +254,7 @@ export const guidePages: ContentPage[] = [
       {
         type: 'callout',
         title: 'Moving from the app to the API',
-        text: `Aireplo handles the move for you, from Meta setup to your branded dashboard, for a one-time fee from ${inr(launch.price)}. Read the full [setup guide](/blog/whatsapp-business-api-setup-india) to see every step.`,
+        text: `Aireplo handles the move for you, from Meta setup to your branded dashboard, for a one-time fee of ${inr(plan.price)}. Read the full [setup guide](/blog/whatsapp-business-api-setup-india) to see every step.`,
       },
     ],
     faqs: [

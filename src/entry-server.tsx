@@ -26,4 +26,4 @@ export function render(path: string) {
 export { routes, headFor, extraFiles, ogImagePath } from './seo'
 export { pageFor } from './lib/router'
 export { pageSources } from './pages/registry'
-export { brand, packages, inr } from './brand'
+export { brand, plan, inr } from './brand'

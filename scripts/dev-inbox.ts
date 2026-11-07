@@ -20,7 +20,7 @@ async function chat(phone: string, name: string, lines: [string, string][], flag
   }
   if (flags) await store.setFlags(phone, flags)
 }
-await chat('919876543210', 'Ravi Kumar', [['c', 'Hi, what does Aireplo cost?'], ['ai', 'Hi Ravi! 😊 Packages start at *₹14,999 one-time*, no monthly subscription. What kind of business do you run?'], ['c', 'Clothing store, 2 outlets in Hyderabad'], ['ai', 'Nice! The *Growth* package (₹34,999) fits well: AI agent, Shopify integration and your own domain. Want a quick demo?']])
+await chat('919876543210', 'Ravi Kumar', [['c', 'Hi, what does Aireplo cost?'], ['ai', 'Hi Ravi! 😊 It's *₹15,000 one-time*, and extra features are ₹499 each. No monthly subscription. What kind of business do you run?'], ['c', 'Clothing store, 2 outlets in Hyderabad'], ['ai', 'Nice! The *Growth* package (₹34,999) fits well: AI agent, Shopify integration and your own domain. Want a quick demo?']])
 await chat('918888888888', 'Meera Iyer', [['c', 'Can I talk to a person please?'], ['ai', 'Of course! A team member will reply here shortly 🙌']], { needsHuman: true, botPaused: true })
 await chat('917777777777', 'Arjun', [['c', 'Kya Hindi mein reply karta hai?'], ['ai', 'Haan ji! ✨ Hamara AI agent Hindi, English aur Hinglish mein reply karta hai.'], ['c', 'Great, I want the Pro package'], ['agent', 'Hi Arjun, this is Priya from Aireplo. I’ll call you in 10 minutes to get started!']], { botPaused: true })
 for (const c of await store.contacts()) c.lastMessageAt = ago(c.phone === '918888888888' ? 2 : c.phone === '919876543210' ? 14 : 75)

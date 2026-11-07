@@ -21,7 +21,7 @@ const ssr = join('node_modules', '.og-ssr')
 execSync(`npx vite build --ssr src/entry-server.tsx --outDir ${ssr} --logLevel error`, { stdio: 'inherit' })
 const server = await import(pathToFileURL(join(process.cwd(), ssr, 'entry-server.js')).href)
 const icon = await readFile('brand/icon.svg', 'utf8')
-const { brand, packages, inr } = server
+const { brand, plan, inr } = server
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 const card = ({ eyebrow, heading }) => `<!doctype html><html><head><meta charset="utf-8">
@@ -46,7 +46,7 @@ const card = ({ eyebrow, heading }) => `<!doctype html><html><head><meta charset
   <div class="logo">${icon}<span>${esc(brand.name.toLowerCase())}</span></div>
   <div class="pill">${esc(eyebrow)}</div>
   <h1 id="h">${esc(heading)}</h1>
-  <div class="foot"><span><b>One-time from ${inr(packages[0].price)}</b> · no monthly fee · you own it</span><span>${esc(brand.slogan)}</span></div>
+  <div class="foot"><span><b>One-time ${inr(plan.price)}</b> · no monthly fee · you own it</span><span>${esc(brand.slogan)}</span></div>
 </div>
 <div class="bar"></div>
 </body></html>`

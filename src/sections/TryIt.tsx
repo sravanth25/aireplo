@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { RotateCcw, SendHorizontal, Smartphone } from 'lucide-react'
-import { brand } from '@/brand'
+import { brand, featurePrice, inr, plan } from '@/brand'
 import { waLink } from '@/lib/whatsapp'
 import { QrCode } from '@/components/QrCode'
 import { waToHtml } from '@/lib/waFormat'
@@ -16,7 +16,7 @@ const OPTIONS: { label: string; me: string; bot: Msg[] }[] = [
   {
     label: '💰 Pricing',
     me: `How much does ${brand.name} cost?`,
-    bot: [{ from: 'bot', text: `Packages start at *${brand.currency}14,999 one-time*. No monthly subscription: we set up everything and you own your Meta app. Want a quote?` }],
+    bot: [{ from: 'bot', text: `One package: *${inr(plan.price)} one-time*, and any extra feature is *${inr(featurePrice)}*. No monthly subscription: we set up everything and you own your Meta app. Want a quote?` }],
   },
   {
     label: '🤖 What can it do?',

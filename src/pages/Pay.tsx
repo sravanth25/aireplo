@@ -1,19 +1,21 @@
 import { useEffect, useMemo, useState } from 'react'
 import { CheckCircle2, IndianRupee, MessageCircle, ShieldCheck, Smartphone } from 'lucide-react'
-import { brand, inr, packages, setupOnly, upi } from '@/brand'
+import { brand, featurePrice, inr, plan as pkg, upi } from '@/brand'
 import { waLink } from '@/lib/whatsapp'
 import { useQrDataUrl } from '@/components/QrCode'
 import { CopyButton } from '@/components/CopyButton'
 import { Spotlight } from '@/components/ui/spotlight'
 import { cn } from '@/lib/utils'
 
-// Pay page: the client picks a package or types an amount, and gets a UPI QR code for that exact amount.
-// Shareable links: /pay?plan=growth  or  /pay?amount=12000&for=Extra%20integration
+// Pay page: the client picks the package and/or extra features, or types an amount, and gets a UPI QR code for that exact amount.
+// Shareable links: /pay?plan=package&extras=3  ·  /pay?plan=extras&extras=2  ·  /pay?amount=6000&for=Balance
 
 const plans = [
-  { id: 'setup', name: setupOnly.name, price: setupOnly.price },
-  ...packages.map((p) => ({ id: p.id as string, name: `${p.name} package`, price: p.price })),
+  { id: pkg.id, name: pkg.name, price: pkg.price, sub: `${inr(pkg.price)} one-time, plus any extra features` },
+  { id: 'extras', name: 'Extra features only', price: 0, sub: `${inr(featurePrice)} per feature, added later` },
 ]
+// older links used package names that no longer exist
+const OLD_PLANS = ['setup', 'launch', 'growth', 'pro']
 const UPI_LIMIT = 100000
 const field = 'w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-brand/60'
 
@@ -24,11 +26,13 @@ const cleanNote = (s: string) => s.replace(/[^A-Za-z0-9 .,\-/]/g, '').replace(/\
 const newRef = () => 'AIR-' + Math.random().toString(36).slice(2, 8).toUpperCase()
 
 function readUrl() {
-  if (typeof window === 'undefined') return { plan: 'growth', amount: '', what: '' }
+  if (typeof window === 'undefined') return { plan: pkg.id, amount: '', what: '', extras: 0 }
   const q = new URLSearchParams(window.location.search)
   const amount = q.get('amount') ?? ''
-  const plan = q.get('plan') ?? (amount ? 'custom' : 'growth')
-  return { plan: plans.some((p) => p.id === plan) ? plan : 'custom', amount, what: q.get('for') ?? '' }
+  let plan = q.get('plan') ?? (amount ? 'custom' : pkg.id)
+  if (OLD_PLANS.includes(plan)) plan = pkg.id
+  const extras = Math.min(50, Math.max(0, Math.floor(Number(q.get('extras')) || 0)))
+  return { plan: plans.some((p) => p.id === plan) ? plan : 'custom', amount, what: q.get('for') ?? '', extras }
 }
 
 export function Pay() {
@@ -36,16 +40,19 @@ export function Pay() {
   const [plan, setPlan] = useState(initial.plan)
   const [custom, setCustom] = useState(initial.amount)
   const [what, setWhat] = useState(initial.what)
+  const [extraCount, setExtraCount] = useState(initial.plan === 'extras' ? Math.max(1, initial.extras) : initial.extras)
   const [gst, setGst] = useState(upi.gstRate > 0)
   const [payer, setPayer] = useState('')
   const [ref] = useState(newRef)
 
   const chosen = plans.find((p) => p.id === plan)
-  const base = chosen ? chosen.price : Number(custom.replace(/[^0-9.]/g, '')) || 0
+  const extrasCost = chosen ? extraCount * featurePrice : 0
+  const base = chosen ? chosen.price + extrasCost : Number(custom.replace(/[^0-9.]/g, '')) || 0
   const tax = chosen && gst ? round2(base * upi.gstRate) : 0
   const total = round2(base + tax)
-  const label = chosen ? chosen.name : what.trim() || 'Payment'
-  const note = cleanNote(`${brand.name} ${label} ${ref}`)
+  const featuresLabel = `${extraCount} extra feature${extraCount === 1 ? '' : 's'}`
+  const label = !chosen ? what.trim() || 'Payment' : chosen.id === 'extras' ? featuresLabel : extraCount > 0 ? `${pkg.name} + ${featuresLabel}` : pkg.name
+  const note = cleanNote(`${label.startsWith(brand.name) ? '' : brand.name + ' '}${label} ${ref}`)
   const ready = upi.id !== '' && total >= 1 && total <= UPI_LIMIT
 
   // the UPI ID stays as written (some UPI apps reject an encoded @)
@@ -55,13 +62,15 @@ export function Pay() {
   // keep the address bar shareable
   useEffect(() => {
     const q = new URLSearchParams()
-    if (chosen) q.set('plan', chosen.id)
-    else {
+    if (chosen) {
+      q.set('plan', chosen.id)
+      if (extraCount > 0) q.set('extras', String(extraCount))
+    } else {
       if (custom) q.set('amount', custom)
       if (what) q.set('for', what)
     }
     window.history.replaceState(null, '', `/pay${q.size ? '?' + q : ''}`)
-  }, [chosen, custom, what])
+  }, [chosen, custom, what, extraCount])
 
   const paidMessage = `Hi ${brand.name}! I've paid ${rupees(total)} by UPI for ${label}.\nReference: ${ref}${payer.trim() ? `\nName / business: ${payer.trim()}` : ''}\nI'll attach the payment screenshot.`
 
@@ -83,19 +92,36 @@ export function Pay() {
           <div className="rounded-3xl border border-line bg-panel p-6 sm:p-8">
             <h2 className="text-lg font-semibold text-white">1. What are you paying for?</h2>
             <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-              {[...plans, { id: 'custom', name: 'Other amount', price: 0 }].map((p) => (
+              {[...plans, { id: 'custom', name: 'Other amount', price: 0, sub: 'Balance, maintenance or a custom quote' }].map((p) => (
                 <button
                   key={p.id}
                   type="button"
-                  onClick={() => setPlan(p.id)}
+                  onClick={() => {
+                    setPlan(p.id)
+                    if (p.id === 'extras' && extraCount === 0) setExtraCount(1)
+                  }}
                   aria-pressed={plan === p.id}
                   className={cn('rounded-2xl border p-4 text-left transition-colors', plan === p.id ? 'border-brand bg-brand/10' : 'border-line hover:border-white/25')}
                 >
                   <span className="block text-sm font-semibold text-white">{p.name}</span>
-                  <span className="mt-0.5 block text-sm text-white/55">{p.id === 'custom' ? 'Add-ons, balance or maintenance' : `${inr(p.price)} one-time`}</span>
+                  <span className="mt-0.5 block text-sm text-white/55">{p.sub}</span>
                 </button>
               ))}
             </div>
+
+            {chosen && (
+              <div className="mt-5 flex items-center justify-between gap-4 rounded-2xl border border-line p-4">
+                <span className="min-w-0">
+                  <span className="block text-sm font-medium text-white">Extra features</span>
+                  <span className="block text-xs text-white/50">{inr(featurePrice)} each, as agreed with us</span>
+                </span>
+                <span className="flex shrink-0 items-center gap-2">
+                  <button type="button" onClick={() => setExtraCount((n) => Math.max(chosen.id === 'extras' ? 1 : 0, n - 1))} className="grid size-9 place-items-center rounded-lg border border-line text-white hover:bg-white/5" aria-label="Fewer extra features">−</button>
+                  <span className="w-7 text-center font-semibold text-white tabular-nums" aria-live="polite">{extraCount}</span>
+                  <button type="button" onClick={() => setExtraCount((n) => Math.min(50, n + 1))} className="grid size-9 place-items-center rounded-lg border border-line text-white hover:bg-white/5" aria-label="More extra features">+</button>
+                </span>
+              </div>
+            )}
 
             {plan === 'custom' && (
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -105,7 +131,7 @@ export function Pay() {
                 </label>
                 <label className="block">
                   <span className="text-xs font-medium text-white/60">For</span>
-                  <input className={cn(field, 'mt-1.5')} placeholder="e.g. Extra integration" maxLength={40} value={what} onChange={(e) => setWhat(e.target.value)} />
+                  <input className={cn(field, 'mt-1.5')} placeholder="e.g. Balance payment" maxLength={40} value={what} onChange={(e) => setWhat(e.target.value)} />
                 </label>
                 <p className="text-xs text-white/40 sm:col-span-2">Enter the amount from your quote.</p>
               </div>
@@ -124,7 +150,9 @@ export function Pay() {
             </label>
 
             <dl className="mt-6 space-y-2 border-t border-line pt-5 text-sm">
-              <div className="flex justify-between text-white/60"><dt>{label}</dt><dd className="tabular-nums">{rupees(base)}</dd></div>
+              {chosen?.id === pkg.id && <div className="flex justify-between text-white/60"><dt>{pkg.name}</dt><dd className="tabular-nums">{rupees(pkg.price)}</dd></div>}
+              {chosen && extraCount > 0 && <div className="flex justify-between text-white/60"><dt>{featuresLabel} × {inr(featurePrice)}</dt><dd className="tabular-nums">{rupees(extrasCost)}</dd></div>}
+              {!chosen && <div className="flex justify-between text-white/60"><dt>{label}</dt><dd className="tabular-nums">{rupees(base)}</dd></div>}
               {tax > 0 && <div className="flex justify-between text-white/60"><dt>GST {Math.round(upi.gstRate * 100)}%</dt><dd className="tabular-nums">{rupees(tax)}</dd></div>}
               <div className="flex justify-between text-lg font-bold text-white"><dt>Total</dt><dd className="tabular-nums">{rupees(total)}</dd></div>
             </dl>

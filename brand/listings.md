@@ -43,7 +43,7 @@ Prices match `src/brand.ts`. If you change prices there, update this file too.
 >
 > **AI that replies on WhatsApp.** An AI agent answers customers in Hindi and English, any time of day, and hands over to a person when needed.
 >
-> **One-time pricing.** Packages start at ₹14,999 one-time. There are no per-seat fees, and Meta bills message charges to you directly at its published rates. Maintenance after handover (hosting, updates, support) is billed separately.
+> **Simple one-time pricing.** One package at ₹15,000 one-time, and any extra feature (AI agent, chatbot flow, integration and more) is ₹499. There are no per-seat fees, and Meta bills message charges to you directly at its published rates. Maintenance after handover (hosting, updates, support) is billed separately.
 >
 > **Built for agencies too.** Agencies can resell Aireplo under their own brand through our partner program.
 >
@@ -70,10 +70,8 @@ Prices match `src/brand.ts`. If you change prices there, update this file too.
 
 | Plan | Price | Notes |
 |---|---|---|
-| WhatsApp API Setup | ₹9,999 one-time | Setup only, no dashboard |
-| Launch | ₹14,999 one-time | 1 number, branded inbox and broadcasts, 5 templates, 30 days support |
-| Growth | ₹34,999 one-time | + AI agent, 3 flows, 1 integration, own domain, 90 days support |
-| Pro | ₹64,999 one-time | + catalog and payments, ads tracking, 3 integrations, 2 numbers, 6 months support |
+| Aireplo Package | ₹15,000 one-time | Meta setup, own Meta app, 1 number, branded inbox and broadcasts, 5 templates, 30 days support |
+| Extra feature | ₹499 one-time each | AI agent, chatbot flow, integration, own domain, catalog & payments, ads tracking, extra number, more templates, extra support month |
 | Enterprise | Custom | Multi-brand, own cloud, SSO, SLA |
 
 - **Pricing model:** one-time (flat fee). Is there a free trial? No, but there is a live AI demo on the website.

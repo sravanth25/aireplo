@@ -1,7 +1,7 @@
 import { DemoPlayer } from '@/components/DemoPlayer'
 import { motion } from 'motion/react'
 import { ArrowRight, BadgeCheck, Play } from 'lucide-react'
-import { brand, inr, packages } from '@/brand'
+import { brand, inr, plan } from '@/brand'
 import { Spotlight } from '@/components/ui/spotlight'
 import { BorderBeam } from '@/components/ui/border-beam'
 import { GhostButton, ShimmerButton } from '@/components/ui/shimmer-button'
@@ -25,7 +25,7 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <ShimmerButton href="#contact">Get your branded dashboard <ArrowRight className="size-4" /></ShimmerButton>
-            <GhostButton href="#pricing">See packages — one-time from {inr(packages[0].price)}</GhostButton>
+            <GhostButton href="#pricing">See pricing — {inr(plan.price)} one-time</GhostButton>
           </div>
           <p className="mt-4 text-xs text-white/40">One-time payment · No monthly subscription · You own your Meta app & data</p>
         </motion.div>

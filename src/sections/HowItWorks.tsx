@@ -2,7 +2,7 @@ import { ClipboardList, Palette, Rocket } from 'lucide-react'
 import { Reveal, SectionHeading } from '@/components/ui/section'
 
 export const steps = [
-  { icon: ClipboardList, title: 'Tell us what you need', body: 'Pick a package and add what you need: inbox, broadcasts, AI agent, chatbots, integrations. We quote a fixed one-time price.' },
+  { icon: ClipboardList, title: 'Tell us what you need', body: 'Start with our one package and add only the extra features you need. We confirm a fixed one-time price.' },
   { icon: Palette, title: 'We build it for you', body: 'We set up your Facebook Business, build your own Meta app, connect your WhatsApp number and brand your dashboard.' },
   { icon: Rocket, title: 'Go live and own it', body: 'Most brands are live within 5 working days. We train your team and hand over full ownership.' },
 ]

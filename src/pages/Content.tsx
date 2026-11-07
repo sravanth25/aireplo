@@ -1,5 +1,5 @@
 import { ArrowRight, BookOpen, Building2, ChevronRight, Info, Scale } from 'lucide-react'
-import { brand } from '@/brand'
+import { brand, featurePrice, inr, plan } from '@/brand'
 import { contentAt, hubOfKind, linkName, pagesOfKind, type Block, type ContentKind, type ContentPage, type Hub } from '@/content'
 import { RichText } from '@/components/RichText'
 import { Spotlight } from '@/components/ui/spotlight'
@@ -107,7 +107,7 @@ function BlockView({ b }: { b: Block }) {
 function Article({ page }: { page: ContentPage }) {
   const hub = hubOfKind(page.kind)
   const toc = page.blocks.filter((b): b is Extract<Block, { type: 'h2' }> => b.type === 'h2')
-  const cta = page.cta ?? { title: 'Get your WhatsApp setup, owned by you', text: `One-time packages from ${brand.currency}14,999. No monthly subscription.`, button: 'See packages', href: '/#pricing' }
+  const cta = page.cta ?? { title: 'Get your WhatsApp setup, owned by you', text: `One package for ${inr(plan.price)}, extras ${inr(featurePrice)} each. No monthly subscription.`, button: 'See prikages', href: '/#pricing' }
   return (
     <>
       <Hero
