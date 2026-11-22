@@ -1,0 +1,47 @@
+[
+  {
+    "shot": "shot1",
+    "duration": "5s (use 3.5s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern Indian setting, warm practical lighting with subtle emerald-green accents (#22C55E), clean premium commercial look like an Apple or Nykaa ad, smooth slow camera motion, no jump cuts inside the shot. Night, dark cosy Indian bedroom lit only by a dim blue moonlight from the window. Close-up of a smartphone lying face-up on a wooden bedside table. The phone screen suddenly lights up with a soft emerald-green glow and gently vibrates, casting green light on the table. In the soft-focus background, Priya, a 30-year-old Indian woman who owns a small ethnic-wear boutique, shoulder-length dark wavy hair, warm brown skin, small gold stud earrings, wears a mustard-yellow cotton kurta during the day and a soft grey t-shirt at night. is fast asleep under a white blanket, turned away from camera, wearing a grey t-shirt. Slow push-in towards the glowing phone. Quiet, mysterious, intriguing mood.",
+    "camera": "slow dolly push-in, starts medium close-up, ends close-up on the phone",
+    "negative_prompt": "text, captions, subtitles, letters, numbers, watermark, logo, brand names, readable app interface, WhatsApp logo, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, person awake, bright room",
+    "audio": "none"
+  },
+  {
+    "shot": "shot2",
+    "duration": "10s (use 6s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern Indian setting, warm practical lighting with subtle emerald-green accents (#22C55E), clean premium commercial look like an Apple or Nykaa ad, smooth slow camera motion, no jump cuts inside the shot. Night, a modern Indian apartment living room with warm fairy lights. Ananya, a 24-year-old Indian woman, long straight black hair tied loosely, oversized cream hoodie, relaxed and cheerful. sits cross-legged on a sofa, holding a smartphone in both hands at chest height, screen facing slightly towards the camera and glowing softly green with no visible content. She types a message, waits a second, then her face lights up with a delighted smile as she taps the screen to pay. Over-the-shoulder angle, then gentle arc to her face.",
+    "camera": "over-the-shoulder, slow arc from behind her shoulder to a three-quarter view of her smiling face",
+    "negative_prompt": "text, captions, subtitles, letters, numbers, watermark, logo, brand names, readable app interface, WhatsApp logo, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, readable phone screen, visible chat bubbles",
+    "audio": "none"
+  },
+  {
+    "shot": "shot3",
+    "duration": "5s (use 3.5s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern Indian setting, warm practical lighting with subtle emerald-green accents (#22C55E), clean premium commercial look like an Apple or Nykaa ad, smooth slow camera motion, no jump cuts inside the shot. Early morning, golden sunrise light streaming through sheer curtains into the same bedroom. Priya, a 30-year-old Indian woman who owns a small ethnic-wear boutique, shoulder-length dark wavy hair, warm brown skin, small gold stud earrings, wears a mustard-yellow cotton kurta during the day and a soft grey t-shirt at night. sits up in bed, picks up her phone from the bedside table, looks at the softly glowing screen, and breaks into a surprised, happy smile, raising her eyebrows. Warm, uplifting mood.",
+    "camera": "static medium shot at bed height, very slight handheld breathing movement",
+    "negative_prompt": "text, captions, subtitles, letters, numbers, watermark, logo, brand names, readable app interface, WhatsApp logo, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, night, dark room",
+    "audio": "none"
+  },
+  {
+    "shot": "shot4",
+    "duration": "10s (use 6s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern Indian setting, warm practical lighting with subtle emerald-green accents (#22C55E), clean premium commercial look like an Apple or Nykaa ad, smooth slow camera motion, no jump cuts inside the shot. Daytime inside a bright, stylish small Indian ethnic-wear boutique with colourful kurtas on wooden racks and potted plants. Priya, a 30-year-old Indian woman who owns a small ethnic-wear boutique, shoulder-length dark wavy hair, warm brown skin, small gold stud earrings, wears a mustard-yellow cotton kurta during the day and a soft grey t-shirt at night., now in a mustard-yellow kurta, stands at the shop counter next to an open laptop whose screen glows softly green with no visible content, and confidently packs a folded blue kurta into a branded kraft-paper parcel. Busy but calm, successful small business.",
+    "camera": "slow lateral slide from left to right along the counter, medium shot",
+    "negative_prompt": "text, captions, subtitles, letters, numbers, watermark, logo, brand names, readable app interface, WhatsApp logo, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, readable laptop screen, messy shop",
+    "audio": "none"
+  },
+  {
+    "shot": "shot5",
+    "duration": "10s (use 6s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern Indian setting, warm practical lighting with subtle emerald-green accents (#22C55E), clean premium commercial look like an Apple or Nykaa ad, smooth slow camera motion, no jump cuts inside the shot. Daytime at the boutique entrance. Priya, a 30-year-old Indian woman who owns a small ethnic-wear boutique, shoulder-length dark wavy hair, warm brown skin, small gold stud earrings, wears a mustard-yellow cotton kurta during the day and a soft grey t-shirt at night. hands the kraft-paper parcel to a smiling delivery rider in a plain red jacket, then turns towards the camera with a confident, friendly smile and a small nod. Leave clean empty space in the upper half of the frame (soft-focus shop background) for a price card to be added later.",
+    "camera": "static medium shot, then subtle push-in on her smiling face in the last 2 seconds",
+    "negative_prompt": "text, captions, subtitles, letters, numbers, watermark, logo, brand names, readable app interface, WhatsApp logo, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, delivery company logos, text on jacket",
+    "audio": "none"
+  }
+]

@@ -1,0 +1,90 @@
+{
+  "project": "Aireplo Meta lead ad #01: The 2 AM sale",
+  "format": {
+    "aspect_ratio": "9:16",
+    "resolution": "1080x1920",
+    "fps": 30,
+    "total_duration_seconds": 25,
+    "shots": 5,
+    "seconds_per_shot": "varies, see each shot (generate 5s, or 10s where noted, and trim)"
+  },
+  "how_to_use": [
+    "Generate each shot separately in Omni with its 'prompt' and 'negative_prompt'.",
+    "Paste the 'global_style' and the matching 'characters' text into every shot so people and colours stay consistent.",
+    "If Omni supports a reference image, generate shot 1 first and use its frame as the reference for the boutique owner in shots 3 to 5.",
+    "Do NOT add any text, captions, logos or app screens in Omni. Phone and laptop screens stay as a soft glow; the chat, captions, price card and logo are added afterwards as text animation.",
+    "Export each shot as MP4, 1080x1920, at the 'generate_length_seconds' length, named shot1.mp4 ... shot5.mp4. They are trimmed to 'duration_seconds' in the edit."
+  ],
+  "global_style": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern Indian setting, warm practical lighting with subtle emerald-green accents (#22C55E), clean premium commercial look like an Apple or Nykaa ad, smooth slow camera motion, no jump cuts inside the shot.",
+  "characters": {
+    "owner": "Priya, a 30-year-old Indian woman who owns a small ethnic-wear boutique, shoulder-length dark wavy hair, warm brown skin, small gold stud earrings, wears a mustard-yellow cotton kurta during the day and a soft grey t-shirt at night.",
+    "customer": "Ananya, a 24-year-old Indian woman, long straight black hair tied loosely, oversized cream hoodie, relaxed and cheerful."
+  },
+  "negative_prompt_all": "text, captions, subtitles, letters, numbers, watermark, logo, brand names, readable app interface, WhatsApp logo, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera",
+  "shots": [
+    {
+      "id": "shot1",
+      "time": "0:00-0:03.5",
+      "purpose": "HOOK: stop the scroll. A phone lights up in a dark room at night.",
+      "voiceover": "This shop made a sale... at 2 AM.",
+      "text_overlay_added_later": "A sale at 2 AM… while the owner slept 😴 / clock 2:07 AM",
+      "prompt": "[global_style] Night, dark cosy Indian bedroom lit only by a dim blue moonlight from the window. Close-up of a smartphone lying face-up on a wooden bedside table. The phone screen suddenly lights up with a soft emerald-green glow and gently vibrates, casting green light on the table. In the soft-focus background, [owner] is fast asleep under a white blanket, turned away from camera, wearing a grey t-shirt. Slow push-in towards the glowing phone. Quiet, mysterious, intriguing mood.",
+      "camera": "slow dolly push-in, starts medium close-up, ends close-up on the phone",
+      "negative_prompt": "[negative_prompt_all], person awake, bright room",
+      "duration_seconds": 3.5,
+      "generate_length_seconds": 5
+    },
+    {
+      "id": "shot2",
+      "time": "0:03.5-0:09.5",
+      "purpose": "PROOF: the customer gets an instant reply and buys.",
+      "voiceover": "Their WhatsApp AI answered the customer, shared the price, and sent the payment link. Automatically.",
+      "text_overlay_added_later": "WhatsApp chat animates on the phone: question → AI reply → Pay ₹1,299 → Payment received ✅",
+      "prompt": "[global_style] Night, a modern Indian apartment living room with warm fairy lights. [customer] sits cross-legged on a sofa, holding a smartphone in both hands at chest height, screen facing slightly towards the camera and glowing softly green with no visible content. She types a message, waits a second, then her face lights up with a delighted smile as she taps the screen to pay. Over-the-shoulder angle, then gentle arc to her face.",
+      "camera": "over-the-shoulder, slow arc from behind her shoulder to a three-quarter view of her smiling face",
+      "negative_prompt": "[negative_prompt_all], readable phone screen, visible chat bubbles",
+      "duration_seconds": 6,
+      "generate_length_seconds": 10
+    },
+    {
+      "id": "shot3",
+      "time": "0:09.5-0:13",
+      "purpose": "PAYOFF: the owner wakes up to a sale she never had to answer.",
+      "voiceover": "She woke up to a new order she never had to reply to.",
+      "text_overlay_added_later": "New order ₹1,299 · Replied by AI in 3 sec",
+      "prompt": "[global_style] Early morning, golden sunrise light streaming through sheer curtains into the same bedroom. [owner] sits up in bed, picks up her phone from the bedside table, looks at the softly glowing screen, and breaks into a surprised, happy smile, raising her eyebrows. Warm, uplifting mood.",
+      "camera": "static medium shot at bed height, very slight handheld breathing movement",
+      "negative_prompt": "[negative_prompt_all], night, dark room",
+      "duration_seconds": 3.5,
+      "generate_length_seconds": 5
+    },
+    {
+      "id": "shot4",
+      "time": "0:13-0:19",
+      "purpose": "SOLUTION: show the business running smoothly with the product.",
+      "voiceover": "Team inbox, broadcasts, and an AI agent in Hindi and English, all under your own brand.",
+      "text_overlay_added_later": "Feature chips: Team inbox · Broadcasts · AI agent · Your brand",
+      "prompt": "[global_style] Daytime inside a bright, stylish small Indian ethnic-wear boutique with colourful kurtas on wooden racks and potted plants. [owner], now in a mustard-yellow kurta, stands at the shop counter next to an open laptop whose screen glows softly green with no visible content, and confidently packs a folded blue kurta into a branded kraft-paper parcel. Busy but calm, successful small business.",
+      "camera": "slow lateral slide from left to right along the counter, medium shot",
+      "negative_prompt": "[negative_prompt_all], readable laptop screen, messy shop",
+      "duration_seconds": 6,
+      "generate_length_seconds": 10
+    },
+    {
+      "id": "shot5",
+      "time": "0:19-0:25",
+      "purpose": "OFFER + CALL TO ACTION.",
+      "voiceover": "Just fifteen thousand rupees, one time. No monthly fee. Tap below for a free demo!",
+      "text_overlay_added_later": "₹15,000 one-time · No monthly fee · +₹499 per extra feature · Live in 5 days · Tap 'Get quote' · Aireplo logo",
+      "prompt": "[global_style] Daytime at the boutique entrance. [owner] hands the kraft-paper parcel to a smiling delivery rider in a plain red jacket, then turns towards the camera with a confident, friendly smile and a small nod. Leave clean empty space in the upper half of the frame (soft-focus shop background) for a price card to be added later.",
+      "camera": "static medium shot, then subtle push-in on her smiling face in the last 2 seconds",
+      "negative_prompt": "[negative_prompt_all], delivery company logos, text on jacket",
+      "duration_seconds": 6,
+      "generate_length_seconds": 10
+    }
+  ],
+  "audio": {
+    "voiceover": "Already generated: voiceover-take1.mp3 (24.2s, Indian English, ElevenLabs). Do not generate speech in Omni.",
+    "music": "Optional: light upbeat lo-fi or acoustic Indian-pop instrumental at low volume; keep Omni clips silent or with ambient sound only."
+  }
+}
