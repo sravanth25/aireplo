@@ -29,3 +29,7 @@ dist-ssr
 !.env.example
 out
 .vercel
+
+# ad video files (big; originals kept outside git)
+ads/**/media/shot*.mp4
+ads/**/*.mp4
