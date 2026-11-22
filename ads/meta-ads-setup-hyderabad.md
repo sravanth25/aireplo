@@ -116,3 +116,69 @@ Manual: Instagram Reels, Instagram Stories, Facebook Reels, Facebook Stories, In
 | Lead quality | "Real estate / Builder" + "This week/month" answers | Move to Higher intent form, add a question |
 
 Call or WhatsApp every lead within 15 minutes. Speed matters more than the ad.
+
+## 9. More copy for ad set B (D2C, shops and other businesses)
+Add all five as text options in one ad (Ads Manager → "Add text options"). The AI agent is a ₹499 add-on, so copy that mentions AI says "Starts at ₹15,000".
+
+| # | Angle | Headline | Description |
+|---|---|---|---|
+| 1 | The 2 AM sale | Your WhatsApp sells while you sleep | Starts ₹15,000 one-time |
+| 2 | Stop paying monthly | Stop paying monthly for WhatsApp tools | Pay once. Own it forever. |
+| 3 | Wedding / festive season broadcasts | Send offers to 5,000 customers in 1 click | No ban risk · One-time fee |
+| 4 | Missed orders, team inbox | One WhatsApp number. Your whole team. | No per-user fees |
+| 5 | Hinglish | WhatsApp pe auto-reply, 24/7 | ₹15,000 one-time · Free demo |
+
+**1. The 2 AM sale**
+> Hyderabad business owners 👋 Your customers message at 11 PM, 1 AM, 2 AM… Who's replying?
+>
+> With Aireplo, an AI replies on your WhatsApp in seconds: shares prices, answers questions, sends payment links. You wake up to orders, not unread chats.
+>
+> ✅ Official WhatsApp Business API
+> ✅ Your own brand & logo
+> ✅ Starts at ₹15,000 one-time, no monthly fee
+>
+> 👇 Tap "Get quote" for a free demo
+
+**2. Stop paying every month**
+> Paying ₹2,000–₹10,000 every month for a WhatsApp tool? 💸
+>
+> Aireplo sets up the official WhatsApp Business API for your business, with team inbox, broadcasts and your own Meta app, for a one-time fee. No subscription. No per-user charges. You own everything.
+>
+> ✅ ₹15,000 one-time
+> ✅ Extra features just ₹499 each
+> ✅ Live in 5 days
+>
+> 👇 Tap "Get quote" to see how much you'll save
+
+**3. Wedding and festive season**
+> Wedding season is here 💍 Is your shop reaching every customer?
+>
+> Send your new collection, offers and festive deals to thousands of customers on WhatsApp in one click, with photos, prices and a "Buy now" button. Officially, without your number getting blocked.
+>
+> ✅ Bulk WhatsApp broadcasts
+> ✅ Catalog & payment links in chat
+> ✅ ₹15,000 one-time, no monthly fee
+>
+> 👇 Tap "Get quote" and launch before the rush
+
+**4. Too many chats, missed orders**
+> 200 WhatsApp chats a day. 3 staff. 1 phone. 😵 Orders are getting missed.
+>
+> Aireplo gives your whole team one shared WhatsApp inbox: every chat assigned, every reply tracked, no customer forgotten. Add an AI agent and common questions get answered automatically.
+>
+> ✅ Unlimited team members
+> ✅ Chats stay with your business, not staff phones
+> ✅ Starts at ₹15,000 one-time
+>
+> 👇 Tap "Get quote" for a free demo
+
+**5. Hinglish**
+> Bhai, har customer ko khud reply karoge? 🤯
+>
+> "Price kya hai?" "Size available hai?" "Delivery kab tak?" Din bhar yahi messages. Aireplo ka WhatsApp AI ye sab 24/7 khud reply karta hai, Hindi aur English dono mein, aur payment link bhi bhejta hai.
+>
+> ✅ Official WhatsApp Business API
+> ✅ Aapka brand, aapka logo
+> ✅ ₹15,000 one-time, koi monthly fee nahi
+>
+> 👇 Free demo ke liye "Get quote" tap karein
