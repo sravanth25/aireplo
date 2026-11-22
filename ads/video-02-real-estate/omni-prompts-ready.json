@@ -1,0 +1,56 @@
+[
+  {
+    "shot": "shot1 — HOOK (0:00–0:03.5)",
+    "duration": "5s (use 3.5s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern upscale Indian city setting, premium real estate commercial look, smooth slow camera motion, no jump cuts inside the shot, emerald-green and warm-gold colour accents. Night, 1 AM. A modern Indian apartment bedroom lit only by a bedside lamp and the city lights through the window. Rahul, a 35-year-old Indian man with short black hair and a neatly trimmed beard, wearing a grey t-shirt, sits up in bed holding his smartphone, his face lit by its soft green glow. He scrolls, pauses with interest, then taps the screen decisively as if submitting a form, and nods to himself. Slow push-in on his face.",
+    "camera": "slow push-in from medium shot to close-up on his face",
+    "negative_prompt": "text, letters, numbers, captions, subtitles, signage, signboards, logos, brand names, watermark, readable phone or laptop screen, app interface, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, daytime, bright room",
+    "audio": "none"
+  },
+  {
+    "shot": "shot2 — PROBLEM (0:03.5–0:06.5)",
+    "duration": "5s (use 3s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern upscale Indian city setting, premium real estate commercial look, smooth slow camera motion, no jump cuts inside the shot, emerald-green and warm-gold colour accents. Night. An empty, dark real estate sales office: rows of empty desks and chairs, switched-off monitors, a glass architectural scale model of residential towers on a table, glittering city skyline through floor-to-ceiling windows. Nobody is there. Quiet, lonely mood, cool blue light.",
+    "camera": "slow lateral slide past the empty desks towards the building model",
+    "negative_prompt": "text, letters, numbers, captions, subtitles, signage, signboards, logos, brand names, watermark, readable phone or laptop screen, app interface, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, people, lights on",
+    "audio": "none"
+  },
+  {
+    "shot": "shot3 — BOT AT WORK (0:06.5–0:13)",
+    "duration": "10s (use 6.5s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern upscale Indian city setting, premium real estate commercial look, smooth slow camera motion, no jump cuts inside the shot, emerald-green and warm-gold colour accents. Night, same bedroom. Over-the-shoulder close-up of Rahul, a 35-year-old Indian man with short black hair and a neatly trimmed beard, in a grey t-shirt, holding his smartphone; the screen glows softly green with no visible content. He reads, raises his eyebrows, smiles, taps the screen a few times as if answering questions, then leans back relaxed and satisfied.",
+    "camera": "over-the-shoulder, slow arc around to a three-quarter view of his smiling face",
+    "negative_prompt": "text, letters, numbers, captions, subtitles, signage, signboards, logos, brand names, watermark, readable phone or laptop screen, app interface, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, visible chat bubbles",
+    "audio": "none"
+  },
+  {
+    "shot": "shot4 — MORNING PAYOFF (0:13–0:17)",
+    "duration": "5s (use 4s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern upscale Indian city setting, premium real estate commercial look, smooth slow camera motion, no jump cuts inside the shot, emerald-green and warm-gold colour accents. Bright morning in a modern, busy real estate sales office with plants and large windows. Meera, a 34-year-old Indian woman sales manager with her hair in a neat low bun, wearing a navy blazer over a white blouse sits at her desk in front of an open laptop whose screen glows softly with no visible content. She looks at it, smiles with pleasant surprise, and points at the screen while turning to call a young male colleague over. Positive, energetic mood.",
+    "camera": "static medium shot, slight push-in as she smiles",
+    "negative_prompt": "text, letters, numbers, captions, subtitles, signage, signboards, logos, brand names, watermark, readable phone or laptop screen, app interface, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, night, empty office",
+    "audio": "none"
+  },
+  {
+    "shot": "shot5 — SITE VISIT (0:17–0:21.5)",
+    "duration": "5s (use 4.5s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern upscale Indian city setting, premium real estate commercial look, smooth slow camera motion, no jump cuts inside the shot, emerald-green and warm-gold colour accents. Daytime inside a bright, luxurious sample flat with large windows, light wooden floors and minimal furniture. A smart young Indian male sales executive in a light grey suit welcomes Rahul, a 35-year-old Indian man with short black hair and a neatly trimmed beard, now wearing a light-blue shirt, and his wife, a 32-year-old Indian woman in an elegant kurta. They shake hands warmly and the couple looks around the living room, impressed.",
+    "camera": "smooth gimbal move following them into the living room",
+    "negative_prompt": "text, letters, numbers, captions, subtitles, signage, signboards, logos, brand names, watermark, readable phone or laptop screen, app interface, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, construction mess, logos on clothes",
+    "audio": "none"
+  },
+  {
+    "shot": "shot6 — OFFER + CTA (0:21.5–0:28)",
+    "duration": "10s (use 6.5s)",
+    "aspect_ratio": "9:16",
+    "prompt": "Cinematic vertical 9:16 video, shot on a full-frame camera, 35mm lens, shallow depth of field, soft natural film grain, realistic skin tones, modern upscale Indian city setting, premium real estate commercial look, smooth slow camera motion, no jump cuts inside the shot, emerald-green and warm-gold colour accents. Golden hour. Exterior of a modern premium residential high-rise tower in an Indian city with landscaped gardens and palm trees in front. Slow aerial drone push-in from low angle. Keep the upper half of the frame as soft open sky for a price card to be added later.",
+    "camera": "slow aerial drone push-in and slight tilt up",
+    "negative_prompt": "text, letters, numbers, captions, subtitles, signage, signboards, logos, brand names, watermark, readable phone or laptop screen, app interface, distorted hands, extra fingers, warped faces, cartoon, 3D render, oversaturated, low resolution, flicker, fast shaky camera, signage on building, names on building",
+    "audio": "none"
+  }
+]
