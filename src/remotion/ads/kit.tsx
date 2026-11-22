@@ -244,7 +244,23 @@ export function FeatureChips({ items }: { items: [string, string, number][] }) {
 
 // ---------- offer + call to action ----------
 /** Price card and CTA. `t` = when the scene starts; `strikeAt` = "monthly fee" strike; `ctaAt` = CTA button. */
-export function OfferScene({ t, strikeAt, ctaAt, extraLine = '+ ₹499 per extra feature · Live in 5 days 🚀' }: { t: number; strikeAt: number; ctaAt: number; extraLine?: string }) {
+export function OfferScene({
+  t,
+  strikeAt,
+  ctaAt,
+  extraLine = '+ ₹499 per extra feature · Live in 5 days 🚀',
+  ownLine = 'one-time · you own it',
+  zeroLine = '→ ₹0/month',
+  ctaText = '👇 Tap “Get quote” · Free demo',
+}: {
+  t: number
+  strikeAt: number
+  ctaAt: number
+  extraLine?: string
+  ownLine?: string
+  zeroLine?: string
+  ctaText?: string
+}) {
   const frame = useCurrentFrame()
   const card = usePop(t, 16)
   const cta = usePop(ctaAt, 10)
@@ -260,7 +276,7 @@ export function OfferScene({ t, strikeAt, ctaAt, extraLine = '+ ₹499 per extra
         </div>
         <Pop at={t + 0.2} style={{ marginTop: 26 }}>
           <div style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: 176, lineHeight: 1, letterSpacing: '-0.045em', color: '#fff' }}>₹15,000</div>
-          <div style={{ fontFamily: BODY, fontWeight: 700, fontSize: 40, color: '#4ade80', marginTop: 10 }}>one-time · you own it</div>
+          <div style={{ fontFamily: BODY, fontWeight: 700, fontSize: 40, color: '#4ade80', marginTop: 10 }}>{ownLine}</div>
         </Pop>
         <Pop at={strikeAt - 0.3} style={{ marginTop: 28 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 22, fontFamily: BODY, fontSize: 40, fontWeight: 700 }}>
@@ -268,7 +284,7 @@ export function OfferScene({ t, strikeAt, ctaAt, extraLine = '+ ₹499 per extra
               Monthly fee
               <span style={{ position: 'absolute', left: 0, top: '52%', height: 6, width: `${strike}%`, background: '#f87171', borderRadius: 3 }} />
             </span>
-            <span style={{ color: '#fff' }}>→ ₹0/month</span>
+            <span style={{ color: '#fff' }}>{zeroLine}</span>
           </div>
         </Pop>
         <Pop at={strikeAt + 0.6} style={{ marginTop: 18 }}>
@@ -276,7 +292,7 @@ export function OfferScene({ t, strikeAt, ctaAt, extraLine = '+ ₹499 per extra
         </Pop>
       </div>
       <div style={{ marginTop: 48, display: 'flex', justifyContent: 'center', opacity: Math.min(1, cta * 1.4), transform: `translateY(${(1 - cta) * 50 + bounce}px) scale(${0.85 + 0.15 * cta})` }}>
-        <div style={{ background: GREEN, color: '#04210f', fontFamily: BODY, fontWeight: 800, fontSize: 52, padding: '28px 56px', borderRadius: 999, boxShadow: '0 24px 70px rgba(34,197,94,.6)' }}>👇 Tap “Get quote” · Free demo</div>
+        <div style={{ background: GREEN, color: '#04210f', fontFamily: BODY, fontWeight: 800, fontSize: 52, padding: '28px 56px', borderRadius: 999, boxShadow: '0 24px 70px rgba(34,197,94,.6)' }}>{ctaText}</div>
       </div>
     </AbsoluteFill>
   )
