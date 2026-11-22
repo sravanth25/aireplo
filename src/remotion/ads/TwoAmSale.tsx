@@ -1,115 +1,19 @@
 // Meta lead ad #01 "The 2 AM sale": Omni clips + ElevenLabs voiceover + Aireplo text animation.
 // Media (clips, voiceover, fonts) lives in ads/video-01-2am-sale/media and is passed as the public dir:
 //   npx remotion render src/remotion/Root.tsx AdTwoAmSale out.mp4 --public-dir ads/video-01-2am-sale/media
-import { AbsoluteFill, Audio, Easing, OffthreadVideo, Sequence, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion'
-import type { CSSProperties, ReactNode } from 'react'
-import { AireploMark } from '../../components/AireploMark'
+import { AbsoluteFill, Audio, staticFile } from 'remotion'
+import { AD_FORMAT, BODY, Bubble, BrandBadge, DISPLAY, FeatureChips, Footage, G, GREEN, Headline, OfferScene, Pop, Scene, Stamp, Typing, glass, type Shot } from './kit'
 
-export const AD_TWO_AM = { fps: 30, width: 1080, height: 1920, durationInFrames: 750 }
-
-// ---- fonts (local files, so rendering never depends on the network) ----
-const FONTS: [string, number, string][] = [
-  ['Bricolage Grotesque', 800, 'BricolageGrotesque-800.woff2'],
-  ['Inter', 500, 'Inter-500.woff2'],
-  ['Inter', 600, 'Inter-600.woff2'],
-  ['Inter', 700, 'Inter-700.woff2'],
-  ['Inter', 800, 'Inter-800.woff2'],
-]
-if (typeof document !== 'undefined') {
-  const handle = delayRender('Loading fonts')
-  Promise.all(
-    FONTS.map(([family, weight, file]) =>
-      new FontFace(family, `url(${staticFile('fonts/' + file)})`, { weight: String(weight) }).load().then((f) => document.fonts.add(f)),
-    ),
-  )
-    .then(() => continueRender(handle))
-    .catch(() => continueRender(handle))
-}
+export const AD_TWO_AM = { ...AD_FORMAT, durationInFrames: 750 }
 
 // ---- timing, in seconds, taken from the pauses in the voiceover ----
-const s = (sec: number) => Math.round(sec * 30)
-const SHOTS = [
+const SHOTS: Shot[] = [
   { file: 'shot1.mp4', from: 0, to: 3.3, start: 0 }, // phone lights up at night
   { file: 'shot2.mp4', from: 3.3, to: 9.6, start: 0 }, // customer chats and pays
   { file: 'shot3.mp4', from: 9.6, to: 13.1, start: 0.6 }, // owner wakes up to the order
   { file: 'shot4.mp4', from: 13.1, to: 18.95, start: 3.2 }, // boutique (starts after the laptop text pans out)
   { file: 'shot5.mp4', from: 18.95, to: 25, start: 0 }, // parcel handover, smile
 ]
-
-const GREEN = '#22c55e'
-const DISPLAY = "'Bricolage Grotesque', Inter, sans-serif"
-const BODY = 'Inter, sans-serif'
-const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const
-
-/** 0→1 spring that starts at `at` seconds */
-function usePop(at: number, damping = 14) {
-  const frame = useCurrentFrame()
-  const { fps } = useVideoConfig()
-  return spring({ frame: frame - s(at), fps, config: { damping, mass: 0.6 } })
-}
-
-function Pop({ at, children, style, from = 40 }: { at: number; children: ReactNode; style?: CSSProperties; from?: number }) {
-  const p = usePop(at)
-  return <div style={{ opacity: Math.min(1, p * 1.4), transform: `translateY(${(1 - p) * from}px) scale(${0.92 + 0.08 * p})`, ...style }}>{children}</div>
-}
-
-// ---------- footage ----------
-function Footage() {
-  return (
-    <>
-      {SHOTS.map((sh) => {
-        const len = s(sh.to) - s(sh.from)
-        return (
-          <Sequence key={sh.file} from={s(sh.from)} durationInFrames={len}>
-            <AbsoluteFill style={{ overflow: 'hidden' }}>
-              <OffthreadVideo
-                src={staticFile(sh.file)}
-                startFrom={s(sh.start)}
-                muted
-                // no extra zoom: the clips have their own camera moves, and the watermark must stay under the badge
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </AbsoluteFill>
-          </Sequence>
-        )
-      })}
-      {/* top and bottom shade so text stays readable */}
-      <AbsoluteFill style={{ background: 'linear-gradient(180deg, rgba(4,8,6,.72) 0%, rgba(4,8,6,.15) 32%, rgba(4,8,6,0) 50%, rgba(4,8,6,.25) 75%, rgba(4,8,6,.7) 100%)' }} />
-      {/* a short white flash on each cut */}
-      {SHOTS.slice(1).map((sh) => (
-        <Sequence key={'flash' + sh.file} from={s(sh.from)} durationInFrames={6}>
-          <Flash />
-        </Sequence>
-      ))}
-    </>
-  )
-}
-
-function Flash() {
-  const frame = useCurrentFrame()
-  return <AbsoluteFill style={{ background: '#fff', opacity: interpolate(frame, [0, 6], [0.35, 0], clamp) }} />
-}
-
-// ---------- shared pieces ----------
-function Headline({ children, size = 96, style }: { children: ReactNode; size?: number; style?: CSSProperties }) {
-  return (
-    <div style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: size, lineHeight: 1.02, letterSpacing: '-0.035em', color: '#fff', textShadow: '0 6px 30px rgba(0,0,0,.55)', ...style }}>
-      {children}
-    </div>
-  )
-}
-
-const G = ({ children }: { children: ReactNode }) => (
-  <span style={{ background: 'linear-gradient(90deg,#4ade80,#22c55e 55%,#a3e635)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>{children}</span>
-)
-
-const glass: CSSProperties = {
-  background: 'rgba(10,16,20,.78)',
-  border: '2px solid rgba(255,255,255,.12)',
-  borderRadius: 34,
-  backdropFilter: 'blur(14px)',
-  boxShadow: '0 30px 80px rgba(0,0,0,.5)',
-}
 
 // ---------- scene 1: hook ----------
 function SceneHook() {
@@ -143,48 +47,7 @@ function SceneHook() {
 }
 
 // ---------- scene 2: the chat ----------
-function Bubble({ at, out, children, ai }: { at: number; out?: boolean; children: ReactNode; ai?: boolean }) {
-  const p = usePop(at, 13)
-  return (
-    <div
-      style={{
-        alignSelf: out ? 'flex-end' : 'flex-start',
-        maxWidth: '84%',
-        background: out ? '#005c4b' : '#1f2c34',
-        color: '#fff',
-        fontFamily: BODY,
-        fontWeight: 500,
-        fontSize: 34,
-        lineHeight: 1.35,
-        padding: '16px 22px',
-        borderRadius: 26,
-        borderTopRightRadius: out ? 8 : 26,
-        borderTopLeftRadius: out ? 26 : 8,
-        opacity: Math.min(1, p * 1.5),
-        transform: `translateY(${(1 - p) * 24}px) scale(${0.9 + 0.1 * p})`,
-        transformOrigin: out ? 'right top' : 'left top',
-      }}
-    >
-      {ai && <div style={{ display: 'inline-block', fontSize: 20, fontWeight: 800, letterSpacing: '.06em', color: '#4ade80', background: 'rgba(34,197,94,.16)', borderRadius: 8, padding: '3px 10px', marginBottom: 8 }}>AI REPLY</div>}
-      <div>{children}</div>
-    </div>
-  )
-}
-
-function Typing({ from, to }: { from: number; to: number }) {
-  const frame = useCurrentFrame()
-  if (frame < s(from) || frame >= s(to)) return null
-  return (
-    <div style={{ alignSelf: 'flex-end', background: '#005c4b', borderRadius: 26, borderTopRightRadius: 8, padding: '20px 26px', display: 'flex', gap: 10 }}>
-      {[0, 1, 2].map((i) => (
-        <span key={i} style={{ width: 14, height: 14, borderRadius: 7, background: '#fff', opacity: 0.35 + 0.65 * Math.abs(Math.sin((frame / 5) - i)) }} />
-      ))}
-    </div>
-  )
-}
-
 function SceneChat() {
-  const paid = usePop(8.3, 11)
   return (
     <AbsoluteFill style={{ padding: '290px 60px 0' }}>
       <Pop at={3.45}>
@@ -217,9 +80,9 @@ function SceneChat() {
         </div>
       </Pop>
       {/* payment received stamp, on "Automatically." */}
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 1300, display: 'flex', justifyContent: 'center', opacity: Math.min(1, paid * 1.4), transform: `scale(${0.6 + 0.4 * paid}) rotate(${(1 - paid) * -8}deg)` }}>
-        <div style={{ background: GREEN, color: '#04210f', fontFamily: BODY, fontWeight: 800, fontSize: 44, padding: '20px 40px', borderRadius: 999, boxShadow: '0 20px 60px rgba(34,197,94,.55)' }}>✅ Payment received · ₹1,299</div>
-      </div>
+      <Stamp at={8.3} top={1300}>
+        ✅ Payment received · ₹1,299
+      </Stamp>
     </AbsoluteFill>
   )
 }
@@ -269,107 +132,34 @@ function SceneFeatures() {
           Everything on <G>WhatsApp.</G>
         </Headline>
       </Pop>
-      <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' }}>
-        {FEATURES.map(([icon, label, at]) => (
-          <Pop key={label} at={at} from={0} style={{ transformOrigin: 'left center' }}>
-            <div style={{ ...glass, borderRadius: 999, display: 'flex', alignItems: 'center', gap: 18, padding: '18px 34px 18px 20px', fontFamily: BODY, fontWeight: 700, fontSize: 42, color: '#fff' }}>
-              <span style={{ width: 70, height: 70, borderRadius: 35, background: 'rgba(34,197,94,.2)', display: 'grid', placeItems: 'center', fontSize: 38 }}>{icon}</span>
-              {label}
-            </div>
-          </Pop>
-        ))}
+      <div style={{ marginTop: 40 }}>
+        <FeatureChips items={FEATURES} />
       </div>
     </AbsoluteFill>
-  )
-}
-
-// ---------- scene 5: offer + call to action ----------
-function SceneOffer() {
-  const frame = useCurrentFrame()
-  const card = usePop(18.95, 16)
-  const cta = usePop(22.5, 10)
-  const strike = interpolate(frame, [s(20.7), s(21.2)], [0, 100], { ...clamp, easing: Easing.out(Easing.cubic) })
-  const bounce = frame > s(23.2) ? Math.sin((frame - s(23.2)) / 4) * 6 : 0
-  return (
-    <AbsoluteFill style={{ padding: '270px 50px 0' }}>
-      {/* the card is fully opaque from its first frame, so it also hides a stray sign in the clip */}
-      <div style={{ ...glass, background: 'linear-gradient(180deg, rgba(10,40,24,.96), rgba(8,14,18,.96))', border: '2px solid rgba(34,197,94,.6)', padding: '40px 46px', transform: `scale(${0.94 + 0.06 * card})`, transformOrigin: 'top center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <AireploMark style={{ width: 64, height: 64 }} />
-          <span style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: 48, color: '#fff', letterSpacing: '-0.03em' }}>aireplo</span>
-        </div>
-        <Pop at={19.15} style={{ marginTop: 26 }}>
-          <div style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: 176, lineHeight: 1, letterSpacing: '-0.045em', color: '#fff' }}>₹15,000</div>
-          <div style={{ fontFamily: BODY, fontWeight: 700, fontSize: 40, color: '#4ade80', marginTop: 10 }}>one-time · you own it</div>
-        </Pop>
-        <Pop at={20.4} style={{ marginTop: 28 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 22, fontFamily: BODY, fontSize: 40, fontWeight: 700 }}>
-            <span style={{ position: 'relative', color: 'rgba(255,255,255,.55)' }}>
-              Monthly fee
-              <span style={{ position: 'absolute', left: 0, top: '52%', height: 6, width: `${strike}%`, background: '#f87171', borderRadius: 3 }} />
-            </span>
-            <span style={{ color: '#fff' }}>→ ₹0/month</span>
-          </div>
-        </Pop>
-        <Pop at={21.3} style={{ marginTop: 18 }}>
-          <div style={{ fontFamily: BODY, fontSize: 36, fontWeight: 600, color: 'rgba(255,255,255,.8)' }}>+ ₹499 per extra feature · Live in 5 days 🚀</div>
-        </Pop>
-      </div>
-      {/* call to action, on "Tap below for a free demo" */}
-      <div style={{ marginTop: 48, display: 'flex', justifyContent: 'center', opacity: Math.min(1, cta * 1.4), transform: `translateY(${(1 - cta) * 50 + bounce}px) scale(${0.85 + 0.15 * cta})` }}>
-        <div style={{ background: GREEN, color: '#04210f', fontFamily: BODY, fontWeight: 800, fontSize: 52, padding: '28px 56px', borderRadius: 999, boxShadow: '0 24px 70px rgba(34,197,94,.6)' }}>👇 Tap “Get quote” · Free demo</div>
-      </div>
-    </AbsoluteFill>
-  )
-}
-
-// ---------- brand badge (also covers the generator's watermark at the bottom right) ----------
-function BrandBadge() {
-  return (
-    <div style={{ position: 'absolute', left: 896 - 150, top: 1734 - 50, width: 300, height: 100, borderRadius: 50, background: '#0a0f12', border: '2px solid rgba(255,255,255,.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
-      <AireploMark style={{ width: 50, height: 50 }} />
-      <span style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: 38, color: '#fff', letterSpacing: '-0.03em' }}>aireplo</span>
-    </div>
   )
 }
 
 export function AdTwoAmSale() {
   return (
     <AbsoluteFill style={{ background: '#05080a' }}>
-      <Footage />
-      <Sequence from={0} durationInFrames={s(3.3)}>
-        <SceneLocal at={0}><SceneHook /></SceneLocal>
-      </Sequence>
-      <Sequence from={s(3.3)} durationInFrames={s(9.6) - s(3.3)}>
-        <SceneLocal at={3.3}><SceneChat /></SceneLocal>
-      </Sequence>
-      <Sequence from={s(9.6)} durationInFrames={s(13.1) - s(9.6)}>
-        <SceneLocal at={9.6}><SceneWake /></SceneLocal>
-      </Sequence>
-      <Sequence from={s(13.1)} durationInFrames={s(18.95) - s(13.1)}>
-        <SceneLocal at={13.1}><SceneFeatures /></SceneLocal>
-      </Sequence>
-      <Sequence from={s(18.95)}>
-        <SceneLocal at={18.95}><SceneOffer /></SceneLocal>
-      </Sequence>
+      <Footage shots={SHOTS} />
+      <Scene from={0} to={3.3}>
+        <SceneHook />
+      </Scene>
+      <Scene from={3.3} to={9.6}>
+        <SceneChat />
+      </Scene>
+      <Scene from={9.6} to={13.1}>
+        <SceneWake />
+      </Scene>
+      <Scene from={13.1} to={18.95}>
+        <SceneFeatures />
+      </Scene>
+      <Scene from={18.95}>
+        <OfferScene t={18.95} strikeAt={20.7} ctaAt={22.5} />
+      </Scene>
       <BrandBadge />
       <Audio src={staticFile('voiceover.mp3')} />
     </AbsoluteFill>
-  )
-}
-
-/**
- * Scenes are written with absolute times (seconds from the start of the ad), but a <Sequence> resets the frame
- * counter to 0. This wrapper shifts it back so `at` values above match the voiceover timeline exactly.
- */
-function SceneLocal({ at, children }: { at: number; children: ReactNode }) {
-  return <Offset by={s(at)}>{children}</Offset>
-}
-function Offset({ by, children }: { by: number; children: ReactNode }) {
-  // A negative-from Sequence makes children see (frame + by), i.e. the absolute frame.
-  return (
-    <Sequence from={-by} layout="none">
-      {children}
-    </Sequence>
   )
 }

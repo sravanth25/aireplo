@@ -2,6 +2,7 @@
 import { Composition, registerRoot } from 'remotion'
 import { DEMO, ProductDemo } from './ProductDemo'
 import { AD_TWO_AM, AdTwoAmSale } from './ads/TwoAmSale'
+import { AD_REAL_ESTATE, AdRealEstateLead } from './ads/RealEstateLead'
 
 const RemotionRoot = () => (
   <>
@@ -13,6 +14,8 @@ const RemotionRoot = () => (
     />
     {/* Meta ad #01; render with --public-dir ads/video-01-2am-sale/media */}
     <Composition id="AdTwoAmSale" component={AdTwoAmSale} {...AD_TWO_AM} />
+    {/* Meta ad #02 (real estate); render with --public-dir ads/video-02-real-estate/media */}
+    <Composition id="AdRealEstateLead" component={AdRealEstateLead} {...AD_REAL_ESTATE} />
   </>
 )
 
